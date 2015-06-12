@@ -1,4 +1,4 @@
-<a href="#" class="btn btn-block jobtc-button" role="button">Submit a Job</a>
+<a href="#" class="btn btn-block jobtc-button edit-job" role="button">Submit a Job</a>
 <div class="live-resumes">Live Resumes: 6</div>
     
 <ul class="list-group accordion-notes">

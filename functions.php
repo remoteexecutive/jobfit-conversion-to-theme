@@ -296,6 +296,7 @@ function create_job_table() {
     $table_name = $wpdb->prefix . 'job';
     $sql = "CREATE TABLE $table_name (
 job_id bigint(20) NOT NULL AUTO_INCREMENT,
+user_id bigint(20),
 company varchar(255),
 website varchar(255),
 logo varchar(255),
@@ -625,7 +626,9 @@ add_action('wp_ajax_change_resume_statuses', 'change_resume_statuses');
 add_action('wp_ajax_post_comment_ajax', 'post_comment_ajax');
 add_action('wp_ajax_send_email_ajax', 'send_email_ajax');
 add_action('wp_ajax_apply_for_job', 'apply_for_job');
-add_action('wp_ajax_save_resume','save_resume');
+add_action('wp_ajax_save_resume', 'save_resume');
+add_action('wp_ajax_save_job', 'save_job');
+
 
 function apply_for_job() {
 
@@ -703,10 +706,78 @@ function resume_delete() {
     }
 }
 
+function save_job() {
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'job';
+
+    if ($_POST) {
+        
+        $user_id = wp_get_current_user();
+        $job_id = $_POST['job_id'];
+        $company = $_POST['company'];
+        $website = $_POST['website'];
+        $logo = $_POST['logo'];
+        $job_title = $_POST['job_title'];
+        $job_type = $_POST['job_type'];
+        $job_category = $_POST['job_category'];
+        $location = $_POST['location'];
+        $job_description = $_POST['job_description'];
+        $job_video_link = $_POST['job_video_link'];
+      
+        $job_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE job_id in (" . $job_id . ")");
+
+        if ($job_count > 0) {
+
+            $wpdb->update($table_name, array(
+               'company' => $company,
+                'website' => $website,
+                'logo' => $logo,
+                'job_title' => $job_title,
+                'job_type' => $job_type,
+                'job_category' => $job_category,
+                'location' => $location,
+                'job_description' => $job_description,
+                'job_video_link' => $job_video_link
+                    ), array('user_id' => $user_id->ID,'job_id' => $job_id), array(
+                '%s', //company
+                '%s', //website
+                '%s', //logo
+                '%s', //job title
+                '%s', //job type
+                '%s', //job category
+                '%s', //location
+                '%s', //job description
+                '%s', //job video link
+                    ), 
+                array(
+                '%d', //user id
+                '%d' //job id
+                    )
+            );
+        } else {
+
+            $wpdb->insert($table_name, array(
+                'user_id' => $user_id->ID,
+                'company' => $company,
+                'website' => $website,
+                'logo' => $logo,
+                'job_title' => $job_title,
+                'job_type' => $job_type,
+                'job_category' => $job_category,
+                'location' => $location,
+                'job_description' => $job_description,
+                'job_video_link' => $job_video_link
+            ));
+        }
+    }
+    return true;
+}
 
 /*
  * Function for saving the resume( Saved via AJAX) 
- **/
+ * */
+
 function save_resume() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'resume';
@@ -731,7 +802,7 @@ function save_resume() {
         $skills = $_POST['skills'];
         $interview_video_link = $_POST['interview_video_link'];
 
-        $user_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE user_id in (".$user_id->ID.")");
+        $user_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE user_id in (" . $user_id->ID . ")");
 
         if ($user_count > 0) {
 
@@ -752,9 +823,7 @@ function save_resume() {
                 'year_issued' => $year_issued,
                 'skills' => $skills,
                 'interview_video_link' => $interview_video_link
-                    ), 
-                array('user_id' => $user_id->ID), 
-                array(
+                    ), array('user_id' => $user_id->ID), array(
                 '%s', //rate
                 '%s', //currency
                 '%s', //location
@@ -771,12 +840,11 @@ function save_resume() {
                 '%s', //year_issued
                 '%s', //skills
                 '%s', //interview_video_link
-                    ), 
-                array('%d')
+                    ), array('%d')
             );
         } else {
 
-            $wpdb->insert('wp_resume', array(
+            $wpdb->insert($table_name, array(
                 'user_id' => $user_id->ID,
                 'rate' => $rate,
                 'currency' => $currency,
@@ -795,7 +863,6 @@ function save_resume() {
                 'skills' => $skills,
                 'interview_video_link' => $interview_video_link
             ));
-            
         }
     }
     return true;
