@@ -1,3 +1,25 @@
+
+
+resume_id	
+user_id	
+rate	
+currency	
+location	
+email	
+phone	
+mobile	
+skype	
+resume_photo	
+resume_doc	
+additional_doc	
+overall_average	
+degree	
+institution	
+year_issued	
+skills	
+interview_video_link	
+
+
 <div class="row">
     <div class="edit-resume-container col-md-12">
         <div class="section">
@@ -167,9 +189,9 @@
                                 <input id="geolocation-load" type="button" class="button geolocationadd submit" value="Find Address/Location">
                             </label>
 
-                            <input type="text" class="text" name="jr_address" id="geolocation-address" value="Oshawa, Ontario, Canada">
-                            <input type="hidden" class="text" name="jr_geo_latitude" id="geolocation-latitude" value="43.88901389999999">
-                            <input type="hidden" class="text" name="jr_geo_longitude" id="geolocation-longitude" value="-78.88616819999999">
+                            <input type="text" class="text" name="location" id="geolocation-address" value="Oshawa, Ontario, Canada">
+                            <input type="hidden" class="text" name="location_latitude" id="geolocation-latitude" value="">
+                            <input type="hidden" class="text" name="location_longitude" id="geolocation-longitude" value="">
                         </p>
 
                         <div id="map_wrap" style="border:solid 2px #ddd;"><div id="geolocation-map" style="width: 100%; height: 300px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);"><div class="gm-style" style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;"><div style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0; cursor: url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default;"><div style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);"><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: visible;"><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 117px; top: 50px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 373px; top: 50px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 373px; top: -206px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 117px; top: -206px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 117px; top: 306px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 373px; top: 306px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -139px; top: 50px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 629px; top: 50px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -139px; top: 306px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 629px; top: -206px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -139px; top: -206px;"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 629px; top: 306px;"></div></div></div></div><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: -1;"><div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: visible;"><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 117px; top: 50px;"><canvas draggable="false" height="256" width="256" style="-webkit-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;"></canvas></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 373px; top: 50px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 373px; top: -206px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 117px; top: -206px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 117px; top: 306px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 373px; top: 306px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -139px; top: 50px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 629px; top: 50px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -139px; top: 306px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 629px; top: -206px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -139px; top: -206px;"></div><div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 629px; top: 306px;"></div></div></div></div><div style="position: absolute; z-index: 0; left: 0px; top: 0px;"><div style="overflow: hidden; width: 646px; height: 300px;"><img src="http://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1m2&amp;1i36491&amp;2i47566&amp;2e1&amp;3u9&amp;4m2&amp;1u646&amp;2u300&amp;5m5&amp;1e0&amp;5sen&amp;6sus&amp;10b1&amp;12b1&amp;token=77351" style="width: 646px; height: 300px;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: visible;"><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 117px; top: 50px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i9!2i143!3i186!2m3!1e0!2sm!3i298166353!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 373px; top: 50px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i9!2i144!3i186!2m3!1e0!2sm!3i298166353!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 373px; top: -206px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i9!2i144!3i185!2m3!1e0!2sm!3i298162755!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 117px; top: -206px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i9!2i143!3i185!2m3!1e0!2sm!3i298162755!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 117px; top: 306px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i9!2i143!3i187!2m3!1e0!2sm!3i298166353!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 373px; top: 306px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i9!2i144!3i187!2m3!1e0!2sm!3i298166353!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -139px; top: 50px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i9!2i142!3i186!2m3!1e0!2sm!3i298166353!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 629px; top: 50px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i9!2i145!3i186!2m3!1e0!2sm!3i298164918!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -139px; top: 306px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i9!2i142!3i187!2m3!1e0!2sm!3i298166353!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 629px; top: -206px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i9!2i145!3i185!2m3!1e0!2sm!3i298154114!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -139px; top: -206px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i9!2i142!3i185!2m3!1e0!2sm!3i298162755!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div><div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 629px; top: 306px; opacity: 1; transition: opacity 200ms ease-out; -webkit-transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i9!2i145!3i187!2m3!1e0!2sm!3i298164918!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; transform: translateZ(0px) translateZ(0px);"></div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 2; width: 100%; height: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 3; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);"><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div><div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div></div></div><div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;"><a target="_blank" href="http://maps.google.com/maps?ll=43.889014,-78.886168&amp;z=9&amp;t=m&amp;hl=en&amp;gl=US&amp;mapclient=apiv3" title="Click to see this area on Google Maps" style="position: static; overflow: visible; float: none; display: inline;"><div style="width: 62px; height: 26px; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 62px; height: 26px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div></a></div><div class="gmnoprint" style="z-index: 1000001; position: absolute; right: 161px; bottom: 0px; width: 121px;"><div draggable="false" class="gm-style-cc" style="-webkit-user-select: none;"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right;"><a style="color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; display: none;">Map Data</a><span>Map data ©2015 Google</span></div></div></div><div style="padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 256px; height: 148px; position: absolute; left: 173px; top: 60px; background-color: white;"><div style="padding: 0px 0px 10px; font-size: 16px;">Map Data</div><div style="font-size: 13px;">Map data ©2015 Google</div><div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt3.png" draggable="false" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div></div><div class="gmnoscreen" style="position: absolute; right: 0px; bottom: 0px;"><div style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">Map data ©2015 Google</div></div><div class="gmnoprint gm-style-cc" draggable="false" style="z-index: 1000001; position: absolute; -webkit-user-select: none; right: 92px; bottom: 0px;"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right;"><a href="http://www.google.com/intl/en_US/help/terms_maps.html" target="_blank" style="text-decoration: none; cursor: pointer; color: rgb(68, 68, 68);">Terms of Use</a></div></div><div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; position: absolute; right: 0px; bottom: 0px;"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right;"><a target="_new" title="Report errors in the road map or imagery to Google" href="https://www.google.com/maps/@43.8890139,-78.8861682,9z/data=!10m1!1e1!12b1?source=apiv3&amp;rapsrc=apiv3" style="font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); text-decoration: none; position: relative;">Report a map error</a></div></div><div class="gmnoprint" draggable="false" controlwidth="32" controlheight="84" style="margin: 5px; -webkit-user-select: none; position: absolute; left: 0px; top: 0px;"><div controlwidth="32" controlheight="40" style="cursor: url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default; position: absolute; left: 0px; top: 0px;"><div aria-label="Street View Pegman Control" style="width: 32px; height: 40px; overflow: hidden; position: absolute; left: 0px; top: 0px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout2.png" draggable="false" style="position: absolute; left: -9px; top: -102px; width: 1028px; height: 214px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div><div aria-label="Pegman is disabled" style="width: 32px; height: 40px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout2.png" draggable="false" style="position: absolute; left: -107px; top: -102px; width: 1028px; height: 214px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div><div aria-label="Pegman is on top of the Map" style="width: 32px; height: 40px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout2.png" draggable="false" style="position: absolute; left: -58px; top: -102px; width: 1028px; height: 214px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div><div aria-label="Street View Pegman Control" style="width: 32px; height: 40px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout2.png" draggable="false" style="position: absolute; left: -205px; top: -102px; width: 1028px; height: 214px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div></div><div class="gmnoprint" controlwidth="0" controlheight="0" style="opacity: 0.6; display: none; position: absolute;"><div title="Rotate map 90 degrees" style="width: 22px; height: 22px; overflow: hidden; position: absolute; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt3.png" draggable="false" style="position: absolute; left: -38px; top: -360px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div></div><div class="gmnoprint" controlwidth="20" controlheight="39" style="position: absolute; left: 6px; top: 45px;"><div style="width: 20px; height: 39px; overflow: hidden; position: absolute;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt3.png" draggable="false" style="position: absolute; left: -39px; top: -401px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div><div title="Zoom in" style="position: absolute; left: 0px; top: 2px; width: 20px; height: 17px; cursor: pointer;"></div><div title="Zoom out" style="position: absolute; left: 0px; top: 19px; width: 20px; height: 17px; cursor: pointer;"></div></div></div><div class="gmnoprint" style="margin: 5px; z-index: 0; position: absolute; cursor: pointer; right: 0px; top: 0px;"><div class="gm-style-mtc" style="float: left;"><div draggable="false" title="Show street map" style="direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(0, 0, 0); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 1px 6px; border-bottom-left-radius: 2px; border-top-left-radius: 2px; -webkit-background-clip: padding-box; border: 1px solid rgba(0, 0, 0, 0.14902); -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; min-width: 24px; font-weight: 500; background-color: rgb(255, 255, 255); background-clip: padding-box;">Map</div><div style="z-index: -1; padding-top: 2px; -webkit-background-clip: padding-box; border-width: 0px 1px 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-right-color: rgba(0, 0, 0, 0.14902); border-bottom-color: rgba(0, 0, 0, 0.14902); border-left-color: rgba(0, 0, 0, 0.14902); -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; position: absolute; left: 0px; top: 17px; text-align: left; display: none; background-color: white; background-clip: padding-box;"><div draggable="false" title="Show street map with terrain" style="color: rgb(0, 0, 0); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 3px 8px 3px 3px; direction: ltr; text-align: left; white-space: nowrap; background-color: rgb(255, 255, 255);"><span role="checkbox" style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; border: 1px solid rgb(198, 198, 198); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle; background-color: rgb(255, 255, 255);"><div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden; display: none;"><img src="http://maps.gstatic.com/mapfiles/mv/imgs8.png" draggable="false" style="position: absolute; left: -52px; top: -44px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 68px; height: 67px;"></div></span><label style="vertical-align: middle; cursor: pointer;">Terrain</label></div></div></div><div class="gm-style-mtc" style="float: left;"><div draggable="false" title="Show satellite imagery" style="direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(86, 86, 86); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 1px 6px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; -webkit-background-clip: padding-box; border-width: 1px 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-top-color: rgba(0, 0, 0, 0.14902); border-right-color: rgba(0, 0, 0, 0.14902); border-bottom-color: rgba(0, 0, 0, 0.14902); -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; min-width: 43px; background-color: rgb(255, 255, 255); background-clip: padding-box;">Satellite</div><div style="z-index: -1; padding-top: 2px; -webkit-background-clip: padding-box; border-width: 0px 1px 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-right-color: rgba(0, 0, 0, 0.14902); border-bottom-color: rgba(0, 0, 0, 0.14902); border-left-color: rgba(0, 0, 0, 0.14902); -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; position: absolute; right: 0px; top: 17px; text-align: left; display: none; background-color: white; background-clip: padding-box;"><div draggable="false" title="Zoom in to show 45 degree view" style="color: rgb(184, 184, 184); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 3px 8px 3px 3px; direction: ltr; text-align: left; white-space: nowrap; display: none; background-color: rgb(255, 255, 255);"><span role="checkbox" style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; border: 1px solid rgb(241, 241, 241); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle; background-color: rgb(255, 255, 255);"><div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden; display: none;"><img src="http://maps.gstatic.com/mapfiles/mv/imgs8.png" draggable="false" style="position: absolute; left: -52px; top: -44px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 68px; height: 67px;"></div></span><label style="vertical-align: middle; cursor: pointer;">45°</label></div><div draggable="false" title="Show imagery with street names" style="color: rgb(0, 0, 0); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 3px 8px 3px 3px; direction: ltr; text-align: left; white-space: nowrap; background-color: rgb(255, 255, 255);"><span role="checkbox" style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; border: 1px solid rgb(198, 198, 198); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle; background-color: rgb(255, 255, 255);"><div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden;"><img src="http://maps.gstatic.com/mapfiles/mv/imgs8.png" draggable="false" style="position: absolute; left: -52px; top: -44px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 68px; height: 67px;"></div></span><label style="vertical-align: middle; cursor: pointer;">Labels</label></div></div></div></div></div></div></div>
@@ -203,8 +225,8 @@
                     <p class="optional"><label for="institution">Institution</label> <input type="text" class="text" name="institution" id="institution" value="Harvard"></p>
 
                     <p class="optional">
-                        <label for="degree_date_issued">Year Issued</label>
-                        <input class="text" type="text" name="degree_date_issued" value="1995" id="degree_date_issued" placeholder="Year Issued">   
+                        <label for="year_issued">Year Issued</label>
+                        <input class="text" type="text" name="year_issued" value="1995" id="degree_date_issued" placeholder="Year Issued">   
                     </p>
 
                     <p class="optional">
@@ -215,776 +237,776 @@
                             <span>c++.C#</span> 
                             <a tabindex="-1" class="delete"><span>[X]</span></a>
                         </li>
+                    </ul>
+                    <p class="optional">
+                        <label for="misc-documents">Document Uploads</label> 
+                        <input type="file" class="text" name="additional_doc" id="misc-documents">
+                    </p>
+
+                    <h2>Career Map</h2>
+
+                    <!--Reference 1-->   
+
+                    <h3>Most Recent Employment</h3>
+
+                    <p class="optional">
+                        <label for="company_1_position">Position</label> 
+                        <input type="text" class="text" name="company_1_position" value="Lead Program Developer" id="company_1_position" placeholder="Position">
+                    </p>
+
+                    <p class="optional">
+                        <label for="company_1_start_date">Start Date</label>
+                        <input class="text" type="date" name="company_1_start_date" value="2010-01-12" id="company_1_start_date" placeholder="Start Date">   
+                    </p>
+
+                    <p class="optional">
+                        <label for="company_1_end_date">End Date</label>
+                        <input class="text" type="date" name="company_1_end_date" value="2015-01-08" id="company_1_start_date" placeholder="Start Date">   
+                    </p>
+
+
+                    <p class="optional">
+                        <label for="company_1_job_type">Job Type</label>
+                        <select class="company_1_job_type" name="company_1_job_type"> 
+                            <option selected="selected">Full-Time</option>
+
+
+                            <option>Part-Time</option>
+
+                        </select>
+                    </p>
+
+                    <p class="optional"><label for="company_1_company">Company</label> <input type="text" class="text" name="company_1_company" value="Clarin LTD" id="company_1_company" placeholder="Company"></p>
+
+                    <p class="optional"><label for="company_1_city">City</label> <input type="text" class="text" name="company_1_city" value="Toronto" id="company_1_city" placeholder="City"></p>
+
+                    <p class="optional"><label for="company_1_country">Country</label> <input type="text" class="text" name="company_1_country" value="Canada" id="company_1_country" placeholder="Country"></p>
+
+                    <p class="optional">
+                        <label for="company_1_reason_for_leaving">Reason for Leaving</label>
+                        <select class="company_1_reason_for_leaving" name="company_1_reason_for_leaving"> 
+                            <option selected="selected">Career change</option>
+                            <option>Career growth</option>
+                            <option>Change in career path</option>
+                            <option>Company cut backs</option>
+                            <option>Company downsized</option>
+                            <option>Company went out of business</option>
+                            <option>Family circumstances</option>
+                            <option>Family reasons</option>
+                            <option>Flexible schedule</option>
+                            <option>Getting married</option>
+                            <option>Hours reduced</option>
+                            <option>Job was outsourced</option>
+                            <option>Good career opportunity</option>
+                            <option>Good reputation and opportunity at the new company</option>
+                            <option>Laid off</option>
+                            <option>Landed a higher paying job</option>
+                            <option>Limited growth at company</option>
+                            <option>Long commute</option>
+                            <option>Looking for a new challenge</option>
+                            <option>Needed a full-time position</option>
+                            <option>New challenge</option>
+                            <option>Not compatible with company goals</option>
+                            <option>Not enough hours</option>
+                            <option>Not enough work or challenge</option>
+                            <option>Offered a permanent position</option>
+                            <option>Personal reasons</option>
+                            <option>Position eliminated</option>
+                            <option>Position ended</option>
+                            <option>Relocating</option>
+                            <option>Reorganization or merger</option>
+                            <option>Retiring</option>
+                            <option>Seasonal position</option>
+                            <option>Seeking a challenge</option>
+                            <option>Seeking more responsibility</option>
+                            <option>Staying home to raise a family</option>
+                            <option>Summer job</option>
+                            <option>Temporary job</option>
+                            <option>Travel</option>
+                            <option>Went back to school</option>
+                            <option>About to get fired</option>
+                            <option>Arrested</option>
+                            <option>Bad company to work for</option>
+                            <option>Bored at work</option>
+                            <option>Childcare issues</option>
+                            <option>Didn't get along with co-workers</option>
+                            <option>Didn't like the schedule</option>
+                            <option>Didn't want to work as many hours</option>
+                            <option>Didn't want to work evening or weekends</option>
+                            <option>Hated my boss</option>
+                            <option>Hated my job</option>
+                            <option>Injured</option>
+                            <option>Job was too difficult</option>
+                            <option>Let go for harassment</option>
+                            <option>Let go for tardiness</option>
+                            <option>Manager was stupid</option>
+                            <option>My boss was a jerk</option>
+                            <option>My mom made me quit</option>
+                            <option>No transportation</option>
+                            <option>Overtime was required</option>
+                            <option>Passed over for promotion</option>
+                            <option>Rocky marriage</option>
+                        </select>
+                    </p>
+                    <p class="optional">
+                        <label for="company_1_salary_type">Salary Type</label>
+                        <select class="company_1_salary_type" name="company_1_salary_type"> 
+
+                            <option>Per Month</option>
+
+                            <option selected="selected">Per Hour</option>
+
+                        </select>
+                    </p>
+
+                    <p class="optional">
+                        <label for="company_1_starting_salary">Starting Salary</label> 
+                        <input type="text" class="text" name="company_1_starting_salary" value="57" id="company_1_starting_salary" placeholder="Per Month or Per Hour">
+                    </p>
+
+                    <p class="optional">
+                        <label for="company_1_final_salary">Final Salary</label> 
+                        <input type="text" class="text" name="company_1_final_salary" value="68" id="company_1_final_salary" placeholder="Per Month or Per Hour">
+                    </p>
 
-                        <p class="optional">
-                            <label for="misc-documents">Document Uploads</label> 
-                            <input type="file" class="text" name="misc-documents" id="misc-documents">
-                        </p>
-
-                        <h2>Career Map</h2>
-
-                        <!--Reference 1-->   
-
-                        <h3>Most Recent Employment</h3>
-
-                        <p class="optional">
-                            <label for="company_1_position">Position</label> 
-                            <input type="text" class="text" name="company_1_position" value="Lead Program Developer" id="company_1_position" placeholder="Position">
-                        </p>
-
-                        <p class="optional">
-                            <label for="company_1_start_date">Start Date</label>
-                            <input class="text" type="date" name="company_1_start_date" value="2010-01-12" id="company_1_start_date" placeholder="Start Date">   
-                        </p>
-
-                        <p class="optional">
-                            <label for="company_1_end_date">End Date</label>
-                            <input class="text" type="date" name="company_1_end_date" value="2015-01-08" id="company_1_start_date" placeholder="Start Date">   
-                        </p>
-
-
-                        <p class="optional">
-                            <label for="company_1_job_type">Job Type</label>
-                            <select class="company_1_job_type" name="company_1_job_type"> 
-                                <option selected="selected">Full-Time</option>
-
-
-                                <option>Part-Time</option>
-
-                            </select>
-                        </p>
-
-                        <p class="optional"><label for="company_1_company">Company</label> <input type="text" class="text" name="company_1_company" value="Clarin LTD" id="company_1_company" placeholder="Company"></p>
-
-                        <p class="optional"><label for="company_1_city">City</label> <input type="text" class="text" name="company_1_city" value="Toronto" id="company_1_city" placeholder="City"></p>
-
-                        <p class="optional"><label for="company_1_country">Country</label> <input type="text" class="text" name="company_1_country" value="Canada" id="company_1_country" placeholder="Country"></p>
-
-                        <p class="optional">
-                            <label for="company_1_reason_for_leaving">Reason for Leaving</label>
-                            <select class="company_1_reason_for_leaving" name="company_1_reason_for_leaving"> 
-                                <option selected="selected">Career change</option>
-                                <option>Career growth</option>
-                                <option>Change in career path</option>
-                                <option>Company cut backs</option>
-                                <option>Company downsized</option>
-                                <option>Company went out of business</option>
-                                <option>Family circumstances</option>
-                                <option>Family reasons</option>
-                                <option>Flexible schedule</option>
-                                <option>Getting married</option>
-                                <option>Hours reduced</option>
-                                <option>Job was outsourced</option>
-                                <option>Good career opportunity</option>
-                                <option>Good reputation and opportunity at the new company</option>
-                                <option>Laid off</option>
-                                <option>Landed a higher paying job</option>
-                                <option>Limited growth at company</option>
-                                <option>Long commute</option>
-                                <option>Looking for a new challenge</option>
-                                <option>Needed a full-time position</option>
-                                <option>New challenge</option>
-                                <option>Not compatible with company goals</option>
-                                <option>Not enough hours</option>
-                                <option>Not enough work or challenge</option>
-                                <option>Offered a permanent position</option>
-                                <option>Personal reasons</option>
-                                <option>Position eliminated</option>
-                                <option>Position ended</option>
-                                <option>Relocating</option>
-                                <option>Reorganization or merger</option>
-                                <option>Retiring</option>
-                                <option>Seasonal position</option>
-                                <option>Seeking a challenge</option>
-                                <option>Seeking more responsibility</option>
-                                <option>Staying home to raise a family</option>
-                                <option>Summer job</option>
-                                <option>Temporary job</option>
-                                <option>Travel</option>
-                                <option>Went back to school</option>
-                                <option>About to get fired</option>
-                                <option>Arrested</option>
-                                <option>Bad company to work for</option>
-                                <option>Bored at work</option>
-                                <option>Childcare issues</option>
-                                <option>Didn't get along with co-workers</option>
-                                <option>Didn't like the schedule</option>
-                                <option>Didn't want to work as many hours</option>
-                                <option>Didn't want to work evening or weekends</option>
-                                <option>Hated my boss</option>
-                                <option>Hated my job</option>
-                                <option>Injured</option>
-                                <option>Job was too difficult</option>
-                                <option>Let go for harassment</option>
-                                <option>Let go for tardiness</option>
-                                <option>Manager was stupid</option>
-                                <option>My boss was a jerk</option>
-                                <option>My mom made me quit</option>
-                                <option>No transportation</option>
-                                <option>Overtime was required</option>
-                                <option>Passed over for promotion</option>
-                                <option>Rocky marriage</option>
-                            </select>
-                        </p>
-                        <p class="optional">
-                            <label for="company_1_salary_type">Salary Type</label>
-                            <select class="company_1_salary_type" name="company_1_salary_type"> 
-
-                                <option>Per Month</option>
-
-                                <option selected="selected">Per Hour</option>
-
-                            </select>
-                        </p>
-
-                        <p class="optional">
-                            <label for="company_1_starting_salary">Starting Salary</label> 
-                            <input type="text" class="text" name="company_1_starting_salary" value="57" id="company_1_starting_salary" placeholder="Per Month or Per Hour">
-                        </p>
-
-                        <p class="optional">
-                            <label for="company_1_final_salary">Final Salary</label> 
-                            <input type="text" class="text" name="company_1_final_salary" value="68" id="company_1_final_salary" placeholder="Per Month or Per Hour">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_name_1">Reference Name</label> 
+                        <input type="text" class="text" name="reference_name_1" value="Steven Jones" id="reference_name_1" placeholder="Reference Name">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_name_1">Reference Name</label> 
-                            <input type="text" class="text" name="reference_name_1" value="Steven Jones" id="reference_name_1" placeholder="Reference Name">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_email_1">Reference Email</label> 
+                        <input type="text" class="text" name="reference_email_1" value="jones@fatcat.com" id="reference_email_1" placeholder="Reference Email">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_email_1">Reference Email</label> 
-                            <input type="text" class="text" name="reference_email_1" value="jones@fatcat.com" id="reference_email_1" placeholder="Reference Email">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_phone_number_1">Reference Phone Number</label> 
+                        <input type="text" class="text" name="reference_phone_number_1" value="9073456789" id="reference_phone_number_1" placeholder="Reference Phone Number">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_phone_number_1">Reference Phone Number</label> 
-                            <input type="text" class="text" name="reference_phone_number_1" value="9073456789" id="reference_phone_number_1" placeholder="Reference Phone Number">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_position_1">Reference Position</label> 
+                        <input type="text" class="text" name="reference_position_1" value="Division Head" id="reference_position_1" placeholder="Reference Position">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_position_1">Reference Position</label> 
-                            <input type="text" class="text" name="reference_position_1" value="Division Head" id="reference_position_1" placeholder="Reference Position">
-                        </p>
+                    <p class="optional"> 
+                        <textarea style="width: 320px;" class="reference_additional_info_1" name="reference_additional_info_1" id="reference_additional_info_1" placeholder="Reference Additional Info">Division Head and good friend.</textarea>
+                    </p>
+                    <!--Reference 2-->     
+                    <br>
+                    <br>
+                    <h3>2nd Last Employment</h3>
 
-                        <p class="optional"> 
-                            <textarea style="width: 320px;" class="reference_additional_info_1" name="reference_additional_info_1" id="reference_additional_info_1" placeholder="Reference Additional Info">Division Head and good friend.</textarea>
-                        </p>
-                        <!--Reference 2-->     
-                        <br>
-                        <br>
-                        <h3>2nd Last Employment</h3>
+                    <p class="optional">
+                        <label for="company_2_position">Position</label> 
+                        <input type="text" class="text" name="company_2_position" value="Lead Programmer" id="company_2_position" placeholder="Position">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_position">Position</label> 
-                            <input type="text" class="text" name="company_2_position" value="Lead Programmer" id="company_2_position" placeholder="Position">
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_start_date">Start Date</label>
+                        <input class="text" type="date" name="company_2_start_date" value="2006-06-12" id="company_2_start_date" placeholder="Start Date">   
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_start_date">Start Date</label>
-                            <input class="text" type="date" name="company_2_start_date" value="2006-06-12" id="company_2_start_date" placeholder="Start Date">   
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_end_date">End Date</label>
+                        <input class="text" type="date" name="company_2_end_date" value="2009-11-12" id="company_2_end_date" placeholder="Start Date">   
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_end_date">End Date</label>
-                            <input class="text" type="date" name="company_2_end_date" value="2009-11-12" id="company_2_end_date" placeholder="Start Date">   
-                        </p>
 
+                    <p class="optional">
+                        <label for="company_2_job_type">Job Type</label>
+                        <select class="company_2_job_type" name="company_2_job_type"> 
+                            <option selected="selected">Full-Time</option>
+                            <option>Part-Time</option>
+                        </select>
+                    </p>
+                    <p class="optional"><label for="company_2_company">Company</label> 
+                        <input type="text" class="text" name="company_2_company" value="Qsiere Inc" id="company_2_company" placeholder="Company">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_job_type">Job Type</label>
-                            <select class="company_2_job_type" name="company_2_job_type"> 
-                                <option selected="selected">Full-Time</option>
-                                <option>Part-Time</option>
-                            </select>
-                        </p>
-                        <p class="optional"><label for="company_2_company">Company</label> 
-                            <input type="text" class="text" name="company_2_company" value="Qsiere Inc" id="company_2_company" placeholder="Company">
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_city">City</label> 
+                        <input type="text" class="text" name="company_2_city" value="Whitby" id="company_2_city" placeholder="City">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_city">City</label> 
-                            <input type="text" class="text" name="company_2_city" value="Whitby" id="company_2_city" placeholder="City">
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_country">Country</label> 
+                        <input type="text" class="text" name="company_2_country" value="Canada" id="company_2_country" placeholder="Country">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_country">Country</label> 
-                            <input type="text" class="text" name="company_2_country" value="Canada" id="company_2_country" placeholder="Country">
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_reason_for_leaving">Reason for Leaving</label>
+                        <select class="company_2_reason_for_leaving" name="company_2_reason_for_leaving"> 
+                            <option selected="selected">Career change</option>
+                            <option>Career growth</option>
+                            <option>Change in career path</option>
+                            <option>Company cut backs</option>
+                            <option>Company downsized</option>
+                            <option>Company went out of business</option>
+                            <option>Family circumstances</option>
+                            <option>Family reasons</option>
+                            <option>Flexible schedule</option>
 
-                        <p class="optional">
-                            <label for="company_2_reason_for_leaving">Reason for Leaving</label>
-                            <select class="company_2_reason_for_leaving" name="company_2_reason_for_leaving"> 
-                                <option selected="selected">Career change</option>
-                                <option>Career growth</option>
-                                <option>Change in career path</option>
-                                <option>Company cut backs</option>
-                                <option>Company downsized</option>
-                                <option>Company went out of business</option>
-                                <option>Family circumstances</option>
-                                <option>Family reasons</option>
-                                <option>Flexible schedule</option>
 
+                            <option>Getting married</option>
 
-                                <option>Getting married</option>
 
+                            <option>Hours reduced</option>
 
-                                <option>Hours reduced</option>
 
+                            <option>Job was outsourced</option>
 
-                                <option>Job was outsourced</option>
 
+                            <option>Good career opportunity</option>
 
-                                <option>Good career opportunity</option>
 
+                            <option>Good reputation and opportunity at the new company</option>
 
-                                <option>Good reputation and opportunity at the new company</option>
 
+                            <option>Laid off</option>
 
-                                <option>Laid off</option>
 
+                            <option>Landed a higher paying job</option>
 
-                                <option>Landed a higher paying job</option>
 
+                            <option>Limited growth at company</option>
 
-                                <option>Limited growth at company</option>
 
+                            <option>Long commute</option>
 
-                                <option>Long commute</option>
 
+                            <option>Looking for a new challenge</option>
 
-                                <option>Looking for a new challenge</option>
 
+                            <option>Needed a full-time position</option>
 
-                                <option>Needed a full-time position</option>
 
+                            <option>New challenge</option>
 
-                                <option>New challenge</option>
 
+                            <option>Not compatible with company goals</option>
 
-                                <option>Not compatible with company goals</option>
 
+                            <option>Not enough hours</option>
 
-                                <option>Not enough hours</option>
 
+                            <option>Not enough work or challenge</option>
 
-                                <option>Not enough work or challenge</option>
 
+                            <option>Offered a permanent position</option>
 
-                                <option>Offered a permanent position</option>
 
+                            <option>Personal reasons</option>
 
-                                <option>Personal reasons</option>
 
+                            <option>Position eliminated</option>
 
-                                <option>Position eliminated</option>
 
+                            <option>Position ended</option>
 
-                                <option>Position ended</option>
 
+                            <option>Relocating</option>
 
-                                <option>Relocating</option>
 
+                            <option>Reorganization or merger</option>
 
-                                <option>Reorganization or merger</option>
 
+                            <option>Retiring</option>
 
-                                <option>Retiring</option>
 
+                            <option>Seasonal position</option>
 
-                                <option>Seasonal position</option>
 
+                            <option>Seeking a challenge</option>
 
-                                <option>Seeking a challenge</option>
 
+                            <option>Seeking more responsibility</option>
 
-                                <option>Seeking more responsibility</option>
 
+                            <option>Staying home to raise a family</option>
 
-                                <option>Staying home to raise a family</option>
 
+                            <option>Summer job</option>
 
-                                <option>Summer job</option>
 
+                            <option>Temporary job</option>
 
-                                <option>Temporary job</option>
 
+                            <option>Travel</option>
 
-                                <option>Travel</option>
 
+                            <option>Went back to school</option>
 
-                                <option>Went back to school</option>
 
+                            <option>About to get fired</option>
 
-                                <option>About to get fired</option>
 
+                            <option>Arrested</option>
 
-                                <option>Arrested</option>
 
+                            <option>Bad company to work for</option>
 
-                                <option>Bad company to work for</option>
 
+                            <option>Bored at work</option>
 
-                                <option>Bored at work</option>
 
+                            <option>Childcare issues</option>
 
-                                <option>Childcare issues</option>
 
+                            <option>Didn't get along with co-workers</option>
 
-                                <option>Didn't get along with co-workers</option>
 
+                            <option>Didn't like the schedule</option>
 
-                                <option>Didn't like the schedule</option>
 
+                            <option>Didn't want to work as many hours</option>
 
-                                <option>Didn't want to work as many hours</option>
 
+                            <option>Didn't want to work evening or weekends</option>
 
-                                <option>Didn't want to work evening or weekends</option>
 
+                            <option>Hated my boss</option>
 
-                                <option>Hated my boss</option>
 
+                            <option>Hated my job</option>
 
-                                <option>Hated my job</option>
 
+                            <option>Injured</option>
 
-                                <option>Injured</option>
 
+                            <option>Job was too difficult</option>
 
-                                <option>Job was too difficult</option>
 
+                            <option>Let go for harassment</option>
 
-                                <option>Let go for harassment</option>
 
+                            <option>Let go for tardiness</option>
 
-                                <option>Let go for tardiness</option>
 
+                            <option>Manager was stupid</option>
 
-                                <option>Manager was stupid</option>
 
+                            <option>My boss was a jerk</option>
 
-                                <option>My boss was a jerk</option>
 
+                            <option>My mom made me quit</option>
 
-                                <option>My mom made me quit</option>
 
+                            <option>No transportation</option>
 
-                                <option>No transportation</option>
 
+                            <option>Overtime was required</option>
 
-                                <option>Overtime was required</option>
 
+                            <option>Passed over for promotion</option>
 
-                                <option>Passed over for promotion</option>
 
+                            <option>Rocky marriage</option>
 
-                                <option>Rocky marriage</option>
+                        </select>
+                    </p>
 
-                            </select>
-                        </p>
 
+                    <p class="optional">
+                        <label for="company_2_salary_type">Salary Type</label>
+                        <select class="company_2_salary_type" name="company_2_salary_type"> 
 
-                        <p class="optional">
-                            <label for="company_2_salary_type">Salary Type</label>
-                            <select class="company_2_salary_type" name="company_2_salary_type"> 
+                            <option>Per Month</option>
 
-                                <option>Per Month</option>
+                            <option selected="selected">Per Hour</option>
 
-                                <option selected="selected">Per Hour</option>
+                        </select>
+                    </p>
 
-                            </select>
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_starting_salary">Starting Salary</label> 
+                        <input type="text" class="text" name="company_2_starting_salary" value="38" id="company_2_starting_salary" placeholder="Per Month or Per Hour">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_starting_salary">Starting Salary</label> 
-                            <input type="text" class="text" name="company_2_starting_salary" value="38" id="company_2_starting_salary" placeholder="Per Month or Per Hour">
-                        </p>
+                    <p class="optional">
+                        <label for="company_2_final_salary">Final Salary</label> 
+                        <input type="text" class="text" name="company_2_final_salary" value="48" id="company_2_final_salary" placeholder="Per Month or Per Hour">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_2_final_salary">Final Salary</label> 
-                            <input type="text" class="text" name="company_2_final_salary" value="48" id="company_2_final_salary" placeholder="Per Month or Per Hour">
-                        </p>
 
+                    <p class="optional">
+                        <label for="reference_name_2">Reference Name</label> 
+                        <input type="text" class="text" name="reference_name_2" value="John Horvath" id="reference_name_2" placeholder="Reference Name">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_name_2">Reference Name</label> 
-                            <input type="text" class="text" name="reference_name_2" value="John Horvath" id="reference_name_2" placeholder="Reference Name">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_email_2">Reference Email</label> 
+                        <input type="text" class="text" name="reference_email_2" value="jon@fdsfds.com" id="reference_email_1" placeholder="Reference Email">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_email_2">Reference Email</label> 
-                            <input type="text" class="text" name="reference_email_2" value="jon@fdsfds.com" id="reference_email_1" placeholder="Reference Email">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_phone_number_2">Reference Phone Number</label> 
+                        <input type="text" class="text" name="reference_phone_number_2" value="4324324324232" id="reference_phone_number_2" placeholder="Reference Phone Number">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_phone_number_2">Reference Phone Number</label> 
-                            <input type="text" class="text" name="reference_phone_number_2" value="4324324324232" id="reference_phone_number_2" placeholder="Reference Phone Number">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_position_2">Reference Position</label> 
+                        <input type="text" class="text" name="reference_position_2" value="Human Resources" id="reference_position_2" placeholder="Reference Position">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_position_2">Reference Position</label> 
-                            <input type="text" class="text" name="reference_position_2" value="Human Resources" id="reference_position_2" placeholder="Reference Position">
-                        </p>
+                    <p class="optional"> 
+                        <textarea style="width: 320px;" class="reference_additional_info_2" name="reference_additional_info_2" id="reference_additional_info_2" placeholder="Reference Additional Info">Human Resources Notes</textarea></p>
+                    <br>
+                    <br>
+                    <!--Reference 3-->     
 
-                        <p class="optional"> 
-                            <textarea style="width: 320px;" class="reference_additional_info_2" name="reference_additional_info_2" id="reference_additional_info_2" placeholder="Reference Additional Info">Human Resources Notes</textarea></p>
-                        <br>
-                        <br>
-                        <!--Reference 3-->     
+                    <h3>3rd Last Employment</h3>
 
-                        <h3>3rd Last Employment</h3>
+                    <p class="optional">
+                        <label for="company_3_position">Position</label> 
+                        <input type="text" class="text" name="company_3_position" value="Lead Systems Designer" id="company_3_position" placeholder="Position">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_position">Position</label> 
-                            <input type="text" class="text" name="company_3_position" value="Lead Systems Designer" id="company_3_position" placeholder="Position">
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_start_date">Start Date</label>
+                        <input class="text" type="date" name="company_3_start_date" value="2000-07-01" id="company_3_start_date" placeholder="Start Date">   
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_start_date">Start Date</label>
-                            <input class="text" type="date" name="company_3_start_date" value="2000-07-01" id="company_3_start_date" placeholder="Start Date">   
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_end_date">End Date</label>
+                        <input class="text" type="date" name="company_3_end_date" value="2005-07-01" id="company_3_end_date" placeholder="Start Date">   
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_end_date">End Date</label>
-                            <input class="text" type="date" name="company_3_end_date" value="2005-07-01" id="company_3_end_date" placeholder="Start Date">   
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_job_type">Job Type</label>
+                        <select class="company_3_job_type" name="company_3_job_type"> 
+                            <option selected="selected">Full-Time</option>
 
-                        <p class="optional">
-                            <label for="company_3_job_type">Job Type</label>
-                            <select class="company_3_job_type" name="company_3_job_type"> 
-                                <option selected="selected">Full-Time</option>
 
+                            <option>Part-Time</option>
 
-                                <option>Part-Time</option>
+                        </select>
+                    </p>
 
-                            </select>
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_company">Company</label> 
+                        <input type="text" class="text" name="company_3_company" value="Rames Inovations INC" id="company_3_company" placeholder="Company">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_company">Company</label> 
-                            <input type="text" class="text" name="company_3_company" value="Rames Inovations INC" id="company_3_company" placeholder="Company">
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_city">City</label> 
+                        <input type="text" class="text" name="company_3_city" value="Toronto" id="company_3_city" placeholder="City">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_city">City</label> 
-                            <input type="text" class="text" name="company_3_city" value="Toronto" id="company_3_city" placeholder="City">
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_country">Country</label> 
+                        <input type="text" class="text" name="company_3_country" value="Canada" id="company_3_country" placeholder="Country">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_country">Country</label> 
-                            <input type="text" class="text" name="company_3_country" value="Canada" id="company_3_country" placeholder="Country">
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_reason_for_leaving">Reason for Leaving</label>
+                        <select class="company_3_reason_for_leaving" name="company_3_reason_for_leaving"> 
 
-                        <p class="optional">
-                            <label for="company_3_reason_for_leaving">Reason for Leaving</label>
-                            <select class="company_3_reason_for_leaving" name="company_3_reason_for_leaving"> 
+                            <option>Career change</option>
 
-                                <option>Career change</option>
 
+                            <option>Career growth</option>
 
-                                <option>Career growth</option>
 
+                            <option>Change in career path</option>
 
-                                <option>Change in career path</option>
 
+                            <option>Company cut backs</option>
 
-                                <option>Company cut backs</option>
 
+                            <option>Company downsized</option>
 
-                                <option>Company downsized</option>
 
+                            <option>Company went out of business</option>
 
-                                <option>Company went out of business</option>
 
+                            <option>Family circumstances</option>
 
-                                <option>Family circumstances</option>
 
+                            <option>Family reasons</option>
 
-                                <option>Family reasons</option>
 
+                            <option>Flexible schedule</option>
 
-                                <option>Flexible schedule</option>
 
+                            <option>Getting married</option>
 
-                                <option>Getting married</option>
 
+                            <option>Hours reduced</option>
 
-                                <option>Hours reduced</option>
 
+                            <option>Job was outsourced</option>
 
-                                <option>Job was outsourced</option>
+                            <option selected="selected">Good career opportunity</option>
 
-                                <option selected="selected">Good career opportunity</option>
 
+                            <option>Good reputation and opportunity at the new company</option>
 
-                                <option>Good reputation and opportunity at the new company</option>
 
+                            <option>Laid off</option>
 
-                                <option>Laid off</option>
 
+                            <option>Landed a higher paying job</option>
 
-                                <option>Landed a higher paying job</option>
 
+                            <option>Limited growth at company</option>
 
-                                <option>Limited growth at company</option>
 
+                            <option>Long commute</option>
 
-                                <option>Long commute</option>
 
+                            <option>Looking for a new challenge</option>
 
-                                <option>Looking for a new challenge</option>
 
+                            <option>Needed a full-time position</option>
 
-                                <option>Needed a full-time position</option>
 
+                            <option>New challenge</option>
 
-                                <option>New challenge</option>
 
+                            <option>Not compatible with company goals</option>
 
-                                <option>Not compatible with company goals</option>
 
+                            <option>Not enough hours</option>
 
-                                <option>Not enough hours</option>
 
+                            <option>Not enough work or challenge</option>
 
-                                <option>Not enough work or challenge</option>
 
+                            <option>Offered a permanent position</option>
 
-                                <option>Offered a permanent position</option>
 
+                            <option>Personal reasons</option>
 
-                                <option>Personal reasons</option>
 
+                            <option>Position eliminated</option>
 
-                                <option>Position eliminated</option>
 
+                            <option>Position ended</option>
 
-                                <option>Position ended</option>
 
+                            <option>Relocating</option>
 
-                                <option>Relocating</option>
 
+                            <option>Reorganization or merger</option>
 
-                                <option>Reorganization or merger</option>
 
+                            <option>Retiring</option>
 
-                                <option>Retiring</option>
 
+                            <option>Seasonal position</option>
 
-                                <option>Seasonal position</option>
 
+                            <option>Seeking a challenge</option>
 
-                                <option>Seeking a challenge</option>
 
+                            <option>Seeking more responsibility</option>
 
-                                <option>Seeking more responsibility</option>
 
+                            <option>Staying home to raise a family</option>
 
-                                <option>Staying home to raise a family</option>
 
+                            <option>Summer job</option>
 
-                                <option>Summer job</option>
 
+                            <option>Temporary job</option>
 
-                                <option>Temporary job</option>
 
+                            <option>Travel</option>
 
-                                <option>Travel</option>
 
+                            <option>Went back to school</option>
 
-                                <option>Went back to school</option>
 
+                            <option>About to get fired</option>
 
-                                <option>About to get fired</option>
 
+                            <option>Arrested</option>
 
-                                <option>Arrested</option>
 
+                            <option>Bad company to work for</option>
 
-                                <option>Bad company to work for</option>
 
+                            <option>Bored at work</option>
 
-                                <option>Bored at work</option>
 
+                            <option>Childcare issues</option>
 
-                                <option>Childcare issues</option>
 
+                            <option>Didn't get along with co-workers</option>
 
-                                <option>Didn't get along with co-workers</option>
 
+                            <option>Didn't like the schedule</option>
 
-                                <option>Didn't like the schedule</option>
 
+                            <option>Didn't want to work as many hours</option>
 
-                                <option>Didn't want to work as many hours</option>
 
+                            <option>Didn't want to work evening or weekends</option>
 
-                                <option>Didn't want to work evening or weekends</option>
 
+                            <option>Hated my boss</option>
 
-                                <option>Hated my boss</option>
 
+                            <option>Hated my job</option>
 
-                                <option>Hated my job</option>
 
+                            <option>Injured</option>
 
-                                <option>Injured</option>
 
+                            <option>Job was too difficult</option>
 
-                                <option>Job was too difficult</option>
 
+                            <option>Let go for harassment</option>
 
-                                <option>Let go for harassment</option>
 
+                            <option>Let go for tardiness</option>
 
-                                <option>Let go for tardiness</option>
 
+                            <option>Manager was stupid</option>
 
-                                <option>Manager was stupid</option>
 
+                            <option>My boss was a jerk</option>
 
-                                <option>My boss was a jerk</option>
 
+                            <option>My mom made me quit</option>
 
-                                <option>My mom made me quit</option>
 
+                            <option>No transportation</option>
 
-                                <option>No transportation</option>
 
+                            <option>Overtime was required</option>
 
-                                <option>Overtime was required</option>
 
+                            <option>Passed over for promotion</option>
 
-                                <option>Passed over for promotion</option>
 
+                            <option>Rocky marriage</option>
 
-                                <option>Rocky marriage</option>
+                        </select>
+                    </p>
 
-                            </select>
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_salary_type">Salary Type</label>
+                        <select class="company_3_salary_type" name="company_3_salary_type"> 
+                            <option selected="selected">Per Month</option>
+                            <option>Per Hour</option>
+                        </select>
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_salary_type">Salary Type</label>
-                            <select class="company_3_salary_type" name="company_3_salary_type"> 
-                                <option selected="selected">Per Month</option>
-                                <option>Per Hour</option>
-                            </select>
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_starting_salary">Starting Salary</label> 
+                        <input type="text" class="text" name="company_3_starting_salary" value="32" id="company_3_starting_salary" placeholder="Per Month or Per Hour">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_starting_salary">Starting Salary</label> 
-                            <input type="text" class="text" name="company_3_starting_salary" value="32" id="company_3_starting_salary" placeholder="Per Month or Per Hour">
-                        </p>
+                    <p class="optional">
+                        <label for="company_3_final_salary">Final Salary</label> 
+                        <input type="text" class="text" name="company_3_final_salary" value="38" id="company_3_final_salary" placeholder="Per Month or Per Hour">
+                    </p>
 
-                        <p class="optional">
-                            <label for="company_3_final_salary">Final Salary</label> 
-                            <input type="text" class="text" name="company_3_final_salary" value="38" id="company_3_final_salary" placeholder="Per Month or Per Hour">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_name_3">Reference Name</label> 
+                        <input type="text" class="text" name="reference_name_3" value="Nancy Drew" id="reference_name_3" placeholder="Reference Name">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_name_3">Reference Name</label> 
-                            <input type="text" class="text" name="reference_name_3" value="Nancy Drew" id="reference_name_3" placeholder="Reference Name">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_email_3">Reference Email</label> 
+                        <input type="text" class="text" name="reference_email_3" value="nancy@fdsfds.com" id="reference_email_3" placeholder="Reference Email">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_email_3">Reference Email</label> 
-                            <input type="text" class="text" name="reference_email_3" value="nancy@fdsfds.com" id="reference_email_3" placeholder="Reference Email">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_phone_number_3">Reference Phone Number</label> 
+                        <input type="text" class="text" name="reference_phone_number_3" value="8980980890" id="reference_phone_number_3" placeholder="Reference Phone Number">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_phone_number_3">Reference Phone Number</label> 
-                            <input type="text" class="text" name="reference_phone_number_3" value="8980980890" id="reference_phone_number_3" placeholder="Reference Phone Number">
-                        </p>
+                    <p class="optional">
+                        <label for="reference_position_3">Reference Position</label> 
+                        <input type="text" class="text" name="reference_position_3" value="CEO" id="reference_position_3" placeholder="Reference Position">
+                    </p>
 
-                        <p class="optional">
-                            <label for="reference_position_3">Reference Position</label> 
-                            <input type="text" class="text" name="reference_position_3" value="CEO" id="reference_position_3" placeholder="Reference Position">
-                        </p>
+                    <p class="optional"> 
+                        <textarea style="width: 320px;" class="reference_additional_info_3" name="reference_additional_info_3" id="reference_additional_info_3" placeholder="Reference Additional Info">CEO NOtes</textarea>
+                    </p>
+                    <br>
+                    <br>
 
-                        <p class="optional"> 
-                            <textarea style="width: 320px;" class="reference_additional_info_3" name="reference_additional_info_3" id="reference_additional_info_3" placeholder="Reference Additional Info">CEO NOtes</textarea>
-                        </p>
-                        <br>
-                        <br>
+                    <fieldset>
+                        <iframe id="widget" frameborder="0" allowfullscreen="1" title="YouTube upload widget" width="640" height="428.8" src="https://www.youtube.com/upload_embed?enablejsapi=1&amp;origin=http%3A%2F%2Fvidhire.net"></iframe>
+                        <div id="player"></div>
+                        <div id="video_link">
+                            <label>Interview Video Link</label>
+                            <input id="interview_video" style="width: 640px;" name="interview_video" type="text" value="https://www.youtube.com/embed/dtGSG95gTnw">
+                        </div>	
+                        <script type="text/javascript">
+                            var tag = document.createElement('script');
 
-                        <fieldset>
-                            <iframe id="widget" frameborder="0" allowfullscreen="1" title="YouTube upload widget" width="640" height="428.8" src="https://www.youtube.com/upload_embed?enablejsapi=1&amp;origin=http%3A%2F%2Fvidhire.net"></iframe>
-                            <div id="player"></div>
-                            <div id="video_link">
-                                <label>Interview Video Link</label>
-                                <input id="interview_video" style="width: 640px;" name="interview_video" type="text" value="https://www.youtube.com/embed/dtGSG95gTnw">
-                            </div>	
-                            <script type="text/javascript">
-                                var tag = document.createElement('script');
+                            tag.src = "https://www.youtube.com/iframe_api";
+                            var firstScriptTag = document.getElementsByTagName('script')[0];
+                            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-                                tag.src = "https://www.youtube.com/iframe_api";
-                                var firstScriptTag = document.getElementsByTagName('script')[0];
-                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                            var player1;
 
-                                var player1;
+                            function onYouTubeIframeAPIReady() {
 
-                                function onYouTubeIframeAPIReady() {
-
-                                    new YT.UploadWidget('widget', {
-                                        events: {
-                                            onStateChange: onWidgetStateChange,
-                                            onUploadSuccess: onUploadSuccess,
-                                            onProcessingComplete: onProcessingComplete
-                                        }
-
-                                    });
-                                }
-
-                                function onWidgetStateChange(event) {
-                                    if (event.data.state == YT.UploadWidgetState.RECORDING) {
-
+                                new YT.UploadWidget('widget', {
+                                    events: {
+                                        onStateChange: onWidgetStateChange,
+                                        onUploadSuccess: onUploadSuccess,
+                                        onProcessingComplete: onProcessingComplete
                                     }
 
-                                }
+                                });
+                            }
 
-                                function onUploadSuccess(event) {
-                                    var text = document.getElementById('interview_video');
-                                    text.value = "https://www.youtube.com/embed/" + event.data.videoId;
-                                }
-
-                                function onProcessingComplete(event) {
-                                    /*  
-                                     new YT.Player('player', {
-                                     height: 300,
-                                     width: 450,
-                                     videoId: event.data.videoId,
-                                     });*/
-                                    /*var text = document.getElementById('interview_video');
-                                     text.value = "https://www.youtube.com/embed/" + event.data.videoId;*/
+                            function onWidgetStateChange(event) {
+                                if (event.data.state == YT.UploadWidgetState.RECORDING) {
 
                                 }
-                            </script>
 
-                            <div id="video-interview-questions">  
-                                <label>Video Interview Instructions</label>
+                            }
 
-                                <ul>
-                                    <li>You cannot stop and start the video without losing your previous recording.</li>
-                                    <li>Once you click “allow” on the popup window the video will start.</li>
-                                    <li>Once you have finished, click “upload”.</li>
-                                    <li>It takes a few minutes to see the video due to processing.</li>
-                                    <li>If you are having issues, try another browser.</li>
-                                    <li>You can also record on your computer, upload to Youtube then paste the link above.</li>
-                                </ul>
-                                <label>Video Interview Questions</label>
+                            function onUploadSuccess(event) {
+                                var text = document.getElementById('interview_video');
+                                text.value = "https://www.youtube.com/embed/" + event.data.videoId;
+                            }
 
-                                <ol>
-                                    <li>Why did you choose this line of work?</li>
-                                    <li>What do you do in your spare time?</li>
-                                    <li>What are your greatest strengths?</li>
-                                    <li>What are you greatest weaknesses?</li>
-                                    <li>Do you have any health or personal issues that may affect job performance?</li>
-                                    <li>In your last job how many sick days did you take off?</li>
-                                    <li>Why should we hire you?</li>
-                                </ol>
-                            </div>
-                        </fieldset>
+                            function onProcessingComplete(event) {
+                                /*  
+                                 new YT.Player('player', {
+                                 height: 300,
+                                 width: 450,
+                                 videoId: event.data.videoId,
+                                 });*/
+                                /*var text = document.getElementById('interview_video');
+                                 text.value = "https://www.youtube.com/embed/" + event.data.videoId;*/
+
+                            }
+                        </script>
+
+                        <div id="video-interview-questions">  
+                            <label>Video Interview Instructions</label>
+
+                            <ul>
+                                <li>You cannot stop and start the video without losing your previous recording.</li>
+                                <li>Once you click “allow” on the popup window the video will start.</li>
+                                <li>Once you have finished, click “upload”.</li>
+                                <li>It takes a few minutes to see the video due to processing.</li>
+                                <li>If you are having issues, try another browser.</li>
+                                <li>You can also record on your computer, upload to Youtube then paste the link above.</li>
+                            </ul>
+                            <label>Video Interview Questions</label>
+
+                            <ol>
+                                <li>Why did you choose this line of work?</li>
+                                <li>What do you do in your spare time?</li>
+                                <li>What are your greatest strengths?</li>
+                                <li>What are you greatest weaknesses?</li>
+                                <li>Do you have any health or personal issues that may affect job performance?</li>
+                                <li>In your last job how many sick days did you take off?</li>
+                                <li>Why should we hire you?</li>
+                            </ol>
+                        </div>
+                    </fieldset>
                 </form>
             </div><!-- end section_content -->
         </div>
