@@ -288,15 +288,12 @@ $(".edit-resume").click(function () {
                         },
                         success: function () {
                             BootstrapDialog.alert('success');
+                            dialog.close();
                         },
                         error: function (xhr, status, error) {
                             //alert(xhr.responseText);
                         }
                     }); //ajax
-
-                    //BootstrapDialog.alert(ajaxurl);
-                    //dialog.close();
-
                 }
             }, {
                 label: 'Close',
