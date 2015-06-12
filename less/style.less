@@ -1,0 +1,1552 @@
+/* 
+    Job TC
+    Created on : 04 24, 15, 5:50:06 PM
+    Author     : Jexter Dean Buenaventura
+*/
+
+//Change to modify site color/element sizes
+//Global Variables
+@site-background-color: #001F40;
+@sidebar-background-color:#F4FAFF;
+@site-width: 90%; //960px is the original; 
+@site-background-transparency: 70%;
+@site-font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+@nav-bar-font-size: 12px;
+@nav-bar-gradient-start-color: #153499;
+@nav-bar-gradient-end-color: #158DE8;
+
+@main-content-color:#E0D7CE;
+                    
+@dashboard-resume-photo-padding: 4px;
+@dashboard-resume-container-border-color: #E3E3B3;
+@dashboard-resume-container-border-top: 0;
+@dashboard-resume-container-border-right: 1px solid @dashboard-resume-container-border-color;
+@dashboard-resume-container-border-left: 1px solid @dashboard-resume-container-border-color;
+@dashboard-resume-container-border-bottom: 1px solid @dashboard-resume-container-border-color;
+@dashboard-resume-container-color: #F9FAE1;
+@dashboard-resume-loop-border-color: #DED2D9;
+@dashboard-resume-border: 1px solid @dashboard-resume-loop-border-color;
+@dashboard-resume-border-bottom: 1px solid @dashboard-resume-loop-border-color;
+@dashboard-resume-list-item-width: 106%;
+@dashboard-discussions-comment-text-width: 550px;
+
+
+@dashboard-box-shadow: 4px 5px 15px lighten(#888888,30%);
+@resume-box-shadow: 4px 6px 15px lighten(#888888,20%);
+@sidebar-job-tab-container-box-shadow: 6px 5px 5px #888888;
+
+@single-resume-container-background-color: #fbfbfb;
+@single-resume-header-color: #004200;
+@resume-title-header-border-radius: 15px;
+@resume-box-content-background-color: #FFF4EA;
+
+
+@user-options-edit-button-color: #003de6;
+@user-options-edit-button-text-color: #ffffff;
+@user-options-apply-for-job-button-color: #16e600;
+@user-options-apply-for-job-button-text-color: #ffffff;
+@user-options-apply-for-job-button-font-size: 14px;
+
+
+//Single Pages
+
+
+//Global Mixins(functions)
+.Horizontal-gradient (@startColor: #eee, @endColor: white) {
+ 	background-color: @startColor;
+	background-image: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+	background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+	background-image: -moz-linear-gradient(left, @startColor, @endColor);
+	background-image: -ms-linear-gradient(left, @startColor, @endColor);
+	background-image: -o-linear-gradient(left, @startColor, @endColor);
+}
+
+.Gradient (@startColor: #eee, @endColor: white) {
+	background-color: @startColor;
+	background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+	background: -webkit-linear-gradient(top, @startColor, @endColor);
+	background: -moz-linear-gradient(top, @startColor, @endColor);
+	background: -ms-linear-gradient(top, @startColor, @endColor);
+	background: -o-linear-gradient(top, @startColor, @endColor);
+}
+
+.Center-Gradient-Nav (@start-color,@end-color) {
+    background-image: -ms-radial-gradient(center, ellipse farthest-corner, @start-color 0%, @end-color 100%);/* IE10+ */ 
+    background-image: -moz-radial-gradient(center, ellipse farthest-corner, @start-color 0%, @end-color 100%);/* Mozilla Firefox */ 
+    background-image: -o-radial-gradient(center, ellipse farthest-corner, @start-color 0%, @end-color 100%);/* Opera */ 
+    background-image: -webkit-gradient(radial, center center, 0, center center, 286, color-stop(0, @start-color), color-stop(100, @end-color));/* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-radial-gradient(center, ellipse farthest-corner, @start-color 0%, @end-color 100%);/* Webkit (Chrome 11+) */ 
+    background-image: radial-gradient(ellipse farthest-corner at center, @start-color 0%, @end-color 100%);/* W3C Markup */ 
+}
+
+.Bottom-Gradient-Tab (@start-color,@end-color) {
+    background: -moz-linear-gradient(top, @start-color 0%, @start-color 88%, @end-color 98%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, @start-color), color-stop(88%, @start-color), color-stop(98%, @end-color));
+    background: -webkit-linear-gradient(top, @start-color 0%, @start-color 88%, @end-color 98%);
+    background: -o-linear-gradient(top, @start-color 0%, @start-color 88%, @end-color 98%);
+    background: -ms-linear-gradient(top, @start-color 0%, @start-color 88%,@end-color 98%);
+    background: linear-gradient(to bottom, @start-color 0%, @start-color 88%, @end-color 98%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@start-color, endColorstr=@end-color, GradientType=0 );
+}
+
+
+.Gradient-Resume-Header(@color) {
+   
+    @start-color: lighten(@color,3%);
+    @end-color: @color;
+
+    background: -moz-linear-gradient(top,  @start-color 0%, @start-color 50%, @end-color 51%, @end-color 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start-color), color-stop(50%,@start-color), color-stop(51%,@end-color), color-stop(100%,@end-color)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@start-color, endColorstr=@end-color,GradientType=0 ); /* IE6-9 */
+
+}
+
+
+.Box-Shadow (@string) {
+	-webkit-box-shadow: @string;
+	-moz-box-shadow: @string;
+	box-shadow: @string;
+}
+
+.RandomColor(){
+  @randomColor: `Math.floor(Math.random()*16777215).toString(16)`;
+  @colorHex: e(@randomColor);
+  @color: ~"#@{colorHex}";
+}
+
+.Resume-Title-Header(@color) {
+        .Gradient-Resume-Header(@color);
+        padding:10px;
+        font-weight:bold;
+        color: #fff;
+        -moz-border-radius: @resume-title-header-border-radius;
+        -webkit-border-radius: @resume-title-header-border-radius;
+        border-radius: @resume-title-header-border-radius;
+}
+
+.Resume-Sub-Header(@color) {
+        .Gradient-Resume-Header(@color);
+        padding:10px;
+        text-align: center;
+        width: 50%;
+        margin: 0 auto;
+        font-weight: bold;
+        color: #fff;
+        -moz-border-radius: @resume-title-header-border-radius;
+        -webkit-border-radius: @resume-title-header-border-radius;
+        border-radius: @resume-title-header-border-radius;
+}
+
+.Job-Header-Button-Gradient(@color) {
+    
+     @start-color: lighten(@color,10%);
+    @end-color: @color;
+
+    background: -moz-linear-gradient(top,  @start-color 0%, @start-color 50%, @end-color 51%, @end-color 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start-color), color-stop(50%,@start-color), color-stop(51%,@end-color), color-stop(100%,@end-color)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@start-color, endColorstr=@end-color,GradientType=0 ); /* IE6-9 */
+}
+
+.Job-Header-Button-Gradient-Hover(@color) {
+    
+     @start-color: @color;
+    @end-color: lighten(@color,3%);
+
+    background: -moz-linear-gradient(top,  @start-color 0%, @start-color 50%, @end-color 51%, @end-color 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@start-color), color-stop(50%,@start-color), color-stop(51%,@end-color), color-stop(100%,@end-color)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  @start-color 0%,@start-color 50%,@end-color 51%,@end-color 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@start-color, endColorstr=@end-color,GradientType=0 ); /* IE6-9 */
+    
+   
+}
+
+//For Single Resume Icons
+.Resume-Container-Icons(@color) {
+     font-size: 40px;
+     line-height: 40px;
+     background: transparent;
+     color: @color;
+     -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+     border-radius: 0px;
+     padding: 3px;
+}
+
+
+//For Job Header Buttons
+
+.User-Options-button (@button-color,@button-text-color,@button-font:10px){
+    padding: 6px 5px;
+    border-radius:18px;
+    -moz-border-radius:18px;
+    -webkit-border-radius:18px;
+    .Job-Header-Button-Gradient(@button-color);
+
+    span {
+        color: @button-text-color;
+        padding: 5px 12px;
+        font-size: @button-font;
+        line-height: 15px;
+        border-radius: 18px;
+        -moz-border-radius: 18px;
+        -webkit-border-radius: 18px;
+        text-shadow: 1px 1px 3px #000000;
+        
+    }
+    
+    &:hover {
+            .Job-Header-Button-Gradient-Hover(@button-color);
+    }
+}
+
+//For Custom Shadow Box Container
+
+.Box-Title (@color,@text-color){
+        //background-color: #003300;
+        //background: #003300; /* Old browsers */
+        .Gradient-Resume-Header(@color);
+        .Box-Shadow(@resume-box-shadow);
+        padding:10px;
+        font-weight:bold;
+        color: @text-color;
+        -webkit-border-top-left-radius:2px;
+        -webkit-border-top-right-radius:2px;
+        -moz-border-radius-topleft:2px;
+        -moz-border-radius-topright:2px;
+        border-top-left-radius:2px;
+        border-top-right-radius:2px;
+    }
+
+.Box-Content(@color) {
+    @box-content-radius: 2px;
+    
+    padding: 10px;
+    background-color: @color;
+    border-color: #fffdfb;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    -webkit-border-bottom-right-radius: @box-content-radius;
+    -webkit-border-bottom-left-radius: @box-content-radius;
+    -moz-border-radius-bottomright: @box-content-radius;
+    -moz-border-radius-bottomleft: @box-content-radius;
+    border-bottom-right-radius: @box-content-radius;
+    border-bottom-left-radius: @box-content-radius;
+    .Box-Shadow(@resume-box-shadow);
+
+    .container-icon {
+          .Resume-Container-Icons(#000);
+    }
+
+    ul li i {
+        font-size: 18px;
+    }
+}
+
+
+
+//Utility classes
+.round {
+  border-radius: 6px;
+}
+
+.small-input {
+    width: 25%;
+}
+
+.circle {
+  -webkit-border-radius: 9999px;
+  -moz-border-radius: 9999px;
+   border-radius: 9999px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:60%;
+}
+
+.clear {
+    clear: both;
+}
+
+.space {
+    padding: 15px;
+}
+
+//For Edit Resume and Edit Job
+
+.main_form {
+
+    .text {
+    border-top: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background: #fff;
+    color: #777;
+    font-size: 1.2em;
+    padding: 7px;
+    width: 50%;
+    margin: 0;
+    outline: 0;
+    -khtml-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    }
+
+    select {
+        color: #777;
+        font-size: 1.2em;
+        width: 50%;
+        margin: 6px 0;
+        padding: 7px;
+        -khtml-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+    }
+
+    p {
+        margin: 0;
+
+         label {
+          width: 46%;
+          float: right;
+          padding-top: 6px;
+        }
+    }
+}
+
+.account_form input.text {
+  width: 92%;
+}
+
+
+//Navigation Bar
+.navbar-jobtc {
+  background-color: transparent;
+  font-size: @nav-bar-font-size;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 !important;
+      padding: 10px;
+      font-weight:bold;
+      //border-left: 1px solid #2f4f7e;
+      border-right: 1px solid #264066;
+    }
+    
+     a:hover {
+      //background: url(../images/navbar.png) repeat-x !important;
+      .Center-Gradient-Nav(@nav-bar-gradient-start-color,@nav-bar-gradient-end-color) !important;
+    }
+   
+    .active {
+       > a {
+            .Center-Gradient-Nav(@nav-bar-gradient-start-color,@nav-bar-gradient-end-color) !important;
+        }
+     }
+}
+
+.round-tab {
+   border-top-right-radius: 10px;
+   border-top-left-radius: 10px;
+    
+}
+
+
+//Main CSS
+
+body {
+   .Gradient(@site-background-color,lighten(@site-background-color,@site-background-transparency)); 
+   //background-color: @site-background-color;
+   width: @site-width; 
+   font-family: @site-font-family;
+   margin: 0 auto; //center the elements
+    
+}
+
+div.content-container {
+         
+        
+        div.main-content-container {  
+            padding: 15px 3px 3px;
+             background: @main-content-color;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            //background-image: -webkit-linear-gradient(right, #001F40, #001F40 31%,transparent 0%);
+            .round;
+
+            button {
+                font-size:12px;
+                font-weight:bold;
+                color: #000;
+                text-align:right;
+                float:right;
+                padding:1px;
+            }
+
+            .section {
+                  //position: relative;
+                  //top: -22px;
+            }
+        }
+
+        div.sidebar-content-container {
+            border: 1px solid transparent;
+            border-width: 1.5em 0;
+            background-color: @sidebar-background-color;
+            .Box-Shadow(@resume-box-shadow);
+            position: relative;
+            left: 15px;
+            .round;
+            a.jobtc-button {
+                background-color: #2c4975;
+                display: block;
+                text-align: center;
+                font-weight: bold;
+                color: #fff;
+                text-decoration: none;
+                //line-height: 30px;
+                font-size: 16px;
+                width:50%;
+                margin:0px auto;
+                //position: relative;
+                //left: 65px;
+            }
+
+        }
+}
+
+footer {
+            margin: 0 auto;
+            text-align: left;
+            color:#000;
+            padding:15px;
+        }
+
+
+//Dashboard CSS
+
+//Tabs
+
+//Jobseeker tabs
+#jobseeker-resume {
+    .dashboard-tabs {
+  > li {
+  border-right: 1px solid #aaa;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 0;
+  background: #fff;
+  margin-right: 6px;
+  font-size: 0.92em;
+  float: left;
+   
+  .round-tab;
+        
+     > a {
+       font-weight:bold;
+       color: #666;
+       padding: 5px 15px !important;  
+    }
+
+    > a:hover {
+        .round-tab;
+        background-color: #fff;
+    }
+
+    
+> .active {
+  background-color: #F9FAE1 !important;
+  .round-tab; 
+}
+
+> .inactive {
+ .Bottom-Gradient-Tab(#ede5e4,#bdaeac);
+ .round-tab;   
+}
+    
+}
+
+
+}
+}
+
+.dashboard-tabs {
+  > li {
+  border-right: 1px solid #aaa;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 0;
+  background: #E3E3B3;
+  margin-right: 6px;
+  font-size: 0.92em;
+  float: left;
+   
+  .round-tab;
+        
+     > a {
+       font-weight:bold;
+       color: #666;
+       padding: 5px 15px !important;  
+    }
+
+    > a:hover {
+        .round-tab;
+        background-color: #ede5e4;
+    }
+
+    
+> .active {
+  background-color: #F9FAE1 !important;
+  .round-tab; 
+}
+
+> .inactive {
+ .Bottom-Gradient-Tab(#ede5e4,#bdaeac);
+ .round-tab;   
+}
+    
+}
+
+
+}
+
+
+.live-resumes {
+    display: block;
+    width: 45%;
+    padding: 15px;
+    font-weight: bold;
+    margin: 0px auto;
+    padding: 15px;
+    font-weight:bold;
+}
+
+#status-tags {
+    border: 1px solid #F9FAE1;
+}
+
+
+.job-tabs {
+    
+    > li {
+        border-right: 1px solid #aaa;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-bottom: 0;
+        background: #E3E3B3;
+        margin-right: 6px;
+        font-size: 0.92em;
+        float: left;
+        .round-tab;
+ 
+        > a {
+            background-color: #E3E3B3;
+            font-weight: bold;
+            color: #666;
+            padding: 5px 15px !important;
+            .round-tab;
+        }    
+
+        > a:hover {
+              background-color: #F9FAE1;
+        }
+    
+     .active {
+        background-color: #F9FAE1;
+        .round-tab;
+        }
+
+      .inactive {
+        .Bottom-Gradient-Tab(#ede5e4,#bdaeac);
+        .round-tab;
+        }  
+    }
+}
+
+.job-tab-content {
+  .Box-Shadow(@sidebar-job-tab-container-box-shadow);
+   border-right: 1px solid #aaa;
+   border-bottom: 1px solid #ddd;
+   border-left: 1px solid #ddd;
+   border-bottom-right-radius: 6px;
+   border-bottom-left-radius: 6px;
+   border-top-right-radius: 6px; 
+
+    > div {
+      background-color: #F9FAE1;
+    }
+}
+
+.job-tags {
+      padding: 10px !important;
+      overflow: hidden;
+      zoom: 1;
+      list-style: none;
+      background-color: #F9FAE1;
+      
+      > li {
+          margin: 2px !important;
+          line-height: 1.54em;
+          float: left;
+          background: #f5f5f5;
+          border-bottom: 1px solid #eee;
+          border-right: 1px solid #eee;
+          padding: 0 0.5em !important;
+          font-size: 0.75em;
+          text-decoration: none !important;
+          text-shadow: 0 1px 0 #E8E8E8;
+      }
+
+      > a {
+    
+    }
+}
+
+//For Job Seeker Dashboard
+
+#jobseeker-resume {
+    
+    ul {
+       list-style: none;  
+      }
+
+      .career-map-table tbody tr td {
+           padding: 0px;
+           border: 1px solid #000;
+           text-align: center !important;
+    
+    }
+}
+
+#jobseeker-jobs {
+    
+    .jobs {        
+        position: relative;
+        left: -40px;
+      }
+
+    .job {
+            border-bottom: @dashboard-resume-border-bottom;
+            border-top: @dashboard-resume-border;
+            border-right: @dashboard-resume-border;
+            border-left: @dashboard-resume-border;
+            overflow: hidden;
+            zoom: 1;
+            margin: 0 0 10px 0;
+            padding: 15px;
+            list-style: none outside;
+            background-color: #fbfbfb;
+            height: auto;
+            width: @dashboard-resume-list-item-width;
+            .Box-Shadow(@dashboard-box-shadow);
+            .round;
+
+           .job-details-title {
+                span {
+                    font-size: 15px !important;
+                    font-weight: bold;
+                    color: #E34F00;
+                    font-style: italic;
+                }
+
+                a {
+                    color: #000;
+                }
+            }
+            
+            .location {
+                color: #E34F00;
+            }
+
+            .total_applicants_jobs {
+                color: #E34F00;
+            }
+
+            .actions {
+                  float: right;
+
+                  .job-apply-link {
+                    background: #E34F00;
+                    padding: 4px;
+                    color: #fff !important;
+                    border-radius: 5px;
+                    text-decoration: none;
+                  }
+
+                  .job-edit-link {
+                    background: #E0CCFF;
+                    padding: 4px;
+                    color: #fff !important;
+                    border-radius: 5px;
+                    text-decoration: none;
+                  }  
+
+                 .end {
+                    background: #E3E3B3;
+                    padding: 4px;
+                    color: #000 !important;
+                    border-radius: 5px;
+                    text-decoration: none;
+                }   
+            }
+
+    }
+}
+
+
+//For Sidebar Comments
+.comment-title {
+            margin-bottom: 0;
+            font-size: 17px;
+            text-shadow: 1px 1px 0 #ebebeb;
+            font-weight:bold;
+        }
+
+.comment-content {
+        
+        position: relative;
+        right: 35px;
+        top: 10px;
+
+        .avatar-container {
+            display: inline-flex;
+            
+            img {
+                .circle;
+            }
+        }
+
+        .recent-comments {
+            list-style: none;
+        } 
+        
+        .comment-text {
+              border: 2px solid #ebebeb;
+              overflow: hidden;
+              -moz-border-radius: 8px;
+              -webkit-border-radius: 8px;
+              border-radius: 8px;
+              padding: 10px 10px 0px;
+              background-color: #fff;
+              display: inline-block;
+              //width: 85%;
+              .Box-Shadow(@dashboard-box-shadow);
+        }
+}
+
+
+.dashboard-tab-pane {
+      padding-right: 15px;
+      padding-left: 15px;
+      padding-bottom: 15px;
+      text-align: left;
+      background-color: @dashboard-resume-container-color !important;
+      border-bottom: @dashboard-resume-container-border-bottom;
+      border-right: @dashboard-resume-container-border-right;
+      border-left: @dashboard-resume-container-border-left;
+      border-top: @dashboard-resume-container-border-top;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-top-right-radius: 6px;
+
+      ol {
+      padding-top:15px;
+    }
+}
+
+
+#employer-evaluation {
+
+      .resumes {        
+        position: relative;
+        left: -40px;
+      }
+
+      .resume {
+            border-bottom: @dashboard-resume-border-bottom;
+            border-top: @dashboard-resume-border;
+            border-right: @dashboard-resume-border;
+            border-left: @dashboard-resume-border;
+            overflow: hidden;
+            zoom: 1;
+            margin: 0 0 10px 0;
+            //padding: 15px;
+            list-style: none outside;
+            background-color: #fbfbfb;
+            height: auto;
+            width: @dashboard-resume-list-item-width;
+            .Box-Shadow(@dashboard-box-shadow);
+            .round;
+
+            a {
+                color: #E34F00; 
+            }
+    .photo {
+        width: 150px;
+        height: 80px;
+        float: left;
+        position: relative;
+        left: 25px;
+        top: 10px;
+        a {
+            img {
+              border: 1px solid #DADBDD !important;
+              padding: @dashboard-resume-photo-padding;
+              .round; 
+            }
+        }
+    }
+
+    .toggle-processing-status a{
+        font-size: 9px;
+    }
+
+    .final-evaluation-rating {
+            float: right;
+            padding: 15px;
+            font-size: 15px;
+            position: relative;
+            top: -50px;
+            left: 30px;
+    }
+    
+    .applying-for {
+        //float: right;
+        //position: relative;
+        //right: 30px;
+        .resume-date {
+           font-size:12px; 
+        }
+    }
+    
+    .resume-details {
+        position: relative;
+        right: 25px;
+    }
+
+    .title {
+        position: relative;
+        left: 15px;
+    }
+
+    }
+
+}
+
+#employer-jobs {
+    
+    .jobs {        
+        position: relative;
+        left: -40px;
+      }
+
+    .job {
+            border-bottom: @dashboard-resume-border-bottom;
+            border-top: @dashboard-resume-border;
+            border-right: @dashboard-resume-border;
+            border-left: @dashboard-resume-border;
+            overflow: hidden;
+            zoom: 1;
+            margin: 0 0 10px 0;
+            padding: 15px;
+            list-style: none outside;
+            background-color: #fbfbfb;
+            height: auto;
+            width: @dashboard-resume-list-item-width;
+            .Box-Shadow(@dashboard-box-shadow);
+            .round;
+
+           .job-details-title {
+                span {
+                    font-size: 15px !important;
+                    font-weight: bold;
+                    color: #E34F00;
+                    font-style: italic;
+                }
+
+                a {
+                    color: #000;
+                }
+            }
+            
+            .location {
+                color: #E34F00;
+            }
+
+            .total_applicants_jobs {
+                color: #E34F00;
+            }
+
+            .actions {
+                  float: right;
+
+                  .job-edit-link {
+                    background: #E34F00;
+                    padding: 4px;
+                    color: #fff !important;
+                    border-radius: 5px;
+                    text-decoration: none;
+                  }  
+
+                 .end {
+                    background: #E3E3B3;
+                    padding: 4px;
+                    color: #000 !important;
+                    border-radius: 5px;
+                    text-decoration: none;
+                }   
+            }
+
+    }
+}
+
+#discussions {
+    
+    .comments  {
+        position: relative;
+        left: -40px;
+    }
+
+    li {
+        list-style: none outside;
+        width: 106%;
+         border-bottom: @dashboard-resume-border-bottom;
+         border-top: @dashboard-resume-border;
+         border-right: @dashboard-resume-border;
+         border-left: @dashboard-resume-border;
+         overflow: hidden;
+         zoom: 1;
+         margin: 0 0 10px 0;
+         padding: 15px;
+         background-color: #fbfbfb;
+         height: auto;
+         .Box-Shadow(@dashboard-box-shadow);
+         .round;
+    }
+
+    .comment-text {
+        position: relative;
+        left: 10px;
+        //width: @dashboard-discussions-comment-text-width;
+    }
+
+
+.actions {
+    
+    .reply {
+              float: right;
+              background: #F0F0F0;
+              padding: 2px;
+              color: #000 !important;
+              border-radius: 5px;
+              text-decoration: none;
+        }
+
+    .delete {
+          position: relative;
+          right: 5px;
+          float: right;  
+          background: #E34F00;
+          padding: 2px;
+          color: #fff !important;
+          border-radius: 5px;
+          text-decoration: none;
+    }    
+}
+    .avatar-container {
+            display: inline-flex;
+            
+            img {
+                position: relative;
+                top: 10px;
+                .circle;
+            }
+        }
+}
+
+
+#employer-statuses {
+    .resume-statuses {
+
+    }
+    
+    li {
+
+    }
+}
+
+#employer-skills {
+    
+    .job-tags {    
+    outline: none;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-transition: all ease-in-out 0.2s;
+    overflow: hidden;
+    zoom: 1;
+    cursor: text;
+    margin-left: 0;
+    }
+
+     li {
+     
+    list-style: none;
+    float: left;
+    -webkit-border-top-right-radius: 24px;
+    -webkit-border-bottom-right-radius: 24px;
+    -moz-border-radius-topright: 24px;
+    -moz-border-radius-bottomright: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+    box-shadow: 0 0 0 1px #666;
+    -webkit-box-shadow: 0 0 0 1px #666;
+    -moz-box-shadow: 0 0 0 1px #666;
+    -o-box-shadow: 0 0 0 1px #666;
+    color: #fefefe;
+    padding: 0 2px 0 4px;
+    margin: 0 6px 0 0;
+    -webkit-transition: all ease-in-out 0.2s;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+        
+        a {
+            text-decoration: none;
+            color:#000;
+        }
+
+    }
+
+
+
+}
+//For Edit Resume Page
+
+.edit-resume {
+    .edit-resume-container {
+            background-color: @single-resume-container-background-color;
+            padding-top: 15px;
+            .round;
+    }
+}
+
+//For Single Resume Page
+
+
+.single-resume-container {
+    background-color: @single-resume-container-background-color;
+    .round;
+}
+
+.resume-header {
+    
+    .wp-post-image {
+        float: right;
+        background: #fff;
+        margin: 0 0 0 20px;
+    }
+
+
+}
+
+.application-job {
+    .su-box-title {
+        .Box-Title(#00914a,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.resume-statuses {
+    .su-box-title {
+        .Box-Title(#00914a,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+
+.attached_documents {
+    .su-box-title {
+        .Box-Title(#003300,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.skills-container {
+    .su-box-title {
+        .Box-Title(#13455B,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+    
+    ul li {
+        
+        display: inline;
+        
+    }
+}
+
+.degree-section {
+    .su-box-title {
+        .Box-Title(#6B0359,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.experience {
+    .su-box-title {
+        .Box-Title(#DE6F00,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.experience-chart {
+    .su-box-title {
+        .Box-Title(#DE6F00,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.wage-history-evaluation {
+    .su-box-title {
+        .Box-Title(#003300,#fff);
+    }
+    
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.reference-request-responses {
+    .su-box-title {
+        .Box-Title(#993300,#fff);
+    }
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.interview-video-container {
+    .video-interview-header {
+        .Box-Title(#000,#fff);
+    }
+
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+
+    iframe {
+        width: 100%;
+    }
+}
+
+.video-evaluation-container {
+    .su-box-title {
+        .Box-Title(#666699,#fff);
+    }
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+.location-container {
+     .su-box-title {
+        .Box-Title(#990000,#fff);
+    }
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+
+.final-evaluation-form {
+    .su-box-title {
+        .Box-Title(#008242,#fff);
+    }
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }   
+}
+
+.location {
+    .su-box-title {
+        .Box-Title(#990000,#fff);
+    }
+    .su-box-content {
+        .Box-Content(@resume-box-content-background-color);
+    }
+}
+
+//Sidebar User Notes
+.accordion-notes {
+    
+    list-style: none;
+
+    div {
+        .RandomColor();
+        background-color: @color;
+    }
+}
+
+
+// Edit Job
+
+.edit-job {
+    .edit-job-container {
+       background-color: #fbfbfb;
+       border-radius: 6px;
+       padding-top: 15px;
+    }
+
+    .user-options {
+        a {
+            display:none;
+        }
+    }
+}
+
+//For Login Page
+.login {
+    
+        .Gradient(@site-background-color,lighten(@site-background-color,2%)) !important; 
+    
+    
+    .login-container {
+        width: 90%;
+        margin: 0 auto;
+        
+        .login-form-header {
+            font-size: 18px;
+        } 
+        
+        label,p {
+            color: #fff;   
+        }
+        .submit {
+            color: #000;   
+        }
+    }
+}
+
+
+//Single Job 
+.single-job {
+    
+    ul {
+        list-style: none;
+    }
+
+    .user-options {
+        .user-edit {
+            .User-Options-button(@user-options-edit-button-color,@user-options-edit-button-text-color);
+        }
+
+        .admin-edit {
+            .User-Options-button(@user-options-edit-button-color,@user-options-edit-button-text-color);
+        }
+
+        .apply-for-job {
+            .User-Options-button(@user-options-apply-for-job-button-color,@user-options-apply-for-job-button-text-color,@user-options-apply-for-job-button-font-size);
+            float: right;
+        }
+
+        .job-print {
+            .User-Options-button(@user-options-edit-button-color,@user-options-edit-button-text-color);
+        }
+
+        .job-email {
+            .User-Options-button(@user-options-edit-button-color,@user-options-edit-button-text-color);
+        }
+    }
+    
+    .job-container {
+         background-color: #fbfbfb;
+         border-radius: 6px;
+         padding-top: 15px;
+         //border: 10px solid @single-resume-header-color;
+    }
+
+    .job-company-logo {
+        padding: 15px;
+    }
+
+    .job-details-title {
+        a {
+              color: #000;
+              text-decoration: none;
+              font-size: 26px;
+        }
+    }
+}
+
+//For Single Resume
+.single-resume {
+    
+    width: 85%;
+
+    .resume-container {
+      background-color: #fff;
+      border-radius: 6px;
+      
+      ul {
+       list-style: none;  
+      }
+
+      .resume-pic {
+        position: relative;
+        left: 15.33%;
+        border: 1px solid #DADBDD;
+        padding: 5px;
+        
+      }
+      
+      .posted-by-container {
+        .Resume-Sub-Header(@single-resume-header-color);
+       }
+
+      .contact-information {
+
+        li {
+            padding: 5px;
+        }
+    .su-box-title {
+         .Box-Title(#008242,#fff);
+    }
+}
+      .resume-title {
+        //.Resume-Title-Header(@single-resume-header-color);
+        //.Box-Shadow(@resume-box-shadow);
+        font-size: 42px;
+        font-weight: bold;
+      }
+    }
+}
+
+
+//For Career Map Table
+
+.career-map-table tbody tr td {
+    padding:10px;
+    border: 1px solid #000;
+    text-align: center !important;
+    
+}
+
+.career-map-table tbody tr td:first-child{
+    border: 0px solid transparent;
+    
+}
+
+.career-map-table tbody tr td:nth-child(2){
+    background-color:#D1E5FF; 
+    .Box-Shadow(@resume-box-shadow);
+}
+
+.career-map-table tbody tr td:nth-child(3){
+    background-color:#FFE8D1; 
+    .Box-Shadow(@resume-box-shadow);
+}  
+
+.career-map-table tbody tr td:nth-child(4){
+    background-color:#FFD6E7; 
+    .Box-Shadow(@resume-box-shadow);
+}  
+
+.career-map-table tbody tr:last-child td{
+    @career-map-box-shadow: 0px 0px 0px #888888;
+    background-color: #FFF4EA; 
+    .Box-Shadow(@career-map-box-shadow);
+}  
+
+.carreer-heading {
+    border: 0 !important;
+    padding: 0 !important;
+    font-weight: bolder !important;
+    font-size:15px;
+}
+
+.tags {
+    @color: #666;
+
+    background: @color;
+    background: -webkit-gradient(linear, left top, left bottom, from(@color), to(@color));
+  background: -webkit-linear-gradient(@color, @color);
+  background: -moz-linear-gradient(center top, @color 0%, @color 100%);
+  background: -moz-gradient(center top, @color 0%, @color 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=@color,endColorstr=@color);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=@color, endColorstr=@color)";
+  list-style: none;
+  -webkit-border-top-right-radius: 24px;
+  -webkit-border-bottom-right-radius: 24px;
+  -moz-border-radius-topright: 24px;
+  -moz-border-radius-bottomright: 24px;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0 0 0 1px #666;
+  -webkit-box-shadow: 0 0 0 1px #666;
+  -moz-box-shadow: 0 0 0 1px #666;
+  -o-box-shadow: 0 0 0 1px #666;
+  color: #fefefe;
+  padding: 0 2px 0 4px;
+  margin: 0 6px 0 0;
+  -webkit-transition: all ease-in-out 0.2s;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+
+//For SlickQuiz
+
+.startQuiz {
+    margin-top: 40px;
+}
+
+.tryAgain {
+    float: none;
+    margin: 20px 0;
+}
+
+/* clearfix */
+.quizArea, .quizResults {
+    zoom: 1;
+}
+.quizArea:before, .quizArea:after, .quizResults:before, .quizResults:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    font-size: 0;
+}
+.quizArea:after, .quizResults:after {
+    clear: both;
+}
+
+.questionCount {
+    font-size: 14px;
+    font-style: italic;
+}
+.questionCount span {
+    font-weight: bold;
+}
+
+ol.questions {
+    margin-top: 20px;
+    margin-left: 0;
+}
+ol.questions li {
+    margin-left: 0;
+}
+
+ul.answers {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+ul.responses li {
+    margin: 10px 20px 20px;
+}
+ul.responses li p span {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+}
+.complete ul.answers li.correct, ul.responses li.correct p span {
+    color: #6C9F2E;
+}
+ul.responses li.incorrect p span {
+    color: #B5121B;
+}
+
+.quizResults h3 {
+    margin: 0;
+}
+.quizResults h3 span {
+    font-weight: normal;
+    font-style: italic;
+}
+.quizResultsCopy {
+    clear: both;
+    margin-top: 20px;
+}
+
+//For Employer Test Tab
+
+#employer-test-tab {
+   
+    .row .panel {
+        .Box-Shadow(@resume-box-shadow);
+    }
+
+    .question-list {
+        li {
+            label {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .create-test-field {
+        
+    }
+
+    .test-options {
+        font-size: 11px;
+    }
+   
+}
+
+ .add-question-form {
+        .fa-clock-o {
+            font-size: 35px;
+            float: left;
+        }
+        
+        .random-answers {
+            padding: 15px;
+        }
+
+        textarea {
+            display: none;
+        }
+
+        
+    }
