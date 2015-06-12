@@ -256,6 +256,61 @@ $(".duplicate-test").click(function () {
 
 });
 
+$(".edit-job").click(function(){
+   
+    var site_url = $(".site-url").val();
+    var edit_job_form = site_url + '/jobtc-jobs/edit-job-form.php';
+
+    BootstrapDialog.show({
+        title: 'Edit Job',
+        size: 'size-wide',
+        message: function (dialog) {
+            var $message = $('<div></div>');
+            var pageToLoad = dialog.getData('pageToLoad');
+            $message.load(pageToLoad);
+
+            return $message;
+        },
+        buttons: [{
+                label: 'Save',
+                action: function (dialog) {
+                    var formData = $(".edit-job-form").serialize();
+                    var ajaxurl = $(".ajax-url").val();
+                    
+                    //var ajaxurl = "/wp-admin/admin-ajax.php";
+                    $.ajax({
+                        url: ajaxurl,
+                        type: "POST",
+                        data: formData + "&action=save_job",
+                        beforeSend: function () {
+
+                        },
+                        success: function () {
+                            BootstrapDialog.alert('success');
+                            dialog.close();
+                        },
+                        error: function (xhr, status, error) {
+                            //alert(xhr.responseText);
+                        }
+                    }); //ajax
+                }
+            }, {
+                label: 'Close',
+                action: function (dialog) {
+                    dialog.close();
+                }
+            }],
+        data: {
+            'pageToLoad': edit_job_form
+        },
+        onshown: function () {
+            $.getScript('http://tinymce.cachefly.net/4.1/tinymce.min.js');
+            tinymce.init({selector: 'textarea'});
+        }
+    });
+    
+});
+
 
 $(".edit-resume").click(function () {
 
