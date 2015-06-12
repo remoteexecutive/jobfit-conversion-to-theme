@@ -703,6 +703,10 @@ function resume_delete() {
     }
 }
 
+
+/*
+ * Function for saving the resume( Saved via AJAX) 
+ **/
 function save_resume() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'resume';
@@ -727,7 +731,7 @@ function save_resume() {
         $skills = $_POST['skills'];
         $interview_video_link = $_POST['interview_video_link'];
 
-        $user_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE user_id in ($user_id)");
+        $user_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE user_id in (".$user_id->ID.")");
 
         if ($user_count > 0) {
 
@@ -749,7 +753,7 @@ function save_resume() {
                 'skills' => $skills,
                 'interview_video_link' => $interview_video_link
                     ), 
-                array('user_id' => $user_id), 
+                array('user_id' => $user_id->ID), 
                 array(
                 '%s', //rate
                 '%s', //currency
@@ -773,7 +777,7 @@ function save_resume() {
         } else {
 
             $wpdb->insert('wp_resume', array(
-                'user_id' => $user_id,
+                'user_id' => $user_id->ID,
                 'rate' => $rate,
                 'currency' => $currency,
                 'location' => $location,
@@ -792,28 +796,6 @@ function save_resume() {
                 'interview_video_link' => $interview_video_link
             ));
             
-            if ($wpdb->insert('wp_resume', array(
-                'user_id' => $user_id,
-                'rate' => $rate,
-                'currency' => $currency,
-                'location' => $location,
-                'email' => $email,
-                'phone' => $phone,
-                'mobile' => $mobile,
-                'skype' => $skype,
-                'resume_photo' => $resume_photo,
-                'resume_doc' => $resume_doc,
-                'additional_doc' => $additional_doc,
-                'overall_average' => $overall_average,
-                'degree' => $degree,
-                'institution' => $institution,
-                'year_issued' => $year_issued,
-                'skills' => $skills,
-                'interview_video_link' => $interview_video_link
-            ))) {
-                
-                echo "";
-            }
         }
     }
     return true;
