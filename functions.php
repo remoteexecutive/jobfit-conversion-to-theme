@@ -232,6 +232,7 @@ resume_photo varchar(255),
 resume_doc varchar(255),
 additional_doc varchar(255),
 overall_average varchar(255),
+transcripts varchar(255),
 degree varchar(255),
 institution varchar(255),
 year_issued varchar(255),
@@ -269,7 +270,8 @@ function create_career_map_table() {
     $table_name = $wpdb->prefix . 'career_map';
     $sql = "CREATE TABLE $table_name (
 career_map_id bigint(20) NOT NULL AUTO_INCREMENT,
-resume_id bigint(20),
+user_id bigint(20),
+employment varchar(255),
 company varchar(255),
 position varchar(255),
 start_date varchar(255),
@@ -288,6 +290,8 @@ reference_position varchar(255),
 notes varchar(255),
 UNIQUE KEY id (career_map_id)
 ) $charset_collate;";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta($sql);
 }
 
 function create_job_table() {
@@ -553,6 +557,7 @@ function remove_roles_on_theme_deactivation() {
 
 add_action("switch_theme", "remove_roles_on_theme_deactivation", 10, 2);
 
+
 /*
  * Get Resumes for dashboard loop
  * */
@@ -627,8 +632,8 @@ add_action('wp_ajax_post_comment_ajax', 'post_comment_ajax');
 add_action('wp_ajax_send_email_ajax', 'send_email_ajax');
 add_action('wp_ajax_apply_for_job', 'apply_for_job');
 add_action('wp_ajax_save_resume', 'save_resume');
+add_action('wp_ajax_save_career_map', 'save_career_map');
 add_action('wp_ajax_save_job', 'save_job');
-
 
 function apply_for_job() {
 
@@ -712,7 +717,7 @@ function save_job() {
     $table_name = $wpdb->prefix . 'job';
 
     if ($_POST) {
-        
+
         $user_id = wp_get_current_user();
         $job_id = $_POST['job_id'];
         $company = $_POST['company'];
@@ -724,13 +729,13 @@ function save_job() {
         $location = $_POST['location'];
         $job_description = $_POST['job_description'];
         $job_video_link = $_POST['job_video_link'];
-      
+
         $job_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE job_id in (" . $job_id . ")");
 
         if ($job_count > 0) {
 
             $wpdb->update($table_name, array(
-               'company' => $company,
+                'company' => $company,
                 'website' => $website,
                 'logo' => $logo,
                 'job_title' => $job_title,
@@ -739,7 +744,7 @@ function save_job() {
                 'location' => $location,
                 'job_description' => $job_description,
                 'job_video_link' => $job_video_link
-                    ), array('user_id' => $user_id->ID,'job_id' => $job_id), array(
+                    ), array('user_id' => $user_id->ID, 'job_id' => $job_id), array(
                 '%s', //company
                 '%s', //website
                 '%s', //logo
@@ -749,8 +754,7 @@ function save_job() {
                 '%s', //location
                 '%s', //job description
                 '%s', //job video link
-                    ), 
-                array(
+                    ), array(
                 '%d', //user id
                 '%d' //job id
                     )
@@ -781,7 +785,9 @@ function save_job() {
 function save_resume() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'resume';
-
+    $career_map_table = $wpdb->prefix . 'career_map';
+    
+    
     if ($_POST) {
 
         $user_id = wp_get_current_user();
@@ -796,15 +802,76 @@ function save_resume() {
         $resume_doc = $_POST['resume_doc'];
         $additional_doc = $_POST['additional_doc'];
         $overall_average = $_POST['overall_average'];
+        $transcripts = $_POST['transcripts'];
         $degree = $_POST['degree'];
         $institution = $_POST['institution'];
         $year_issued = $_POST['year_issued'];
         $skills = $_POST['skills'];
         $interview_video_link = $_POST['interview_video_link'];
 
+          //Most Recent
+        $career_map_employment_1 = $_POST['career_map_employment_1'];
+        $career_map_company_1 = $_POST['career_map_company_1'];
+        $career_map_position_1 = $_POST['career_map_position_1'];
+        $career_map_start_date_1 = $_POST['career_map_start_date_1'];
+        $career_map_end_date_1 = $_POST['career_map_end_date_1'];
+        $career_map_job_type_1 = $_POST['career_map_job_type_1'];
+        $career_map_city_1 = $_POST['career_map_city_1'];
+        $career_map_country_1 = $_POST['career_map_country_1'];
+        $career_map_reason_for_leaving_1 = $_POST['career_map_reason_for_leaving_1'];
+        $career_map_salary_type_1 = $_POST['career_map_salary_type_1'];
+        $career_map_starting_salary_1 = $_POST['career_map_starting_salary_1'];
+        $career_map_final_salary_1 = $_POST['career_map_final_salary_1'];
+        $career_map_reference_name_1 = $_POST['career_map_reference_name_1'];
+        $career_map_reference_email_1 = $_POST['career_map_reference_email_1'];
+        $career_map_reference_phone_number_1 = $_POST['career_map_reference_phone_number_1'];
+        $career_map_reference_position_1 = $_POST['career_map_reference_position_1'];
+        $career_map_reference_notes_1 = $_POST['career_map_reference_notes_1'];
+        
+        //2nd Last
+        $career_map_employment_2 = $_POST['career_map_employment_2'];
+        $career_map_company_2 = $_POST['career_map_company_2'];
+        $career_map_position_2 = $_POST['career_map_position_2'];
+        $career_map_start_date_2 = $_POST['career_map_start_date_2'];
+        $career_map_end_date_2 = $_POST['career_map_end_date_2'];
+        $career_map_job_type_2 = $_POST['career_map_job_type_2'];
+        $career_map_city_2 = $_POST['career_map_city_2'];
+        $career_map_country_2 = $_POST['career_map_country_2'];
+        $career_map_reason_for_leaving_2 = $_POST['career_map_reason_for_leaving_2'];
+        $career_map_salary_type_2 = $_POST['career_map_salary_type_2'];
+        $career_map_starting_salary_2 = $_POST['career_map_starting_salary_2'];
+        $career_map_final_salary_2 = $_POST['career_map_final_salary_2'];
+        $career_map_reference_name_2 = $_POST['career_map_reference_name_2'];
+        $career_map_reference_email_2 = $_POST['career_map_reference_email_2'];
+        $career_map_reference_phone_number_2 = $_POST['career_map_reference_phone_number_2'];
+        $career_map_reference_position_2 = $_POST['career_map_reference_position_2'];
+        $career_map_reference_notes_2 = $_POST['career_map_reference_notes_2'];
+        
+        //3rd Last
+        $career_map_employment_3 = $_POST['career_map_employment_3'];
+        $career_map_company_3 = $_POST['career_map_company_3'];
+        $career_map_position_3 = $_POST['career_map_position_3'];
+        $career_map_start_date_3 = $_POST['career_map_start_date_3'];
+        $career_map_end_date_3 = $_POST['career_map_end_date_3'];
+        $career_map_job_type_3 = $_POST['career_map_job_type_3'];
+        $career_map_city_3 = $_POST['career_map_city_3'];
+        $career_map_country_3 = $_POST['career_map_country_3'];
+        $career_map_reason_for_leaving_3 = $_POST['career_map_reason_for_leaving_3'];
+        $career_map_salary_type_3 = $_POST['career_map_salary_type_3'];
+        $career_map_starting_salary_3 = $_POST['career_map_starting_salary_3'];
+        $career_map_final_salary_3 = $_POST['career_map_final_salary_3'];
+        $career_map_reference_name_3 = $_POST['career_map_reference_name_3'];
+        $career_map_reference_email_3 = $_POST['career_map_reference_email_3'];
+        $career_map_reference_phone_number_3 = $_POST['career_map_reference_phone_number_3'];
+        $career_map_reference_position_3 = $_POST['career_map_reference_position_3'];
+        $career_map_reference_notes_3 = $_POST['career_map_reference_notes_3'];
+        
+        
         $user_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE user_id in (" . $user_id->ID . ")");
-
-        if ($user_count > 0) {
+        $career_map_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $career_map_table WHERE user_id in (" . $user_id->ID . ")"); 
+        
+        
+        if ($user_count > 0 ) {
 
             $wpdb->update($table_name, array(
                 'rate' => $rate,
@@ -818,6 +885,7 @@ function save_resume() {
                 'resume_doc' => $resume_doc,
                 'additional_doc' => $additional_doc,
                 'overall_average' => $overall_average,
+                'transcripts' => $transcripts,
                 'degree' => $degree,
                 'institution' => $institution,
                 'year_issued' => $year_issued,
@@ -842,6 +910,7 @@ function save_resume() {
                 '%s', //interview_video_link
                     ), array('%d')
             );
+            
         } else {
 
             $wpdb->insert($table_name, array(
@@ -863,8 +932,198 @@ function save_resume() {
                 'skills' => $skills,
                 'interview_video_link' => $interview_video_link
             ));
+            
         }
+        
+        if ($career_map_count > 0) {
+
+            //Update Most Recent
+            $wpdb->update($career_map_table, array(
+                'company' => $career_map_company_1,
+                'position' => $career_map_position_1,
+                'start_date' => $career_map_start_date_1,
+                'end_date' => $career_map_end_date_1,
+                'job_type' => $career_map_job_type_1,
+                'city' => $career_map_city_1,
+                'country' => $career_map_country_1,
+                'reason_for_leaving' => $career_map_reason_for_leaving_1,
+                'salary_type' => $career_map_salary_type_1,
+                'starting_salary' => $career_map_starting_salary_1,
+                'final_salary' => $career_map_final_salary_1,
+                'reference_name' => $career_map_reference_name_1,
+                'reference_email' => $career_map_reference_email_1,
+                'reference_phone_number' => $career_map_reference_phone_number_1,
+                'reference_position' => $career_map_reference_position_1,
+                'notes' => $career_map_reference_notes_1
+                    ), array('user_id' => $user_id->ID,'employment' => 'Most Recent'), array(
+                '%s', //company
+                '%s', //position
+                '%s', //start_date
+                '%s', //end_date
+                '%s', //job type
+                '%s', //city
+                '%s', //country
+                '%s', //reason for leaving
+                '%s', //salary type
+                '%s', //starting salary
+                '%s', //final salary
+                '%s', //reference name
+                '%s', //reference email
+                '%s', //reference phone number
+                '%s', //reference position
+                '%s', //reference notes
+                    ), array('%d','%s')
+            );
+            
+              //Update 2nd Last
+            $wpdb->update($career_map_table, array(
+                'company' => $career_map_company_2,
+                'position' => $career_map_position_2,
+                'start_date' => $career_map_start_date_2,
+                'end_date' => $career_map_end_date_2,
+                'job_type' => $career_map_job_type_2,
+                'city' => $career_map_city_2,
+                'country' => $career_map_country_2,
+                'reason_for_leaving' => $career_map_reason_for_leaving_2,
+                'salary_type' => $career_map_salary_type_2,
+                'starting_salary' => $career_map_starting_salary_2,
+                'final_salary' => $career_map_final_salary_2,
+                'reference_name' => $career_map_reference_name_2,
+                'reference_email' => $career_map_reference_email_2,
+                'reference_phone_number' => $career_map_reference_phone_number_2,
+                'reference_position' => $career_map_reference_position_2,
+                'notes' => $career_map_reference_notes_2
+                    ), array('user_id' => $user_id->ID,'employment' => '2nd Last'), array(
+                '%s', //company
+                '%s', //position
+                '%s', //start_date
+                '%s', //end_date
+                '%s', //job type
+                '%s', //city
+                '%s', //country
+                '%s', //reason for leaving
+                '%s', //salary type
+                '%s', //starting salary
+                '%s', //final salary
+                '%s', //reference name
+                '%s', //reference email
+                '%s', //reference phone number
+                '%s', //reference position
+                '%s', //reference notes
+                    ), array('%d','%s')
+            );
+            
+              //Update 3rd Last
+            $wpdb->update($career_map_table, array(
+                'company' => $career_map_company_3,
+                'position' => $career_map_position_3,
+                'start_date' => $career_map_start_date_3,
+                'end_date' => $career_map_end_date_3,
+                'job_type' => $career_map_job_type_3,
+                'city' => $career_map_city_3,
+                'country' => $career_map_country_3,
+                'reason_for_leaving' => $career_map_reason_for_leaving_3,
+                'salary_type' => $career_map_salary_type_3,
+                'starting_salary' => $career_map_starting_salary_3,
+                'final_salary' => $career_map_final_salary_3,
+                'reference_name' => $career_map_reference_name_3,
+                'reference_email' => $career_map_reference_email_3,
+                'reference_phone_number' => $career_map_reference_phone_number_3,
+                'reference_position' => $career_map_reference_position_3,
+                'notes' => $career_map_reference_notes_3
+                    ), array('user_id' => $user_id->ID,'employment' => '3rd Last'), array(
+                '%s', //company
+                '%s', //position
+                '%s', //start_date
+                '%s', //end_date
+                '%s', //job type
+                '%s', //city
+                '%s', //country
+                '%s', //reason for leaving
+                '%s', //salary type
+                '%s', //starting salary
+                '%s', //final salary
+                '%s', //reference name
+                '%s', //reference email
+                '%s', //reference phone number
+                '%s', //reference position
+                '%s', //reference notes
+                    ), array('%d','%s')
+            );
+            
+            
+        } else {
+            
+            //Save Most Recent
+            $wpdb->insert($career_map_table, array(
+                'user_id' => $user_id->ID,
+                'employment' => 'Most Recent',
+                'company' => $career_map_company_1,
+                'position' => $career_map_position_1,
+                'start_date' => $career_map_start_date_1,
+                'end_date' => $career_map_end_date_1,
+                'job_type' => $career_map_job_type_1,
+                'city' => $career_map_city_1,
+                'country' => $career_map_country_1,
+                'reason_for_leaving' => $career_map_reason_for_leaving_1,
+                'salary_type' => $career_map_salary_type_1,
+                'starting_salary' => $career_map_starting_salary_1,
+                'final_salary' => $career_map_final_salary_1,
+                'reference_name' => $career_map_reference_name_1,
+                'reference_email' => $career_map_reference_email_1,
+                'reference_phone_number' => $career_map_reference_phone_number_1,
+                'reference_position' => $career_map_reference_position_1,
+                'notes' => $career_map_reference_notes_1
+            ));
+            
+            
+            //Save 2nd Last
+            $wpdb->insert($career_map_table, array(
+                'user_id' => $user_id->ID,
+                'employment' => '2nd Last',
+                'company' => $career_map_company_2,
+                'position' => $career_map_position_2,
+                'start_date' => $career_map_start_date_2,
+                'end_date' => $career_map_end_date_2,
+                'job_type' => $career_map_job_type_2,
+                'city' => $career_map_city_2,
+                'country' => $career_map_country_2,
+                'reason_for_leaving' => $career_map_reason_for_leaving_2,
+                'salary_type' => $career_map_salary_type_2,
+                'starting_salary' => $career_map_starting_salary_2,
+                'final_salary' => $career_map_final_salary_2,
+                'reference_name' => $career_map_reference_name_2,
+                'reference_email' => $career_map_reference_email_2,
+                'reference_phone_number' => $career_map_reference_phone_number_2,
+                'reference_position' => $career_map_reference_position_2,
+                'notes' => $career_map_reference_notes_2
+            ));
+            
+            //Save 3rd Last
+            $wpdb->insert($career_map_table, array(
+                'user_id' => $user_id->ID,
+                'employment' => '3rd Last',
+                'company' => $career_map_company_3,
+                'position' => $career_map_position_3,
+                'start_date' => $career_map_start_date_3,
+                'end_date' => $career_map_end_date_3,
+                'job_type' => $career_map_job_type_3,
+                'city' => $career_map_city_3,
+                'country' => $career_map_country_3,
+                'reason_for_leaving' => $career_map_reason_for_leaving_3,
+                'salary_type' => $career_map_salary_type_3,
+                'starting_salary' => $career_map_starting_salary_3,
+                'final_salary' => $career_map_final_salary_3,
+                'reference_name' => $career_map_reference_name_3,
+                'reference_email' => $career_map_reference_email_3,
+                'reference_phone_number' => $career_map_reference_phone_number_3,
+                'reference_position' => $career_map_reference_position_3,
+                'notes' => $career_map_reference_notes_3
+            ));
+        }
+        
     }
+    
     return true;
 }
 
@@ -873,7 +1132,7 @@ function save_video_evaluation() {
     /*
       Ajax Save Evaluation
      */
-    global $wpdb, $post;
+    global $wpdb;
 
     if ($_POST) {
         $employer_id = wp_get_current_user();
@@ -961,6 +1220,8 @@ function save_video_evaluation() {
             ));
         }
     }
+    
+    
     return true;
 }
 
@@ -1616,3 +1877,5 @@ function jobfit_login_after_register($user_id) {
 }
 
 add_action('user_register', 'jobfit_login_after_register');
+
+

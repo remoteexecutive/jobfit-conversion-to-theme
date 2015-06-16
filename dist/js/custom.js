@@ -286,7 +286,7 @@ $(".edit-job").click(function(){
 
                         },
                         success: function () {
-                            BootstrapDialog.alert('success');
+                            BootstrapDialog.alert('Saved Job');
                             dialog.close();
                         },
                         error: function (xhr, status, error) {
@@ -342,7 +342,7 @@ $(".edit-resume").click(function () {
 
                         },
                         success: function () {
-                            BootstrapDialog.alert('success');
+                            BootstrapDialog.alert('Saved Resume');
                             dialog.close();
                         },
                         error: function (xhr, status, error) {

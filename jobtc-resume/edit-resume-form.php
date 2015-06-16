@@ -1,24 +1,67 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/jobtc-3/wp-blog-header.php');
+
+//Get the current user info
+global $current_user;
+get_currentuserinfo();
+
+$name = $current_user->user_firstname . " " . $current_user->user_lastname;
+
+//Get data from wp Resume
+global $wpdb;
+$user_id = wp_get_current_user();
+$resume_table = $wpdb->prefix . 'resume';
 
 
-resume_id	
-user_id	
-rate	
-currency	
-location	
-email	
-phone	
-mobile	
-skype	
-resume_photo	
-resume_doc	
-additional_doc	
-overall_average	
-degree	
-institution	
-year_issued	
-skills	
-interview_video_link	
+$resume_sql = " SELECT 
+                a.resume_id,
+                a.user_id,	
+                a.rate,	
+                a.currency,	
+                a.location,	
+                a.email,	
+                a.phone,	
+                a.mobile,	
+                a.skype,	
+                a.resume_photo,	
+                a.resume_doc,	
+                a.additional_doc,	
+                a.overall_average,
+                a.transcripts,
+                a.degree,	
+                a.institution,	
+                a.year_issued,	
+                a.skills,	
+                a.interview_video_link
+        from $resume_table a WHERE user_id in (%d)";
 
+
+$resume_prepared_statement = $wpdb->prepare($resume_sql, $user_id->ID);
+$resume = $wpdb->get_results($resume_prepared_statement);
+
+foreach ($resume as $resume_data) {
+
+    $resume_id = $resume_data->resume_id;
+    $user_id = $resume_data->user_id;
+    $rate = $resume_data->rate;
+    $currency = $resume_data->currency;
+    $location = $resume_data->location;
+    $email = $resume_data->email;
+    $phone = $resume_data->phone;
+    $mobile = $resume_data->mobile;
+    $skype = $resume_data->skype;
+    $resume_photo = $resume_data->resume_photo;
+    $resume_doc = $resume_data->resume_doc;
+    $additional_doc = $resume_data->additional_doc;
+    $overall_average = $resume_data->overall_average;
+    $transcripts = $resume_data->transcripts;
+    $degree = $resume_data->degree;
+    $institution = $resume_data->institution;
+    $year_issued = $resume_data->year_issued;
+    $skills = $resume_data->skills;
+    $interview_video_link = $resume_data->interview_video_link;
+}
+?>
 
 <div class="row">
     <div class="edit-resume-container col-md-12">
@@ -30,7 +73,7 @@ interview_video_link
                     <fieldset>
                         <p class="optional">
                             <label for="desired_salary">Hourly Rate or Yearly Salary</label> 
-                            <input type="text" class="text" name="rate" id="desired_salary" placeholder="e.g. 10" value="">
+                            <input type="text" class="text" name="rate" id="desired_salary" placeholder="e.g. 10" value="<?php echo $rate; ?>">
                         </p>
                         <p class="optional">
                             <label for="currency">Currency</label>
@@ -154,30 +197,30 @@ interview_video_link
 
                         <h2>Your Contact Details</h2>
                         <p class="optional">
-                            <label for="email_address">Email Address</label> 
-                            <input type="text" class="text" name="email" value="test@emial.com" id="email_address" placeholder="you@yourdomain.com">
+                            <label for="email">Email Address</label> 
+                            <input type="text" class="text" name="email" value="<?php echo $email; ?>" id="email_address" placeholder="you@yourdomain.com">
                         </p>
                         <p class="optional">
                             <label for="tel">Telephone</label> 
-                            <input type="text" class="text" name="phone" value="123456" id="tel" placeholder="Telephone including area code">
+                            <input type="text" class="text" name="phone" value="<?php echo $phone; ?>" id="tel" placeholder="Telephone including area code">
                         </p>
                         <p class="optional">
                             <label for="mobile">Mobile</label> 
-                            <input type="text" class="text" name="mobile" value="123456" id="mobile" placeholder="Mobile number">
+                            <input type="text" class="text" name="mobile" value="<?php echo $mobile; ?>" id="mobile" placeholder="Mobile number">
                         </p>
                         <p class="optional">
                             <label for="mobile">Skype</label> 
-                            <input type="text" class="text" name="skype" value="tmcgregor" id="skype" placeholder="Skype ID">
+                            <input type="text" class="text" name="skype" value="<?php echo $skype; ?>" id="skype" placeholder="Skype ID">
                         </p>
                         <br>
                         <br>
                         <h2>Resume Photo and Uploads</h2>
                         <p class="optional">
                             <label for="your-photo">Resume Photo</label> 
-                            <input type="file" class="text" name="resume_photo" id="your-photo"></p>
+                            <input type="file" class="text" name="resume_photo" id="your-photo" value="<?php echo $resume_photo; ?>"></p>
                         <p class="optional">
                             <label for="your-resume">Resume(.doc or .docx)</label> 
-                            <input type="file" class="text" name="resume_doc" id="your-resume">
+                            <input type="file" class="text" name="resume_doc" id="your-resume" value="<?php echo $resume_doc; ?>">
                         </p>
                     </fieldset>
                     <br>
@@ -189,7 +232,7 @@ interview_video_link
                                 <input id="geolocation-load" type="button" class="button geolocationadd submit" value="Find Address/Location">
                             </label>
 
-                            <input type="text" class="text" name="location" id="geolocation-address" value="Oshawa, Ontario, Canada">
+                            <input type="text" class="text" name="location" id="geolocation-address" value="<?php echo $location; ?>">
                             <input type="hidden" class="text" name="location_latitude" id="geolocation-latitude" value="">
                             <input type="hidden" class="text" name="location_longitude" id="geolocation-longitude" value="">
                         </p>
@@ -201,732 +244,685 @@ interview_video_link
 
                     <legend>Overall Average, Last Year of Studies</legend>
 
-                    <input type="radio" name="overall_average" value="below 70%">
-                    <label class="overall_average">Below 70%</label>
+                    <?php if ($overall_average == "below 70%") { ?>
+                        <input type="radio" checked="checked" name="overall_average" value="below 70%">
+                        <label class="overall_average">Below 70%</label>
+                    <?php } else { ?>
+                        <input type="radio" name="overall_average" value="below 70%">
+                        <label class="overall_average">Below 70%</label>
+                    <?php } ?>
 
-                    <input checked="checked" type="radio" name="overall_average" value="70% - 80%">
+                    <?php if ($overall_average == "70% - 80%") { ?>
+                        <input type="radio" checked="checked" name="overall_average" value="70% - 80%">
+                        <label class="overall_average">70% - 80%</label>
+                    <?php } else { ?>
+                        <input type="radio" name="overall_average" value="70% - 80%">
+                        <label class="overall_average">70% - 80%</label>
+                    <?php } ?>
 
-                    <label class="overall_average">70% - 80%</label>
+                    <?php if ($overall_average == "80% - 90%") { ?>
+                        <input type="radio" checked="checked" name="overall_average" value="80% - 90%">
+                        <label class="overall_average">80% - 90%</label>
+                    <?php } else { ?>
+                        <input type="radio" name="overall_average" value="80% - 90%">
+                        <label class="overall_average">80% - 90%</label>
+                    <?php } ?>    
 
-                    <input type="radio" name="overall_average" value="80% - 90%">
-                    <label class="overall_average">80% - 90%</label>
+                    <?php if ($overall_average == "90% - 95%") { ?>
+                        <input type="radio" checked="checked" name="overall_average" value="90% - 95%">
+                        <label class="overall_average">90% - 95%</label>
+                    <?php } else { ?>
+                        <input type="radio" name="overall_average" value="90% - 95%">
+                        <label class="overall_average">90% - 95%</label>
+                    <?php } ?>        
 
-                    <input type="radio" name="overall_average" value="90% - 95%">
-                    <label class="overall_average">90% - 95%</label>
-
-                    <input type="radio" name="overall_average" value="95% - 100%">
-                    <label class="overall_average">95% - 100%</label>
+                    <?php if ($overall_average == "95% - 100%") { ?>
+                        <input type="radio" checked="checked" name="overall_average" value="95% - 100%">
+                        <label class="overall_average">95% - 100%</label>
+                    <?php } else { ?>
+                        <input type="radio" name="overall_average" value="95% - 100%">
+                        <label class="overall_average">95% - 100%</label>
+                    <?php } ?>    
                     <br>
                     <label>&nbsp;&nbsp;I have transcripts</label>
-                    <input checked="checked" type="checkbox" name="transcripts" value="Yes">
+
+                    <?php if ($transcripts == 'Yes') {
+                        ?>
+                        <input checked="checked" type="checkbox" name="transcripts" value="Yes">
+                    <?php } else { ?>
+                        <input type="checkbox" name="transcripts" value="Yes">
+                    <?php } ?>
                     <br>
-                    <p class="optional"><label for="degree">Degree</label> <input type="text" class="text" name="degree" id="degree" value="Bachelor of Science in Information Technology"></p>
+                    <p class="optional"><label for="degree">Degree</label> <input type="text" class="text" name="degree" id="degree" value="<?php echo $degree; ?>"></p>
 
-                    <p class="optional"><label for="institution">Institution</label> <input type="text" class="text" name="institution" id="institution" value="Harvard"></p>
-
-                    <p class="optional">
-                        <label for="year_issued">Year Issued</label>
-                        <input class="text" type="text" name="year_issued" value="1995" id="degree_date_issued" placeholder="Year Issued">   
+                    <p class="optional"><label for="institution">Institution</label> 
+                        <input type="text" class="text" name="institution" id="institution" value="<?php echo $institution; ?>">
                     </p>
 
                     <p class="optional">
-                        <label for="specialities">Separated with a comma e.g. AutoCAD Advanced, Flash basics, Typing 80 WPM, Simply Accounting Advanced</label> 
-                        <input type="text" class="tags text tag-input-commas" data-separator="," name="specialities" id="specialities" placeholder="e.g. Public Speaking, Team Management" value="c++.C#, flash, HTML, Illustrator, java, JQuery, Photoshop, PHP, SQL" style="display: none;">
-                    <ul class="taglist">
-                        <li class="tag">
-                            <span>c++.C#</span> 
-                            <a tabindex="-1" class="delete"><span>[X]</span></a>
-                        </li>
-                    </ul>
+                        <label for="year_issued">Year Issued</label>
+                        <input class="text" type="text" name="year_issued" value="<?php echo $year_issued; ?>" id="degree_date_issued" placeholder="Year Issued">   
+                    </p>
+
+                    <p class="optional">
+                        <label for="skills">Separated with a comma e.g. AutoCAD Advanced, Flash basics, Typing 80 WPM, Simply Accounting Advanced</label> 
+                        <input type="text" class="text" data-separator="," name="skills" class="skills" placeholder="e.g. Public Speaking, Team Management" value="<?php echo $skills; ?>">
                     <p class="optional">
                         <label for="misc-documents">Document Uploads</label> 
-                        <input type="file" class="text" name="additional_doc" id="misc-documents">
+                        <input type="file" class="text" name="additional_doc" id="misc-documents" value="<?php echo $additional_doc; ?>">
                     </p>
 
                     <h2>Career Map</h2>
 
                     <!--Reference 1-->   
 
-                    <h3>Most Recent Employment</h3>
-
-                    <p class="optional">
-                        <label for="company_1_position">Position</label> 
-                        <input type="text" class="text" name="company_1_position" value="Lead Program Developer" id="company_1_position" placeholder="Position">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_1_start_date">Start Date</label>
-                        <input class="text" type="date" name="company_1_start_date" value="2010-01-12" id="company_1_start_date" placeholder="Start Date">   
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_1_end_date">End Date</label>
-                        <input class="text" type="date" name="company_1_end_date" value="2015-01-08" id="company_1_start_date" placeholder="Start Date">   
-                    </p>
-
-
-                    <p class="optional">
-                        <label for="company_1_job_type">Job Type</label>
-                        <select class="company_1_job_type" name="company_1_job_type"> 
-                            <option selected="selected">Full-Time</option>
-
-
-                            <option>Part-Time</option>
-
-                        </select>
-                    </p>
-
-                    <p class="optional"><label for="company_1_company">Company</label> <input type="text" class="text" name="company_1_company" value="Clarin LTD" id="company_1_company" placeholder="Company"></p>
-
-                    <p class="optional"><label for="company_1_city">City</label> <input type="text" class="text" name="company_1_city" value="Toronto" id="company_1_city" placeholder="City"></p>
-
-                    <p class="optional"><label for="company_1_country">Country</label> <input type="text" class="text" name="company_1_country" value="Canada" id="company_1_country" placeholder="Country"></p>
-
-                    <p class="optional">
-                        <label for="company_1_reason_for_leaving">Reason for Leaving</label>
-                        <select class="company_1_reason_for_leaving" name="company_1_reason_for_leaving"> 
-                            <option selected="selected">Career change</option>
-                            <option>Career growth</option>
-                            <option>Change in career path</option>
-                            <option>Company cut backs</option>
-                            <option>Company downsized</option>
-                            <option>Company went out of business</option>
-                            <option>Family circumstances</option>
-                            <option>Family reasons</option>
-                            <option>Flexible schedule</option>
-                            <option>Getting married</option>
-                            <option>Hours reduced</option>
-                            <option>Job was outsourced</option>
-                            <option>Good career opportunity</option>
-                            <option>Good reputation and opportunity at the new company</option>
-                            <option>Laid off</option>
-                            <option>Landed a higher paying job</option>
-                            <option>Limited growth at company</option>
-                            <option>Long commute</option>
-                            <option>Looking for a new challenge</option>
-                            <option>Needed a full-time position</option>
-                            <option>New challenge</option>
-                            <option>Not compatible with company goals</option>
-                            <option>Not enough hours</option>
-                            <option>Not enough work or challenge</option>
-                            <option>Offered a permanent position</option>
-                            <option>Personal reasons</option>
-                            <option>Position eliminated</option>
-                            <option>Position ended</option>
-                            <option>Relocating</option>
-                            <option>Reorganization or merger</option>
-                            <option>Retiring</option>
-                            <option>Seasonal position</option>
-                            <option>Seeking a challenge</option>
-                            <option>Seeking more responsibility</option>
-                            <option>Staying home to raise a family</option>
-                            <option>Summer job</option>
-                            <option>Temporary job</option>
-                            <option>Travel</option>
-                            <option>Went back to school</option>
-                            <option>About to get fired</option>
-                            <option>Arrested</option>
-                            <option>Bad company to work for</option>
-                            <option>Bored at work</option>
-                            <option>Childcare issues</option>
-                            <option>Didn't get along with co-workers</option>
-                            <option>Didn't like the schedule</option>
-                            <option>Didn't want to work as many hours</option>
-                            <option>Didn't want to work evening or weekends</option>
-                            <option>Hated my boss</option>
-                            <option>Hated my job</option>
-                            <option>Injured</option>
-                            <option>Job was too difficult</option>
-                            <option>Let go for harassment</option>
-                            <option>Let go for tardiness</option>
-                            <option>Manager was stupid</option>
-                            <option>My boss was a jerk</option>
-                            <option>My mom made me quit</option>
-                            <option>No transportation</option>
-                            <option>Overtime was required</option>
-                            <option>Passed over for promotion</option>
-                            <option>Rocky marriage</option>
-                        </select>
-                    </p>
-                    <p class="optional">
-                        <label for="company_1_salary_type">Salary Type</label>
-                        <select class="company_1_salary_type" name="company_1_salary_type"> 
-
-                            <option>Per Month</option>
-
-                            <option selected="selected">Per Hour</option>
-
-                        </select>
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_1_starting_salary">Starting Salary</label> 
-                        <input type="text" class="text" name="company_1_starting_salary" value="57" id="company_1_starting_salary" placeholder="Per Month or Per Hour">
-                    </p>
 
-                    <p class="optional">
-                        <label for="company_1_final_salary">Final Salary</label> 
-                        <input type="text" class="text" name="company_1_final_salary" value="68" id="company_1_final_salary" placeholder="Per Month or Per Hour">
-                    </p>
 
-                    <p class="optional">
-                        <label for="reference_name_1">Reference Name</label> 
-                        <input type="text" class="text" name="reference_name_1" value="Steven Jones" id="reference_name_1" placeholder="Reference Name">
-                    </p>
+                    <fieldset>
+                        <h3>Most Recent</h3>
+                        <input type="hidden" name="career_map_employment_1" value="Most Recent" />
+
+                        <?php
+                        
+                        $user_id = wp_get_current_user();
+                        $career_map_table = $wpdb->prefix . 'career_map';
+
+                        $career_map_sql = "SELECT 
+                a.career_map_id,
+                a.user_id,	
+                a.employment,	
+                a.company,	
+                a.position,	
+                a.start_date,	
+                a.end_date,	
+                a.job_type,	
+                a.city,	
+                a.country,	
+                a.reason_for_leaving,	
+                a.salary_type,	
+                a.starting_salary,
+                a.final_salary,
+                a.reference_name,	
+                a.reference_email,	
+                a.reference_phone_number,	
+                a.reference_position,	
+                a.notes FROM $career_map_table a WHERE user_id in (%d)";
+
+
+                        $career_map_prepared_statement = $wpdb->prepare($career_map_sql, $user_id->ID);
+                        $career_map = $wpdb->get_results($career_map_prepared_statement);
+                        
+                        $career_map_employment_1;
+                        $career_map_company_1;
+                        $career_map_position_1;
+                        $career_map_start_date_1;
+                        $career_map_end_date_1;
+                        $career_map_job_type_1;
+                        $career_map_city_1;
+                        $career_map_country_1;
+                        $career_map_reason_for_leaving_1;
+                        $career_map_salary_type_1;
+                        $career_map_starting_salary_1;
+                        $career_map_final_salary_1;
+                        $career_map_reference_name_1;
+                        $career_map_reference_email_1;
+                        $career_map_reference_phone_number_1;
+                        $career_map_reference_position_1;
+                        $career_map_reference_notes_1;
+                        
+                         $career_map_employment_2;
+                        $career_map_company_2;
+                        $career_map_position_2;
+                        $career_map_start_date_2;
+                        $career_map_end_date_2;
+                        $career_map_job_type_2;
+                        $career_map_city_2;
+                        $career_map_country_2;
+                        $career_map_reason_for_leaving_2;
+                        $career_map_salary_type_2;
+                        $career_map_starting_salary_2;
+                        $career_map_final_salary_2;
+                        $career_map_reference_name_2;
+                        $career_map_reference_email_2;
+                        $career_map_reference_phone_number_2;
+                        $career_map_reference_position_2;
+                        $career_map_reference_notes_2;
+                        
+                         $career_map_employment_3;
+                        $career_map_company_3;
+                        $career_map_position_3;
+                        $career_map_start_date_3;
+                        $career_map_end_date_3;
+                        $career_map_job_type_3;
+                        $career_map_city_3;
+                        $career_map_country_3;
+                        $career_map_reason_for_leaving_3;
+                        $career_map_salary_type_3;
+                        $career_map_starting_salary_3;
+                        $career_map_final_salary_3;
+                        $career_map_reference_name_3;
+                        $career_map_reference_email_3;
+                        $career_map_reference_phone_number_3;
+                        $career_map_reference_position_3;
+                        $career_map_reference_notes_3;
+
+                        foreach ($career_map as $career_map_data) {
+
+                            
+                            if ($career_map_data->employment == "Most Recent") {
+                                
+                            $career_map_employment_1 = $career_map_data->employment;
+                            $career_map_company_1 = $career_map_data->company;
+                            $career_map_position_1 = $career_map_data->position;
+                            $career_map_start_date_1 = $career_map_data->start_date;
+                            $career_map_end_date_1 = $career_map_data->end_date;
+                            $career_map_job_type_1 = $career_map_data->job_type;
+                            $career_map_city_1 = $career_map_data->city;
+                            $career_map_country_1 = $career_map_data->country;
+                            $career_map_reason_for_leaving_1 = $career_map_data->reason_for_leaving;
+                            $career_map_salary_type_1 = $career_map_data->salary_type;
+                            $career_map_starting_salary_1 = $career_map_data->starting_salary;
+                            $career_map_final_salary_1 = $career_map_data->final_salary;
+                            $career_map_reference_name_1 = $career_map_data->reference_name;
+                            $career_map_reference_email_1 = $career_map_data->reference_email;
+                            $career_map_reference_phone_number_1 = $career_map_data->reference_phone_number;
+                            $career_map_reference_position_1 = $career_map_data->reference_position;
+                            $career_map_reference_notes_1 = $career_map_data->notes;
+                            
+                            }
+                            
+                            if ($career_map_data->employment == "2nd Last") {
+                                
+                            $career_map_employment_2 = $career_map_data->employment;
+                            $career_map_company_2 = $career_map_data->company;
+                            $career_map_position_2 = $career_map_data->position;
+                            $career_map_start_date_2 = $career_map_data->start_date;
+                            $career_map_end_date_2 = $career_map_data->end_date;
+                            $career_map_job_type_2 = $career_map_data->job_type;
+                            $career_map_city_2 = $career_map_data->city;
+                            $career_map_country_2 = $career_map_data->country;
+                            $career_map_reason_for_leaving_2 = $career_map_data->reason_for_leaving;
+                            $career_map_salary_type_2 = $career_map_data->salary_type;
+                            $career_map_starting_salary_2 = $career_map_data->starting_salary;
+                            $career_map_final_salary_2 = $career_map_data->final_salary;
+                            $career_map_reference_name_2 = $career_map_data->reference_name;
+                            $career_map_reference_email_2 = $career_map_data->reference_email;
+                            $career_map_reference_phone_number_2 = $career_map_data->reference_phone_number;
+                            $career_map_reference_position_2 = $career_map_data->reference_position;
+                            $career_map_reference_notes_2 = $career_map_data->notes;
+                            
+                            }
+                            
+                            if ($career_map_data->employment == "3rd Last") {
+                                
+                            $career_map_employment_3 = $career_map_data->employment;
+                            $career_map_company_3 = $career_map_data->company;
+                            $career_map_position_3 = $career_map_data->position;
+                            $career_map_start_date_3 = $career_map_data->start_date;
+                            $career_map_end_date_3 = $career_map_data->end_date;
+                            $career_map_job_type_3 = $career_map_data->job_type;
+                            $career_map_city_3 = $career_map_data->city;
+                            $career_map_country_3 = $career_map_data->country;
+                            $career_map_reason_for_leaving_3 = $career_map_data->reason_for_leaving;
+                            $career_map_salary_type_3 = $career_map_data->salary_type;
+                            $career_map_starting_salary_3 = $career_map_data->starting_salary;
+                            $career_map_final_salary_3 = $career_map_data->final_salary;
+                            $career_map_reference_name_3 = $career_map_data->reference_name;
+                            $career_map_reference_email_3 = $career_map_data->reference_email;
+                            $career_map_reference_phone_number_3 = $career_map_data->reference_phone_number;
+                            $career_map_reference_position_3 = $career_map_data->reference_position;
+                            $career_map_reference_notes_3 = $career_map_data->notes;
+                            
+                            }
+                        }
+                        ?>
+
+
+                        <p class="optional">
+                            <label for="career_map_position_1">Position</label> 
+                            <input type="text" class="text" name="career_map_position_1" value="<?php echo $career_map_position_1; ?>"  placeholder="Position">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_start_date_1">Start Date</label>
+                            <input class="text" type="date" name="career_map_start_date_1" value="<?php echo $career_map_start_date_1; ?>" placeholder="Start Date">   
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_end_date_1">End Date</label>
+                            <input class="text" type="date" name="career_map_end_date_1" value="<?php echo $career_map_end_date_1 ?>" placeholder="End Date">   
+                        </p>
+
+
+                        <p class="optional">
+                            <label for="career_map_job_type_1">Job Type</label>
+                            <select class="career_map_job_type_1" name="career_map_job_type_1"> 
+                                <option>Full-Time</option>
+                                <option>Part-Time</option>
+                            </select>
+                        </p>
+
+                        <p class="optional"><label for="career_map_company_1">Company</label> 
+                            <input type="text" class="text" name="career_map_company_1" value="<?php echo $career_map_company_1; ?>" placeholder="Company">
+                        </p>
+
+                        <p class="optional"><label for="career_map_city_1">City</label> 
+                            <input type="text" class="text" name="career_map_city_1" value="<?php echo $career_map_city_1; ?>" placeholder="City">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_country_1">Country</label> 
+                            <input type="text" class="text" name="career_map_country_1" value="<?php echo $career_map_country_1; ?>" placeholder="Country">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reason_for_leaving_1">Reason for Leaving</label>
+                            <select class="career_map_reason_for_leaving_1" name="career_map_reason_for_leaving_1"> 
+                                <option selected="selected">Career change</option>
+                                <option>Career growth</option>
+                                <option>Change in career path</option>
+                                <option>Company cut backs</option>
+                                <option>Company downsized</option>
+                                <option>Company went out of business</option>
+                                <option>Family circumstances</option>
+                                <option>Family reasons</option>
+                                <option>Flexible schedule</option>
+                                <option>Getting married</option>
+                                <option>Hours reduced</option>
+                                <option>Job was outsourced</option>
+                                <option>Good career opportunity</option>
+                                <option>Good reputation and opportunity at the new company</option>
+                                <option>Laid off</option>
+                                <option>Landed a higher paying job</option>
+                                <option>Limited growth at company</option>
+                                <option>Long commute</option>
+                                <option>Looking for a new challenge</option>
+                                <option>Needed a full-time position</option>
+                                <option>New challenge</option>
+                                <option>Not compatible with company goals</option>
+                                <option>Not enough hours</option>
+                                <option>Not enough work or challenge</option>
+                                <option>Offered a permanent position</option>
+                                <option>Personal reasons</option>
+                                <option>Position eliminated</option>
+                                <option>Position ended</option>
+                                <option>Relocating</option>
+                                <option>Reorganization or merger</option>
+                                <option>Retiring</option>
+                                <option>Seasonal position</option>
+                                <option>Seeking a challenge</option>
+                                <option>Seeking more responsibility</option>
+                                <option>Staying home to raise a family</option>
+                                <option>Summer job</option>
+                                <option>Temporary job</option>
+                                <option>Travel</option>
+                                <option>Went back to school</option>
+                                <option>About to get fired</option>
+                                <option>Arrested</option>
+                                <option>Bad company to work for</option>
+                                <option>Bored at work</option>
+                                <option>Childcare issues</option>
+                                <option>Didn't get along with co-workers</option>
+                                <option>Didn't like the schedule</option>
+                                <option>Didn't want to work as many hours</option>
+                                <option>Didn't want to work evening or weekends</option>
+                                <option>Hated my boss</option>
+                                <option>Hated my job</option>
+                                <option>Injured</option>
+                                <option>Job was too difficult</option>
+                                <option>Let go for harassment</option>
+                                <option>Let go for tardiness</option>
+                                <option>Manager was stupid</option>
+                                <option>My boss was a jerk</option>
+                                <option>My mom made me quit</option>
+                                <option>No transportation</option>
+                                <option>Overtime was required</option>
+                                <option>Passed over for promotion</option>
+                                <option>Rocky marriage</option>
+                            </select>
+                        </p>
+                        <p class="optional">
+                            <label for="career_map_salary_type_1">Salary Type</label>
+                            <select class="career_map_salary_type_1" name="career_map_salary_type_1"> 
+                                <option>Per Hour</option>
+                                <option>Per Month</option>
+                            </select>
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_starting_salary_1">Starting Salary</label> 
+                            <input type="text" class="text" name="career_map_starting_salary_1" value="<?php echo $career_map_starting_salary_1; ?>" placeholder="Starting Salary">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_final_salary_1">Final Salary</label> 
+                            <input type="text" class="text" name="career_map_final_salary_1" value="<?php echo $career_map_final_salary_1; ?>" placeholder="Final Salary">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_name_1">Reference Name</label> 
+                            <input type="text" class="text" name="career_map_reference_name_1" value="<?php echo $career_map_reference_name_1; ?>" placeholder="Reference Name">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_email_1">Reference Email</label> 
+                            <input type="text" class="text" name="career_map_reference_email_1" value="<?php echo $career_map_reference_email_1; ?>" placeholder="Reference Email">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_phone_number_1">Reference Phone Number</label> 
+                            <input type="text" class="text" name="career_map_reference_phone_number_1" value="<?php echo $career_map_reference_phone_number_1; ?>" placeholder="Reference Phone Number">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_position_1">Reference Position</label> 
+                            <input type="text" class="text" name="career_map_reference_position_1" value="<?php echo $career_map_reference_position_1; ?>" placeholder="Reference Position">
+                        </p>
+
+                        <p class="optional"> 
+                            <textarea style="width: 320px;" class="career_map_reference_notes_1" name="career_map_reference_notes_1" placeholder="Reference Additional Info"><?php echo $career_map_reference_notes_1; ?></textarea>
+                        </p>
+                    </fieldset>
+                    <fieldset>
+                        <h3>2nd Last</h3>
+                        <input type="hidden" name="career_map_employment_1" value="2nd Last" />
+                        <p class="optional">
+                            <label for="career_map_position_2">Position</label> 
+                            <input type="text" class="text" name="career_map_position_2" value="<?php echo $career_map_position_2; ?>"  placeholder="Position">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_start_date_2">Start Date</label>
+                            <input class="text" type="date" name="career_map_start_date_2" value="<?php echo $career_map_start_date_2; ?>" placeholder="Start Date">   
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_end_date_2">End Date</label>
+                            <input class="text" type="date" name="career_map_end_date_2" value="<?php echo $career_map_end_date_2 ?>" placeholder="End Date">   
+                        </p>
+
+
+                        <p class="optional">
+                            <label for="career_map_job_type_2">Job Type</label>
+                            <select class="career_map_job_type_2" name="career_map_job_type_2"> 
+                                <option>Full-Time</option>
+                                <option>Part-Time</option>
+                            </select>
+                        </p>
+
+                        <p class="optional"><label for="career_map_company_2">Company</label> 
+                            <input type="text" class="text" name="career_map_company_2" value="<?php echo $career_map_company_2; ?>" placeholder="Company">
+                        </p>
+
+                        <p class="optional"><label for="career_map_city_2">City</label> 
+                            <input type="text" class="text" name="career_map_city_2" value="<?php echo $career_map_city_2; ?>" placeholder="City">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_country_2">Country</label> 
+                            <input type="text" class="text" name="career_map_country_2" value="<?php echo $career_map_country_2; ?>" placeholder="Country">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reason_for_leaving_2">Reason for Leaving</label>
+                            <select class="career_map_reason_for_leaving_2" name="career_map_reason_for_leaving_2"> 
+                                <option selected="selected">Career change</option>
+                                <option>Career growth</option>
+                                <option>Change in career path</option>
+                                <option>Company cut backs</option>
+                                <option>Company downsized</option>
+                                <option>Company went out of business</option>
+                                <option>Family circumstances</option>
+                                <option>Family reasons</option>
+                                <option>Flexible schedule</option>
+                                <option>Getting married</option>
+                                <option>Hours reduced</option>
+                                <option>Job was outsourced</option>
+                                <option>Good career opportunity</option>
+                                <option>Good reputation and opportunity at the new company</option>
+                                <option>Laid off</option>
+                                <option>Landed a higher paying job</option>
+                                <option>Limited growth at company</option>
+                                <option>Long commute</option>
+                                <option>Looking for a new challenge</option>
+                                <option>Needed a full-time position</option>
+                                <option>New challenge</option>
+                                <option>Not compatible with company goals</option>
+                                <option>Not enough hours</option>
+                                <option>Not enough work or challenge</option>
+                                <option>Offered a permanent position</option>
+                                <option>Personal reasons</option>
+                                <option>Position eliminated</option>
+                                <option>Position ended</option>
+                                <option>Relocating</option>
+                                <option>Reorganization or merger</option>
+                                <option>Retiring</option>
+                                <option>Seasonal position</option>
+                                <option>Seeking a challenge</option>
+                                <option>Seeking more responsibility</option>
+                                <option>Staying home to raise a family</option>
+                                <option>Summer job</option>
+                                <option>Temporary job</option>
+                                <option>Travel</option>
+                                <option>Went back to school</option>
+                                <option>About to get fired</option>
+                                <option>Arrested</option>
+                                <option>Bad company to work for</option>
+                                <option>Bored at work</option>
+                                <option>Childcare issues</option>
+                                <option>Didn't get along with co-workers</option>
+                                <option>Didn't like the schedule</option>
+                                <option>Didn't want to work as many hours</option>
+                                <option>Didn't want to work evening or weekends</option>
+                                <option>Hated my boss</option>
+                                <option>Hated my job</option>
+                                <option>Injured</option>
+                                <option>Job was too difficult</option>
+                                <option>Let go for harassment</option>
+                                <option>Let go for tardiness</option>
+                                <option>Manager was stupid</option>
+                                <option>My boss was a jerk</option>
+                                <option>My mom made me quit</option>
+                                <option>No transportation</option>
+                                <option>Overtime was required</option>
+                                <option>Passed over for promotion</option>
+                                <option>Rocky marriage</option>
+                            </select>
+                        </p>
+                        <p class="optional">
+                            <label for="career_map_salary_type_2">Salary Type</label>
+                            <select class="career_map_salary_type_2" name="career_map_salary_type_2"> 
+                                <option>Per Hour</option>
+                                <option>Per Month</option>
+                            </select>
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_starting_salary_2">Starting Salary</label> 
+                            <input type="text" class="text" name="career_map_starting_salary_2" value="<?php echo $career_map_starting_salary_2; ?>" placeholder="Starting Salary">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_final_salary_2">Final Salary</label> 
+                            <input type="text" class="text" name="career_map_final_salary_2" value="<?php echo $career_map_final_salary_2; ?>" placeholder="Final Salary">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_name_2">Reference Name</label> 
+                            <input type="text" class="text" name="career_map_reference_name_2" value="<?php echo $career_map_reference_name_2; ?>" placeholder="Reference Name">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_email_2">Reference Email</label> 
+                            <input type="text" class="text" name="career_map_reference_email_2" value="<?php echo $career_map_reference_email_2; ?>" placeholder="Reference Email">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_phone_number_2">Reference Phone Number</label> 
+                            <input type="text" class="text" name="career_map_reference_phone_number_2" value="<?php echo $career_map_reference_phone_number_2; ?>" placeholder="Reference Phone Number">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_position_2">Reference Position</label> 
+                            <input type="text" class="text" name="career_map_reference_position_2" value="<?php echo $career_map_reference_position_2; ?>" placeholder="Reference Position">
+                        </p>
+
+                        <p class="optional"> 
+                            <textarea style="width: 320px;" class="career_map_reference_notes_2" name="career_map_reference_notes_2" placeholder="Reference Additional Info"><?php echo $career_map_reference_notes_2; ?></textarea>
+                        </p>
+
+                    </fieldset>
+                    <fieldset>
+                        <h3>3rd Last</h3>
+                        <input type="hidden" name="career_map_employment_1" value="3rd Last" />
+                        <p class="optional">
+                            <label for="career_map_position_3">Position</label> 
+                            <input type="text" class="text" name="career_map_position_3" value="<?php echo $career_map_position_3; ?>"  placeholder="Position">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_start_date_3">Start Date</label>
+                            <input class="text" type="date" name="career_map_start_date_3" value="<?php echo $career_map_start_date_3; ?>" placeholder="Start Date">   
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_end_date_3">End Date</label>
+                            <input class="text" type="date" name="career_map_end_date_3" value="<?php echo $career_map_end_date_3 ?>" placeholder="End Date">   
+                        </p>
+
+
+                        <p class="optional">
+                            <label for="career_map_job_type_3">Job Type</label>
+                            <select class="career_map_job_type_3" name="career_map_job_type_3"> 
+                                <option>Full-Time</option>
+                                <option>Part-Time</option>
+                            </select>
+                        </p>
+
+                        <p class="optional"><label for="career_map_company_3">Company</label> 
+                            <input type="text" class="text" name="career_map_company_3" value="<?php echo $career_map_company_3; ?>" placeholder="Company">
+                        </p>
+
+                        <p class="optional"><label for="career_map_city_3">City</label> 
+                            <input type="text" class="text" name="career_map_city_3" value="<?php echo $career_map_city_3; ?>" placeholder="City">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_country_3">Country</label> 
+                            <input type="text" class="text" name="career_map_country_3" value="<?php echo $career_map_country_3; ?>" placeholder="Country">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reason_for_leaving_3">Reason for Leaving</label>
+                            <select class="company_3_reason_for_leaving_3" name="career_map_reason_for_leaving_3"> 
+                                <option selected="selected">Career change</option>
+                                <option>Career growth</option>
+                                <option>Change in career path</option>
+                                <option>Company cut backs</option>
+                                <option>Company downsized</option>
+                                <option>Company went out of business</option>
+                                <option>Family circumstances</option>
+                                <option>Family reasons</option>
+                                <option>Flexible schedule</option>
+                                <option>Getting married</option>
+                                <option>Hours reduced</option>
+                                <option>Job was outsourced</option>
+                                <option>Good career opportunity</option>
+                                <option>Good reputation and opportunity at the new company</option>
+                                <option>Laid off</option>
+                                <option>Landed a higher paying job</option>
+                                <option>Limited growth at company</option>
+                                <option>Long commute</option>
+                                <option>Looking for a new challenge</option>
+                                <option>Needed a full-time position</option>
+                                <option>New challenge</option>
+                                <option>Not compatible with company goals</option>
+                                <option>Not enough hours</option>
+                                <option>Not enough work or challenge</option>
+                                <option>Offered a permanent position</option>
+                                <option>Personal reasons</option>
+                                <option>Position eliminated</option>
+                                <option>Position ended</option>
+                                <option>Relocating</option>
+                                <option>Reorganization or merger</option>
+                                <option>Retiring</option>
+                                <option>Seasonal position</option>
+                                <option>Seeking a challenge</option>
+                                <option>Seeking more responsibility</option>
+                                <option>Staying home to raise a family</option>
+                                <option>Summer job</option>
+                                <option>Temporary job</option>
+                                <option>Travel</option>
+                                <option>Went back to school</option>
+                                <option>About to get fired</option>
+                                <option>Arrested</option>
+                                <option>Bad company to work for</option>
+                                <option>Bored at work</option>
+                                <option>Childcare issues</option>
+                                <option>Didn't get along with co-workers</option>
+                                <option>Didn't like the schedule</option>
+                                <option>Didn't want to work as many hours</option>
+                                <option>Didn't want to work evening or weekends</option>
+                                <option>Hated my boss</option>
+                                <option>Hated my job</option>
+                                <option>Injured</option>
+                                <option>Job was too difficult</option>
+                                <option>Let go for harassment</option>
+                                <option>Let go for tardiness</option>
+                                <option>Manager was stupid</option>
+                                <option>My boss was a jerk</option>
+                                <option>My mom made me quit</option>
+                                <option>No transportation</option>
+                                <option>Overtime was required</option>
+                                <option>Passed over for promotion</option>
+                                <option>Rocky marriage</option>
+                            </select>
+                        </p>
+                        <p class="optional">
+                            <label for="career_map_salary_type_3">Salary Type</label>
+                            <select class="career_map_salary_type_3" name="career_map_salary_type_3"> 
+                                <option>Per Hour</option>
+                                <option>Per Month</option>
+                            </select>
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_starting_salary_3">Starting Salary</label> 
+                            <input type="text" class="text" name="career_map_starting_salary_3" value="<?php echo $career_map_starting_salary_3; ?>" placeholder="Starting Salary">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_final_salary_3">Final Salary</label> 
+                            <input type="text" class="text" name="career_map_final_salary_3" value="<?php echo $career_map_final_salary_3; ?>" placeholder="Final Salary">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_name_3">Reference Name</label> 
+                            <input type="text" class="text" name="career_map_reference_name_3" value="<?php echo $career_map_reference_name_3; ?>" placeholder="Reference Name">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_email_3">Reference Email</label> 
+                            <input type="text" class="text" name="career_map_reference_email_3" value="<?php echo $career_map_reference_email_3; ?>" placeholder="Reference Email">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_phone_number_3">Reference Phone Number</label> 
+                            <input type="text" class="text" name="career_map_reference_phone_number_3" value="<?php echo $career_map_reference_phone_number_3; ?>" placeholder="Reference Phone Number">
+                        </p>
+
+                        <p class="optional">
+                            <label for="career_map_reference_position_3">Reference Position</label> 
+                            <input type="text" class="text" name="career_map_reference_position_3" value="<?php echo $career_map_reference_position_3; ?>" placeholder="Reference Position">
+                        </p>
+
+                        <p class="optional"> 
+                            <textarea style="width: 320px;" class="career_map_reference_notes_3" name="career_map_reference_notes_3" placeholder="Reference Additional Info"><?php echo $career_map_reference_notes_3; ?></textarea>
+                        </p>
+
+                    </fieldset>
 
-                    <p class="optional">
-                        <label for="reference_email_1">Reference Email</label> 
-                        <input type="text" class="text" name="reference_email_1" value="jones@fatcat.com" id="reference_email_1" placeholder="Reference Email">
-                    </p>
 
-                    <p class="optional">
-                        <label for="reference_phone_number_1">Reference Phone Number</label> 
-                        <input type="text" class="text" name="reference_phone_number_1" value="9073456789" id="reference_phone_number_1" placeholder="Reference Phone Number">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_position_1">Reference Position</label> 
-                        <input type="text" class="text" name="reference_position_1" value="Division Head" id="reference_position_1" placeholder="Reference Position">
-                    </p>
-
-                    <p class="optional"> 
-                        <textarea style="width: 320px;" class="reference_additional_info_1" name="reference_additional_info_1" id="reference_additional_info_1" placeholder="Reference Additional Info">Division Head and good friend.</textarea>
-                    </p>
-                    <!--Reference 2-->     
-                    <br>
-                    <br>
-                    <h3>2nd Last Employment</h3>
-
-                    <p class="optional">
-                        <label for="company_2_position">Position</label> 
-                        <input type="text" class="text" name="company_2_position" value="Lead Programmer" id="company_2_position" placeholder="Position">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_start_date">Start Date</label>
-                        <input class="text" type="date" name="company_2_start_date" value="2006-06-12" id="company_2_start_date" placeholder="Start Date">   
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_end_date">End Date</label>
-                        <input class="text" type="date" name="company_2_end_date" value="2009-11-12" id="company_2_end_date" placeholder="Start Date">   
-                    </p>
-
-
-                    <p class="optional">
-                        <label for="company_2_job_type">Job Type</label>
-                        <select class="company_2_job_type" name="company_2_job_type"> 
-                            <option selected="selected">Full-Time</option>
-                            <option>Part-Time</option>
-                        </select>
-                    </p>
-                    <p class="optional"><label for="company_2_company">Company</label> 
-                        <input type="text" class="text" name="company_2_company" value="Qsiere Inc" id="company_2_company" placeholder="Company">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_city">City</label> 
-                        <input type="text" class="text" name="company_2_city" value="Whitby" id="company_2_city" placeholder="City">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_country">Country</label> 
-                        <input type="text" class="text" name="company_2_country" value="Canada" id="company_2_country" placeholder="Country">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_reason_for_leaving">Reason for Leaving</label>
-                        <select class="company_2_reason_for_leaving" name="company_2_reason_for_leaving"> 
-                            <option selected="selected">Career change</option>
-                            <option>Career growth</option>
-                            <option>Change in career path</option>
-                            <option>Company cut backs</option>
-                            <option>Company downsized</option>
-                            <option>Company went out of business</option>
-                            <option>Family circumstances</option>
-                            <option>Family reasons</option>
-                            <option>Flexible schedule</option>
-
-
-                            <option>Getting married</option>
-
-
-                            <option>Hours reduced</option>
-
-
-                            <option>Job was outsourced</option>
-
-
-                            <option>Good career opportunity</option>
-
-
-                            <option>Good reputation and opportunity at the new company</option>
-
-
-                            <option>Laid off</option>
-
-
-                            <option>Landed a higher paying job</option>
-
-
-                            <option>Limited growth at company</option>
-
-
-                            <option>Long commute</option>
-
-
-                            <option>Looking for a new challenge</option>
-
-
-                            <option>Needed a full-time position</option>
-
-
-                            <option>New challenge</option>
-
-
-                            <option>Not compatible with company goals</option>
-
-
-                            <option>Not enough hours</option>
-
-
-                            <option>Not enough work or challenge</option>
-
-
-                            <option>Offered a permanent position</option>
-
-
-                            <option>Personal reasons</option>
-
-
-                            <option>Position eliminated</option>
-
-
-                            <option>Position ended</option>
-
-
-                            <option>Relocating</option>
-
-
-                            <option>Reorganization or merger</option>
-
-
-                            <option>Retiring</option>
-
-
-                            <option>Seasonal position</option>
-
-
-                            <option>Seeking a challenge</option>
-
-
-                            <option>Seeking more responsibility</option>
-
-
-                            <option>Staying home to raise a family</option>
-
-
-                            <option>Summer job</option>
-
-
-                            <option>Temporary job</option>
-
-
-                            <option>Travel</option>
-
-
-                            <option>Went back to school</option>
-
-
-                            <option>About to get fired</option>
-
-
-                            <option>Arrested</option>
-
-
-                            <option>Bad company to work for</option>
-
-
-                            <option>Bored at work</option>
-
-
-                            <option>Childcare issues</option>
-
-
-                            <option>Didn't get along with co-workers</option>
-
-
-                            <option>Didn't like the schedule</option>
-
-
-                            <option>Didn't want to work as many hours</option>
-
-
-                            <option>Didn't want to work evening or weekends</option>
-
-
-                            <option>Hated my boss</option>
-
-
-                            <option>Hated my job</option>
-
-
-                            <option>Injured</option>
-
-
-                            <option>Job was too difficult</option>
-
-
-                            <option>Let go for harassment</option>
-
-
-                            <option>Let go for tardiness</option>
-
-
-                            <option>Manager was stupid</option>
-
-
-                            <option>My boss was a jerk</option>
-
-
-                            <option>My mom made me quit</option>
-
-
-                            <option>No transportation</option>
-
-
-                            <option>Overtime was required</option>
-
-
-                            <option>Passed over for promotion</option>
-
-
-                            <option>Rocky marriage</option>
-
-                        </select>
-                    </p>
-
-
-                    <p class="optional">
-                        <label for="company_2_salary_type">Salary Type</label>
-                        <select class="company_2_salary_type" name="company_2_salary_type"> 
-
-                            <option>Per Month</option>
-
-                            <option selected="selected">Per Hour</option>
-
-                        </select>
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_starting_salary">Starting Salary</label> 
-                        <input type="text" class="text" name="company_2_starting_salary" value="38" id="company_2_starting_salary" placeholder="Per Month or Per Hour">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_2_final_salary">Final Salary</label> 
-                        <input type="text" class="text" name="company_2_final_salary" value="48" id="company_2_final_salary" placeholder="Per Month or Per Hour">
-                    </p>
-
-
-                    <p class="optional">
-                        <label for="reference_name_2">Reference Name</label> 
-                        <input type="text" class="text" name="reference_name_2" value="John Horvath" id="reference_name_2" placeholder="Reference Name">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_email_2">Reference Email</label> 
-                        <input type="text" class="text" name="reference_email_2" value="jon@fdsfds.com" id="reference_email_1" placeholder="Reference Email">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_phone_number_2">Reference Phone Number</label> 
-                        <input type="text" class="text" name="reference_phone_number_2" value="4324324324232" id="reference_phone_number_2" placeholder="Reference Phone Number">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_position_2">Reference Position</label> 
-                        <input type="text" class="text" name="reference_position_2" value="Human Resources" id="reference_position_2" placeholder="Reference Position">
-                    </p>
-
-                    <p class="optional"> 
-                        <textarea style="width: 320px;" class="reference_additional_info_2" name="reference_additional_info_2" id="reference_additional_info_2" placeholder="Reference Additional Info">Human Resources Notes</textarea></p>
-                    <br>
-                    <br>
-                    <!--Reference 3-->     
-
-                    <h3>3rd Last Employment</h3>
-
-                    <p class="optional">
-                        <label for="company_3_position">Position</label> 
-                        <input type="text" class="text" name="company_3_position" value="Lead Systems Designer" id="company_3_position" placeholder="Position">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_start_date">Start Date</label>
-                        <input class="text" type="date" name="company_3_start_date" value="2000-07-01" id="company_3_start_date" placeholder="Start Date">   
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_end_date">End Date</label>
-                        <input class="text" type="date" name="company_3_end_date" value="2005-07-01" id="company_3_end_date" placeholder="Start Date">   
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_job_type">Job Type</label>
-                        <select class="company_3_job_type" name="company_3_job_type"> 
-                            <option selected="selected">Full-Time</option>
-
-
-                            <option>Part-Time</option>
-
-                        </select>
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_company">Company</label> 
-                        <input type="text" class="text" name="company_3_company" value="Rames Inovations INC" id="company_3_company" placeholder="Company">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_city">City</label> 
-                        <input type="text" class="text" name="company_3_city" value="Toronto" id="company_3_city" placeholder="City">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_country">Country</label> 
-                        <input type="text" class="text" name="company_3_country" value="Canada" id="company_3_country" placeholder="Country">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_reason_for_leaving">Reason for Leaving</label>
-                        <select class="company_3_reason_for_leaving" name="company_3_reason_for_leaving"> 
-
-                            <option>Career change</option>
-
-
-                            <option>Career growth</option>
-
-
-                            <option>Change in career path</option>
-
-
-                            <option>Company cut backs</option>
-
-
-                            <option>Company downsized</option>
-
-
-                            <option>Company went out of business</option>
-
-
-                            <option>Family circumstances</option>
-
-
-                            <option>Family reasons</option>
-
-
-                            <option>Flexible schedule</option>
-
-
-                            <option>Getting married</option>
-
-
-                            <option>Hours reduced</option>
-
-
-                            <option>Job was outsourced</option>
-
-                            <option selected="selected">Good career opportunity</option>
-
-
-                            <option>Good reputation and opportunity at the new company</option>
-
-
-                            <option>Laid off</option>
-
-
-                            <option>Landed a higher paying job</option>
-
-
-                            <option>Limited growth at company</option>
-
-
-                            <option>Long commute</option>
-
-
-                            <option>Looking for a new challenge</option>
-
-
-                            <option>Needed a full-time position</option>
-
-
-                            <option>New challenge</option>
-
-
-                            <option>Not compatible with company goals</option>
-
-
-                            <option>Not enough hours</option>
-
-
-                            <option>Not enough work or challenge</option>
-
-
-                            <option>Offered a permanent position</option>
-
-
-                            <option>Personal reasons</option>
-
-
-                            <option>Position eliminated</option>
-
-
-                            <option>Position ended</option>
-
-
-                            <option>Relocating</option>
-
-
-                            <option>Reorganization or merger</option>
-
-
-                            <option>Retiring</option>
-
-
-                            <option>Seasonal position</option>
-
-
-                            <option>Seeking a challenge</option>
-
-
-                            <option>Seeking more responsibility</option>
-
-
-                            <option>Staying home to raise a family</option>
-
-
-                            <option>Summer job</option>
-
-
-                            <option>Temporary job</option>
-
-
-                            <option>Travel</option>
-
-
-                            <option>Went back to school</option>
-
-
-                            <option>About to get fired</option>
-
-
-                            <option>Arrested</option>
-
-
-                            <option>Bad company to work for</option>
-
-
-                            <option>Bored at work</option>
-
-
-                            <option>Childcare issues</option>
-
-
-                            <option>Didn't get along with co-workers</option>
-
-
-                            <option>Didn't like the schedule</option>
-
-
-                            <option>Didn't want to work as many hours</option>
-
-
-                            <option>Didn't want to work evening or weekends</option>
-
-
-                            <option>Hated my boss</option>
-
-
-                            <option>Hated my job</option>
-
-
-                            <option>Injured</option>
-
-
-                            <option>Job was too difficult</option>
-
-
-                            <option>Let go for harassment</option>
-
-
-                            <option>Let go for tardiness</option>
-
-
-                            <option>Manager was stupid</option>
-
-
-                            <option>My boss was a jerk</option>
-
-
-                            <option>My mom made me quit</option>
-
-
-                            <option>No transportation</option>
-
-
-                            <option>Overtime was required</option>
-
-
-                            <option>Passed over for promotion</option>
-
-
-                            <option>Rocky marriage</option>
-
-                        </select>
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_salary_type">Salary Type</label>
-                        <select class="company_3_salary_type" name="company_3_salary_type"> 
-                            <option selected="selected">Per Month</option>
-                            <option>Per Hour</option>
-                        </select>
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_starting_salary">Starting Salary</label> 
-                        <input type="text" class="text" name="company_3_starting_salary" value="32" id="company_3_starting_salary" placeholder="Per Month or Per Hour">
-                    </p>
-
-                    <p class="optional">
-                        <label for="company_3_final_salary">Final Salary</label> 
-                        <input type="text" class="text" name="company_3_final_salary" value="38" id="company_3_final_salary" placeholder="Per Month or Per Hour">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_name_3">Reference Name</label> 
-                        <input type="text" class="text" name="reference_name_3" value="Nancy Drew" id="reference_name_3" placeholder="Reference Name">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_email_3">Reference Email</label> 
-                        <input type="text" class="text" name="reference_email_3" value="nancy@fdsfds.com" id="reference_email_3" placeholder="Reference Email">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_phone_number_3">Reference Phone Number</label> 
-                        <input type="text" class="text" name="reference_phone_number_3" value="8980980890" id="reference_phone_number_3" placeholder="Reference Phone Number">
-                    </p>
-
-                    <p class="optional">
-                        <label for="reference_position_3">Reference Position</label> 
-                        <input type="text" class="text" name="reference_position_3" value="CEO" id="reference_position_3" placeholder="Reference Position">
-                    </p>
-
-                    <p class="optional"> 
-                        <textarea style="width: 320px;" class="reference_additional_info_3" name="reference_additional_info_3" id="reference_additional_info_3" placeholder="Reference Additional Info">CEO NOtes</textarea>
-                    </p>
                     <br>
                     <br>
 
@@ -935,7 +931,7 @@ interview_video_link
                         <div id="player"></div>
                         <div id="video_link">
                             <label>Interview Video Link</label>
-                            <input id="interview_video" style="width: 640px;" name="interview_video" type="text" value="https://www.youtube.com/embed/dtGSG95gTnw">
+                            <input id="interview_video" style="width: 640px;" name="interview_video" type="text" value="<?php echo $interview_video_link; ?>">
                         </div>	
                         <script type="text/javascript">
                             var tag = document.createElement('script');
@@ -1010,4 +1006,5 @@ interview_video_link
                 </form>
             </div><!-- end section_content -->
         </div>
-
+    </div>
+</div>
