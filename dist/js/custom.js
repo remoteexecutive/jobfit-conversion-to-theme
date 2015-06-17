@@ -256,8 +256,8 @@ $(".duplicate-test").click(function () {
 
 });
 
-$(".edit-job").click(function(){
-   
+$(".edit-job").click(function () {
+
     var site_url = $(".site-url").val();
     var edit_job_form = site_url + '/jobtc-jobs/edit-job-form.php';
 
@@ -276,7 +276,7 @@ $(".edit-job").click(function(){
                 action: function (dialog) {
                     var formData = $(".edit-job-form").serialize();
                     var ajaxurl = $(".ajax-url").val();
-                    
+
                     //var ajaxurl = "/wp-admin/admin-ajax.php";
                     $.ajax({
                         url: ajaxurl,
@@ -308,7 +308,7 @@ $(".edit-job").click(function(){
             tinymce.init({selector: 'textarea'});
         }
     });
-    
+
 });
 
 
@@ -330,18 +330,29 @@ $(".edit-resume").click(function () {
         buttons: [{
                 label: 'Save',
                 action: function (dialog) {
-                    var formData = $(".edit-resume-form").serialize();
+                    var form = $(".edit-resume-form")[0];
+                    var formData = new FormData(form);
+                    formData.append('action', 'save_resume');
+                    formData.append('resume_photo', $('input[name=resume_photo]')[0].files[0]);
+                    formData.append('resume_doc', $('input[name=resume_doc]')[0].files[0]);
+                    formData.append('additional_doc', $('input[name=additional_doc]')[0].files[0])
+
+                    //var formData = $(".edit-resume-form")[].serialize();
                     var ajaxurl = $(".ajax-url").val();
-                    
+
                     //var ajaxurl = "/wp-admin/admin-ajax.php";
                     $.ajax({
                         url: ajaxurl,
                         type: "POST",
-                        data: formData + "&action=save_resume",
+                        //data: formData + "&action=save_resume",
+                        data: formData,
+                        // THIS MUST BE DONE FOR FILE UPLOADING
+                        contentType: false,
+                        processData: false,
                         beforeSend: function () {
 
                         },
-                        success: function () {
+                        success: function (data) {
                             BootstrapDialog.alert('Saved Resume');
                             dialog.close();
                         },
@@ -401,4 +412,3 @@ $(document).on('focusin', function (e) {
         e.stopImmediatePropagation();
     }
 });
-

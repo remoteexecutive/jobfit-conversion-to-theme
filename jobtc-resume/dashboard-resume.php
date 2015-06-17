@@ -72,11 +72,12 @@ foreach ($resume as $resume_data) {
                         <div>
                             <div class="resume-pic-container">
                                 <div class="space"></div>
-                                <?php if ($resume_photo == "") {
+                                <?php
+                                if ($resume_photo == "") {
                                     
                                 } else {
                                     ?>
-                                    <img class="resume-pic img-thumbnail" width="150" height="150" src="<?php echo $resume_photo; ?>" class="attachment-thumbnail wp-post-image" alt="man 3">
+                                    <img width="150" height="150" src="<?php echo $resume_photo; ?>" alt="Resume Photo">
 <?php } ?>
 
                             </div>
@@ -129,14 +130,13 @@ foreach ($resume as $resume_data) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="ead-document">
-
                                     <?php
                                     if ($resume_doc == "") {
                                         
                                     } else {
-                                        ?>
-                                        <iframe src="<?php echo $resume_doc; ?>" style="width:100%; height:895px; border: none;"></iframe>
-<?php } ?>
+                                        echo do_shortcode('[embeddoc url="' . $resume_doc . '" viewer="microsoft"]');
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -157,14 +157,14 @@ foreach ($resume as $resume_data) {
                                 <ul>
                                     <li>
                                         <label>Last year's overall average: </label>
-<?php echo $overall_average; ?>
+                                        <?php echo $overall_average; ?>
                                     </li>
                                     <li>
                                         <?php if ($transcripts == "Yes") { ?>
                                             <label>Transcripts:</label>Yes
                                         <?php } else { ?>
                                             <label>Transcripts:</label>No
-<?php } ?>
+                                <?php } ?>
                                     </li>
                                 </ul>
                                 <?php
@@ -199,7 +199,7 @@ foreach ($resume as $resume_data) {
                         <div class="su-box-content su-clearfix">
                             <div class="space"></div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-3 hidden-xs">
                                     <ul class="list-group">
                                         <li class="list-group-item">&nbsp;</li>
                                         <li class="list-group-item">Position/Title</li>
@@ -386,106 +386,282 @@ foreach ($resume as $resume_data) {
                 </div>
             </div><!--Fourth Row-->
             <div class="space"></div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="experience-chart">
-                        <div class="su-box-title"><i class="fa fa-edit"></i>&nbsp;Employment Period Evaluation</div>
-                        <div class="su-box-content">
-                            <div class="space"></div>
-                            <label>Most Recent Employment</label>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
+<?php if (current_user_can('manage_options') || current_user_can('can_submit_job')) { ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="experience-chart">
+                            <div class="su-box-title"><i class="fa fa-edit"></i>&nbsp;Employment Period Evaluation</div>
+                            <div class="su-box-content">
+                                <div class="space"></div>
+                                <label>Most Recent Employment</label>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <label>Second Last Employment</label>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
+                                <label>Second Last Employment</label>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <label>Third Last Employment</label>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="wage-history-evaluation">            
-                        <div class="su-box-title" ><i class="fa fa-usd"></i>&nbsp;Wage History Evaluation</div>
-                        <div class="su-box-content">
-                            <div class="space"></div>
-                            <label>Most Recent Employment</label>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
-                                </div>
-                            </div>
-                            <label>Second Last Employment</label>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
-                                </div>
-                            </div>
-                            <label>Third Last Employment</label>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span class="sr-only">40% Complete (success)</span>
+                                <label>Third Last Employment</label>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div><!--Fifth Row-->
-            <div class="space"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="reference-request-responses">
-
-                        <div class="su-box-title"><i class="fa fa-tachometer container-icon"></i>&nbsp;Reference Request Responses</div>
-                        <div class="su-box-content">
-                            <div class="space"></div>
-                            <h2>Productivity</h2>
-                            <div class="sue-progress-bar sue-progress-bar-style-thin" style="background-color:#f0dbc9;border-color:#d8c5b5" data-percent="80"><span style="width: 80%; color: rgb(0, 0, 0); background-color: rgb(130, 0, 99);"><span><strong>Steven Jones</strong>  (Very Good)</span></span></div>
-                            <div class="sue-progress-bar sue-progress-bar-style-thin" style="background-color:#f0dbc9;border-color:#d8c5b5" data-percent="60"><span style="width: 60%; color: rgb(0, 0, 0); background-color: rgb(4, 0, 130);"><span><strong>John Horvath</strong>  (Good)</span></span></div>
-                            <div class="sue-progress-bar sue-progress-bar-style-thin" style="background-color:#f0dbc9;border-color:#d8c5b5" data-percent="40"><span style="width: 40%; color: rgb(0, 0, 0); background-color: rgb(102, 191, 4);"><span><strong>Nancy Drew</strong>  (Fair)</span></span></div>
-
-
-                            <h3 style="text-align: center;"><span style="color: #919182;">Average</span></h3>
-                            <div class="sue-progress-pie sue-progress-pie-align-center" style="width:80px;height:80px" data-percent="60" data-size="80" data-pie_width="40" data-pie_color="#f0dbc9" data-fill_color="#E68A8A">
-                                <canvas width="80" height="80" style="width: 80px; height: 80px;"></canvas>
+                    <div class="col-md-6">
+                        <div class="wage-history-evaluation">            
+                            <div class="su-box-title" ><i class="fa fa-usd"></i>&nbsp;Wage History Evaluation</div>
+                            <div class="su-box-content">
+                                <div class="space"></div>
+                                <label>Most Recent Employment</label>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                                <label>Second Last Employment</label>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                                <label>Third Last Employment</label>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div><!--Sixth Row-->
+                </div><!--Fifth Row-->
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="reference-request-responses">
+
+                            <div class="su-box-title"><i class="fa fa-tachometer container-icon"></i>&nbsp;Reference Request Responses</div>
+                            <div class="su-box-content">
+                                <div class="space"></div>
+                                <h2>Productivity</h2>
+                                <div class="sue-progress-bar sue-progress-bar-style-thin" style="background-color:#f0dbc9;border-color:#d8c5b5" data-percent="80"><span style="width: 80%; color: rgb(0, 0, 0); background-color: rgb(130, 0, 99);"><span><strong>Steven Jones</strong>  (Very Good)</span></span></div>
+                                <div class="sue-progress-bar sue-progress-bar-style-thin" style="background-color:#f0dbc9;border-color:#d8c5b5" data-percent="60"><span style="width: 60%; color: rgb(0, 0, 0); background-color: rgb(4, 0, 130);"><span><strong>John Horvath</strong>  (Good)</span></span></div>
+                                <div class="sue-progress-bar sue-progress-bar-style-thin" style="background-color:#f0dbc9;border-color:#d8c5b5" data-percent="40"><span style="width: 40%; color: rgb(0, 0, 0); background-color: rgb(102, 191, 4);"><span><strong>Nancy Drew</strong>  (Fair)</span></span></div>
+
+
+                                <h3 style="text-align: center;"><span style="color: #919182;">Average</span></h3>
+                                <div class="sue-progress-pie sue-progress-pie-align-center" style="width:80px;height:80px" data-percent="60" data-size="80" data-pie_width="40" data-pie_color="#f0dbc9" data-fill_color="#E68A8A">
+                                    <canvas width="80" height="80" style="width: 80px; height: 80px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--Sixth Row-->
+<?php } ?>
             <div class="space"></div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="interview-video-container">
                         <div class="video-interview-header"><i class="fa fa-file-video-o"></i>&nbsp;Video Interview</div>
                         <div class="su-box-content su-clearfix">
-                            <iframe height="355" src="https://www.youtube.com/embed/dtGSG95gTnw"></iframe>
+                            <?php if ($interview_video_link == "") {
+                                echo "No Video Interview";
+                            } else { ?>
+                                <iframe height="355" src="<?php echo $interview_video_link; ?>"></iframe>
+<?php } ?>
                         </div>
                     </div>
                 </div>
             </div><!--Seventh Row-->
             <div class="space"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="video-evaluation-container">
-                        <div class="su-box-title"><i class="fa fa-laptop container-icon"></i>&nbsp;Video Evaluation</div>
+<?php if (current_user_can('manage_options') || current_user_can('can_submit_job')) { ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="video-evaluation-container">
+                            <div class="su-box-title"><i class="fa fa-laptop container-icon"></i>&nbsp;Video Evaluation</div>
 
-                        <div class="su-box-content su-clearfix">
-                            <div class="space"></div>
-                            <div class="row">
-                                <div class="col-md-offset-2">
-                                    <div class="video-evaluation-form-container">
-                                        <form class="video-evaluation-form">
-                                            <table class="video-evaluation">
+                            <div class="su-box-content su-clearfix">
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-offset-2">
+                                        <div class="video-evaluation-form-container">
+                                            <form class="video-evaluation-form">
+                                                <table class="video-evaluation">
+                                                    <thead>
+                                                        <tr><th>&nbsp;</th>
+                                                            <th>Evaluation Notes</th>
+                                                            <th>Evaluator</th>
+                                                            <th>Score</th>
+                                                        </tr></thead>      
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><strong>Confidence</strong></td>
+                                                            <td>
+                                                                <textarea name="confidence_notes">Test</textarea>
+                                                            </td>
+                                                            <td><input type="text" name="confidence_evaluator" value="Test "></td>
+                                                            <td>
+                                                                <select name="confidence_score">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option selected="selected">3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><strong>Communication</strong></td>
+                                                            <td>
+                                                                <textarea name="communication_notes">Test</textarea>
+                                                            </td>
+                                                            <td><input type="text" name="communication_evaluator" value="Test"></td>
+                                                            <td>
+                                                                <select name="communication_score">
+                                                                    <option selected="selected">1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><strong>Enthusiasm</strong></td>
+                                                            <td>
+                                                                <textarea name="fun_factor_notes">Test</textarea>
+                                                            </td>
+                                                            <td><input type="text" name="fun_factor_evaluator" value="Test"></td>
+                                                            <td>
+                                                                <select name="fun_factor_score">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option selected="selected">3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><strong>Connection</strong></td>
+                                                            <td>
+                                                                <textarea name="connection_notes">Test</textarea></td>
+                                                            <td><input type="text" name="connection_evaluator" value="Test"></td>
+                                                            <td>
+                                                                <select name="connection_score">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option selected="selected">3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><strong>Understanding</strong></td>
+                                                            <td><textarea name="understanding_notes">Test</textarea></td>
+                                                            <td><input type="text" name="understanding_evaluator" value="Test"></td>
+                                                            <td>
+                                                                <select name="understanding_score">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option selected="selected">4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><strong>Optional Boost</strong></td>
+                                                            <td><textarea name="bonus_notes">Test</textarea></td>
+                                                            <td><input type="text" name="bonus_evaluator" value="Test"></td>
+                                                            <td>
+                                                                <select name="bonus_score">
+                                                                    <option>1</option>
+                                                                    <option selected="selected">2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td>&nbsp;</td>
+                                                            <td><strong style="float:right;font-weight:bolder;font-size:20px;color:#a9a9a9;">Total</strong></td>
+                                                            <td><input id="video_evaluation_score" name="video_evaluation_score" type="text" value="16"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td>&nbsp;</td>
+                                                            <td>&nbsp;</td>
+                                                            <td>
+                                                                <div class="evaluation-action-buttons">                      
+                                                                    <input type="button" id="save_video_score" name="save_video_score" class="save_video_score" value="Save And Calculate">
+                                                                    <br>
+                                                                    <br>
+                                                                    <a target="_blank" class="evaluation-instructions" href="http://vidhire.net/?p=329">Evaluation Instructions</a>
+                                                                    <input name="resume_id" type="hidden" value="57">	  
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>  
+                                                </table>
+                                            </form>         
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <label>Confidence</label>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                        <label>Communication</label>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                        <label>Enthusiasm</label>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--Eighth Row-->
+
+                <div class="space"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="final-evaluation-form">
+                            <div class="su-box-title"><i class="fa fa-bar-chart-o container-icon"></i>&nbsp;Final Evaluation</div>
+
+                            <div class="su-box-content su-clearfix">
+                                <div class="space"></div>
+                                <div class="row">
+                                    <div class="col-md-offset-2">
+                                        <form class="final-evaluation-form">       
+                                            <table class="final-evaluation">
                                                 <thead>
                                                     <tr><th>&nbsp;</th>
                                                         <th>Evaluation Notes</th>
@@ -494,78 +670,13 @@ foreach ($resume as $resume_data) {
                                                     </tr></thead>      
                                                 <tbody>
                                                     <tr>
-                                                        <td><strong>Confidence</strong></td>
+                                                        <td><strong>Skills</strong></td>
                                                         <td>
-                                                            <textarea name="confidence_notes">Test</textarea>
+                                                            <textarea name="skills_notes">1 is skills sufficient for the job, 2 3 and 4 is more than is needed. 5 is diverse skills with high proficiency.</textarea>
                                                         </td>
-                                                        <td><input type="text" name="confidence_evaluator" value="Test "></td>
+                                                        <td><input type="text" name="skills_evaluator" value="Tom Coghill"></td>
                                                         <td>
-                                                            <select name="confidence_score">
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option selected="selected">3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><strong>Communication</strong></td>
-                                                        <td>
-                                                            <textarea name="communication_notes">Test</textarea>
-                                                        </td>
-                                                        <td><input type="text" name="communication_evaluator" value="Test"></td>
-                                                        <td>
-                                                            <select name="communication_score">
-                                                                <option selected="selected">1</option>
-                                                                <option>2</option>
-                                                                <option>3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><strong>Enthusiasm</strong></td>
-                                                        <td>
-                                                            <textarea name="fun_factor_notes">Test</textarea>
-                                                        </td>
-                                                        <td><input type="text" name="fun_factor_evaluator" value="Test"></td>
-                                                        <td>
-                                                            <select name="fun_factor_score">
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option selected="selected">3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><strong>Connection</strong></td>
-                                                        <td>
-                                                            <textarea name="connection_notes">Test</textarea></td>
-                                                        <td><input type="text" name="connection_evaluator" value="Test"></td>
-                                                        <td>
-                                                            <select name="connection_score">
-                                                                <option>1</option>
-                                                                <option>2</option>
-                                                                <option selected="selected">3</option>
-                                                                <option>4</option>
-                                                                <option>5</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td><strong>Understanding</strong></td>
-                                                        <td><textarea name="understanding_notes">Test</textarea></td>
-                                                        <td><input type="text" name="understanding_evaluator" value="Test"></td>
-                                                        <td>
-                                                            <select name="understanding_score">
+                                                            <select name="skills_score">
                                                                 <option>1</option>
                                                                 <option>2</option>
                                                                 <option>3</option>
@@ -576,24 +687,104 @@ foreach ($resume as $resume_data) {
                                                     </tr>
 
                                                     <tr>
-                                                        <td><strong>Optional Boost</strong></td>
-                                                        <td><textarea name="bonus_notes">Test</textarea></td>
-                                                        <td><input type="text" name="bonus_evaluator" value="Test"></td>
+                                                        <td><strong>Education</strong></td>
                                                         <td>
-                                                            <select name="bonus_score">
+                                                            <textarea name="education_notes"> Top performers have high marks,                                                                                            		              		              		              		              		              		</textarea>
+                                                        </td>
+                                                        <td><input type="text" name="education_evaluator" value="Tom Coghill"></td>
+                                                        <td>
+                                                            <select name="education_score">
                                                                 <option>1</option>
-                                                                <option selected="selected">2</option>
+                                                                <option>2</option>
                                                                 <option>3</option>
+                                                                <option>4</option>
+                                                                <option selected="selected">5</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td><strong>Career Map</strong></td>
+                                                        <td>
+                                                            <textarea name="career_map_notes">This is the way that I am fixing                                                                                                                                                                                                                               </textarea>
+                                                        </td>
+                                                        <td><input type="text" name="career_map_evaluator" value="Jex B."></td>
+                                                        <td>
+                                                            <select name="career_map_score">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option selected="selected">4</option>
+                                                                <option>5</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td><strong>References</strong></td>
+                                                        <td>
+                                                            <textarea name="references_notes">This is the way to post a letter.         	              	              	              	              	              	              		                                                                                                                         </textarea>				 </td>
+                                                        <td><input type="text" name="references_evaluator" value="Nam"></td>
+                                                        <td>
+                                                            <select name="references_score">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option selected="selected">5</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td><strong>Video Interview</strong></td>
+                                                        <td><textarea name="video_interview_notes">Confidence, clear effective communication, good impression, warm personality.                                                                                                                          </textarea></td>
+                                                        <td><input type="text" name="video_interview_evaluator" value="Tom C         "></td>
+                                                        <td>
+                                                            <select name="video_interview_score">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option selected="selected">3</option>
                                                                 <option>4</option>
                                                                 <option>5</option>
                                                             </select>
                                                         </td>
                                                     </tr>
+
                                                     <tr>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                        <td><strong style="float:right;font-weight:bolder;font-size:20px;color:#a9a9a9;">Total</strong></td>
-                                                        <td><input id="video_evaluation_score" name="video_evaluation_score" type="text" value="16"></td>
+                                                        <td><strong>Tests</strong></td>
+                                                        <td><textarea name="tests_notes">These may be program skill tests, or typing, memory or anything required for determining job competancy.                                                                                               </textarea></td>
+                                                        <td><input type="text" name="tests_evaluator" value="Henry D."></td>
+                                                        <td>
+                                                            <select name="tests_score">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option selected="selected">3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>	
+
+                                                    <tr>
+                                                        <td><strong>Optional Boost</strong></td>
+                                                        <td><textarea name="positive_adjustments_notes">I gave the boost because he has the highest PHP experience.</textarea></td>
+                                                        <td><input type="text" name="positive_adjustments_evaluator" value="Paige"></td>
+                                                        <td>
+                                                            <select name="positive_adjustments_score">
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option selected="selected">4</option>
+                                                                <option>5</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Admin Notes</strong></td>
+                                                        <td><textarea name="internal-notes-text-area" class="internal-notes-text-area">He has all the skills and his experience matches the job. The video interview showed clear communication, quick thinking and confidence. &nbsp;He was fast tracked as he showed upward mobility within 3 companies.                                                </textarea></td>
+                                                        <td><strong style="float:right;font-weight:bolder;font-size:20px;color:#1F5802;">Total</strong></td>
+                                                        <td><input id="final_evaluation_score" name="final_evaluation_score" type="text" value="28"></td>
                                                     </tr>
                                                     <tr>
                                                         <td>&nbsp;</td>
@@ -601,7 +792,7 @@ foreach ($resume as $resume_data) {
                                                         <td>&nbsp;</td>
                                                         <td>
                                                             <div class="evaluation-action-buttons">                      
-                                                                <input type="button" id="save_video_score" name="save_video_score" class="save_video_score" value="Save And Calculate">
+                                                                <input type="button" id="save_score" name="save_score" class="save_score" value="Save And Calculate">
                                                                 <br>
                                                                 <br>
                                                                 <a target="_blank" class="evaluation-instructions" href="http://vidhire.net/?p=329">Evaluation Instructions</a>
@@ -610,223 +801,41 @@ foreach ($resume as $resume_data) {
                                                         </td>
                                                     </tr>
                                                 </tbody>  
-                                            </table>
+                                            </table>    
                                         </form>         
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="final-evaluation-form">
 
-                                    <label>Confidence</label>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
+
+                                            <label>Skills</label>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                    <span class="sr-only">40% Complete (success)</span>
+                                                </div>
+                                            </div>
+                                            <label>Education</label>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                    <span class="sr-only">40% Complete (success)</span>
+                                                </div>
+                                            </div>
+                                            <label>Career Map</label>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                    <span class="sr-only">40% Complete (success)</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <label>Communication</label>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                    <label>Enthusiasm</label>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
+                                    </div>    
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div><!--Eighth Row-->
-            <div class="space"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="final-evaluation-form">
-                        <div class="su-box-title"><i class="fa fa-bar-chart-o container-icon"></i>&nbsp;Final Evaluation</div>
-
-                        <div class="su-box-content su-clearfix">
-                            <div class="space"></div>
-                            <div class="row">
-                                <div class="col-md-offset-2">
-                                    <form class="final-evaluation-form">       
-                                        <table class="final-evaluation">
-                                            <thead>
-                                                <tr><th>&nbsp;</th>
-                                                    <th>Evaluation Notes</th>
-                                                    <th>Evaluator</th>
-                                                    <th>Score</th>
-                                                </tr></thead>      
-                                            <tbody>
-                                                <tr>
-                                                    <td><strong>Skills</strong></td>
-                                                    <td>
-                                                        <textarea name="skills_notes">1 is skills sufficient for the job, 2 3 and 4 is more than is needed. 5 is diverse skills with high proficiency.</textarea>
-                                                    </td>
-                                                    <td><input type="text" name="skills_evaluator" value="Tom Coghill"></td>
-                                                    <td>
-                                                        <select name="skills_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option selected="selected">4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td><strong>Education</strong></td>
-                                                    <td>
-                                                        <textarea name="education_notes"> Top performers have high marks,                                                                                            		              		              		              		              		              		</textarea>
-                                                    </td>
-                                                    <td><input type="text" name="education_evaluator" value="Tom Coghill"></td>
-                                                    <td>
-                                                        <select name="education_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option selected="selected">5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td><strong>Career Map</strong></td>
-                                                    <td>
-                                                        <textarea name="career_map_notes">This is the way that I am fixing                                                                                                                                                                                                                               </textarea>
-                                                    </td>
-                                                    <td><input type="text" name="career_map_evaluator" value="Jex B."></td>
-                                                    <td>
-                                                        <select name="career_map_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option selected="selected">4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td><strong>References</strong></td>
-                                                    <td>
-                                                        <textarea name="references_notes">This is the way to post a letter.         	              	              	              	              	              	              		                                                                                                                         </textarea>				 </td>
-                                                    <td><input type="text" name="references_evaluator" value="Nam"></td>
-                                                    <td>
-                                                        <select name="references_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option selected="selected">5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td><strong>Video Interview</strong></td>
-                                                    <td><textarea name="video_interview_notes">Confidence, clear effective communication, good impression, warm personality.                                                                                                                          </textarea></td>
-                                                    <td><input type="text" name="video_interview_evaluator" value="Tom C         "></td>
-                                                    <td>
-                                                        <select name="video_interview_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option selected="selected">3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td><strong>Tests</strong></td>
-                                                    <td><textarea name="tests_notes">These may be program skill tests, or typing, memory or anything required for determining job competancy.                                                                                               </textarea></td>
-                                                    <td><input type="text" name="tests_evaluator" value="Henry D."></td>
-                                                    <td>
-                                                        <select name="tests_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option selected="selected">3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>	
-
-                                                <tr>
-                                                    <td><strong>Optional Boost</strong></td>
-                                                    <td><textarea name="positive_adjustments_notes">I gave the boost because he has the highest PHP experience.</textarea></td>
-                                                    <td><input type="text" name="positive_adjustments_evaluator" value="Paige"></td>
-                                                    <td>
-                                                        <select name="positive_adjustments_score">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option selected="selected">4</option>
-                                                            <option>5</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>Admin Notes</strong></td>
-                                                    <td><textarea name="internal-notes-text-area" class="internal-notes-text-area">He has all the skills and his experience matches the job. The video interview showed clear communication, quick thinking and confidence. &nbsp;He was fast tracked as he showed upward mobility within 3 companies.                                                </textarea></td>
-                                                    <td><strong style="float:right;font-weight:bolder;font-size:20px;color:#1F5802;">Total</strong></td>
-                                                    <td><input id="final_evaluation_score" name="final_evaluation_score" type="text" value="28"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>&nbsp;</td>
-                                                    <td>&nbsp;</td>
-                                                    <td>&nbsp;</td>
-                                                    <td>
-                                                        <div class="evaluation-action-buttons">                      
-                                                            <input type="button" id="save_score" name="save_score" class="save_score" value="Save And Calculate">
-                                                            <br>
-                                                            <br>
-                                                            <a target="_blank" class="evaluation-instructions" href="http://vidhire.net/?p=329">Evaluation Instructions</a>
-                                                            <input name="resume_id" type="hidden" value="57">	  
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>  
-                                        </table>    
-                                    </form>         
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="final-evaluation-form">
-
-
-                                        <label>Skills</label>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                <span class="sr-only">40% Complete (success)</span>
-                                            </div>
-                                        </div>
-                                        <label>Education</label>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                <span class="sr-only">40% Complete (success)</span>
-                                            </div>
-                                        </div>
-                                        <label>Career Map</label>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                <span class="sr-only">40% Complete (success)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--Ninth Row-->
+                </div><!--Ninth Row-->
+<?php } ?>
             <div class="space"></div>
             <div class="row">
                 <div class="col-md-12">

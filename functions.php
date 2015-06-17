@@ -786,8 +786,8 @@ function save_resume() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'resume';
     $career_map_table = $wpdb->prefix . 'career_map';
-    
-    
+
+
     if ($_POST) {
 
         $user_id = wp_get_current_user();
@@ -798,9 +798,6 @@ function save_resume() {
         $phone = $_POST['phone'];
         $mobile = $_POST['mobile'];
         $skype = $_POST['skype'];
-        $resume_photo = $_POST['resume_photo'];
-        $resume_doc = $_POST['resume_doc'];
-        $additional_doc = $_POST['additional_doc'];
         $overall_average = $_POST['overall_average'];
         $transcripts = $_POST['transcripts'];
         $degree = $_POST['degree'];
@@ -809,7 +806,51 @@ function save_resume() {
         $skills = $_POST['skills'];
         $interview_video_link = $_POST['interview_video_link'];
 
-          //Most Recent
+        //For File Upload
+
+        //For Resume Photo
+        $resume_photo_upload = $_FILES['resume_photo']['name'];
+        $resume_photo_tmp = $_FILES['resume_photo']['tmp_name'];
+
+        //For Resume Doc
+        $resume_doc_upload = $_FILES['resume_doc']['name'];
+        $resume_doc_tmp = $_FILES['resume_doc']['tmp_name'];
+        
+        //For Additional Documents
+        $additional_doc_upload = $_FILES['additional_doc']['name'];
+        $additional_doc_tmp = $_FILES['additional_doc']['tmp_name'];
+        
+        $resume_photo_upload_to = ABSPATH . 'wp-content/uploads/' . $resume_photo_upload;
+        $resume_doc_upload_to = ABSPATH . 'wp-content/uploads/' . $resume_doc_upload;
+        $additional_doc_upload_to = ABSPATH. 'wp-content/uploads/' . $additional_doc_upload;
+
+        $resume_photo_move_result = move_uploaded_file($resume_photo_tmp, $resume_photo_upload_to);
+        $resume_doc_move_result = move_uploaded_file($resume_doc_tmp, $resume_doc_upload_to);
+        $additional_doc_move_result = move_uploaded_file($additional_doc_tmp, $additional_doc_upload_to);
+        
+        if ($resume_photo_upload != "" ) {
+            $resume_photo = 'http://' . $_SERVER['HTTP_HOST'] . '/jobtc-3/wp-content/uploads/' . $resume_photo_upload;
+        } else {
+            $resume_photo = "";
+        }
+        
+        if ($resume_doc_upload != "") {
+            $resume_doc = 'http://' . $_SERVER['HTTP_HOST'] . '/jobtc-3/wp-content/uploads/' . $resume_doc_upload;
+        } else {
+            $resume_doc = "";
+        }
+        
+        if ($additional_doc_upload != "") {
+            $additional_doc = 'http://'.$_SERVER['HTTP_HOST'] . '/jobtc-3/wp-content/uploads/' . $additional_doc_upload;
+        } else {
+            $additional_doc = "";
+        }
+        
+        
+
+        //$resume_doc = 'http://vidhire.net/wp-content/uploads/resume_files/2015/03/Sample-Resume-Computer-Programmer-Entry-Level1.doc';
+        //$movefile = wp_handle_upload($resume_photo_upload, $upload_overrides);
+        //Most Recent
         $career_map_employment_1 = $_POST['career_map_employment_1'];
         $career_map_company_1 = $_POST['career_map_company_1'];
         $career_map_position_1 = $_POST['career_map_position_1'];
@@ -827,7 +868,7 @@ function save_resume() {
         $career_map_reference_phone_number_1 = $_POST['career_map_reference_phone_number_1'];
         $career_map_reference_position_1 = $_POST['career_map_reference_position_1'];
         $career_map_reference_notes_1 = $_POST['career_map_reference_notes_1'];
-        
+
         //2nd Last
         $career_map_employment_2 = $_POST['career_map_employment_2'];
         $career_map_company_2 = $_POST['career_map_company_2'];
@@ -846,7 +887,7 @@ function save_resume() {
         $career_map_reference_phone_number_2 = $_POST['career_map_reference_phone_number_2'];
         $career_map_reference_position_2 = $_POST['career_map_reference_position_2'];
         $career_map_reference_notes_2 = $_POST['career_map_reference_notes_2'];
-        
+
         //3rd Last
         $career_map_employment_3 = $_POST['career_map_employment_3'];
         $career_map_company_3 = $_POST['career_map_company_3'];
@@ -865,14 +906,45 @@ function save_resume() {
         $career_map_reference_phone_number_3 = $_POST['career_map_reference_phone_number_3'];
         $career_map_reference_position_3 = $_POST['career_map_reference_position_3'];
         $career_map_reference_notes_3 = $_POST['career_map_reference_notes_3'];
-        
-        
-        $user_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE user_id in (" . $user_id->ID . ")");
-        $career_map_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $career_map_table WHERE user_id in (" . $user_id->ID . ")"); 
-        
-        
-        if ($user_count > 0 ) {
 
+
+        $user_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE user_id in (" . $user_id->ID . ")");
+        $career_map_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $career_map_table WHERE user_id in (" . $user_id->ID . ")");
+
+
+        if ($user_count > 0) {
+
+
+            if ($resume_photo != "") {
+
+                $wpdb->update($table_name, array(
+                    'resume_photo' => $resume_photo
+                        ), array('user_id' => $user_id->ID), array(
+                    '%s', //resume_doc
+                        ), array('%d')
+                );
+            }
+            
+            if ($resume_doc != "") {
+
+                $wpdb->update($table_name, array(
+                    'resume_doc' => $resume_doc
+                        ), array('user_id' => $user_id->ID), array(
+                    '%s', //resume_doc
+                        ), array('%d')
+                );
+            }
+            
+             if ($additional_doc != "") {
+
+                $wpdb->update($table_name, array(
+                    'additional_doc' => $additional_doc
+                        ), array('user_id' => $user_id->ID), array(
+                    '%s', //resume_doc
+                        ), array('%d')
+                );
+            }
+            
             $wpdb->update($table_name, array(
                 'rate' => $rate,
                 'currency' => $currency,
@@ -881,9 +953,6 @@ function save_resume() {
                 'phone' => $phone,
                 'mobile' => $mobile,
                 'skype' => $skype,
-                'resume_photo' => $resume_photo,
-                'resume_doc' => $resume_doc,
-                'additional_doc' => $additional_doc,
                 'overall_average' => $overall_average,
                 'transcripts' => $transcripts,
                 'degree' => $degree,
@@ -899,9 +968,6 @@ function save_resume() {
                 '%s', //phone
                 '%s', //mobile
                 '%s', //skype
-                '%s', //resume_photo
-                '%s', //resume_doc
-                '%s', //additional_doc
                 '%s', //overall_average
                 '%s', //degree
                 '%s', //institution
@@ -910,7 +976,6 @@ function save_resume() {
                 '%s', //interview_video_link
                     ), array('%d')
             );
-            
         } else {
 
             $wpdb->insert($table_name, array(
@@ -932,9 +997,8 @@ function save_resume() {
                 'skills' => $skills,
                 'interview_video_link' => $interview_video_link
             ));
-            
         }
-        
+
         if ($career_map_count > 0) {
 
             //Update Most Recent
@@ -955,7 +1019,7 @@ function save_resume() {
                 'reference_phone_number' => $career_map_reference_phone_number_1,
                 'reference_position' => $career_map_reference_position_1,
                 'notes' => $career_map_reference_notes_1
-                    ), array('user_id' => $user_id->ID,'employment' => 'Most Recent'), array(
+                    ), array('user_id' => $user_id->ID, 'employment' => 'Most Recent'), array(
                 '%s', //company
                 '%s', //position
                 '%s', //start_date
@@ -972,10 +1036,10 @@ function save_resume() {
                 '%s', //reference phone number
                 '%s', //reference position
                 '%s', //reference notes
-                    ), array('%d','%s')
+                    ), array('%d', '%s')
             );
-            
-              //Update 2nd Last
+
+            //Update 2nd Last
             $wpdb->update($career_map_table, array(
                 'company' => $career_map_company_2,
                 'position' => $career_map_position_2,
@@ -993,7 +1057,7 @@ function save_resume() {
                 'reference_phone_number' => $career_map_reference_phone_number_2,
                 'reference_position' => $career_map_reference_position_2,
                 'notes' => $career_map_reference_notes_2
-                    ), array('user_id' => $user_id->ID,'employment' => '2nd Last'), array(
+                    ), array('user_id' => $user_id->ID, 'employment' => '2nd Last'), array(
                 '%s', //company
                 '%s', //position
                 '%s', //start_date
@@ -1010,10 +1074,10 @@ function save_resume() {
                 '%s', //reference phone number
                 '%s', //reference position
                 '%s', //reference notes
-                    ), array('%d','%s')
+                    ), array('%d', '%s')
             );
-            
-              //Update 3rd Last
+
+            //Update 3rd Last
             $wpdb->update($career_map_table, array(
                 'company' => $career_map_company_3,
                 'position' => $career_map_position_3,
@@ -1031,7 +1095,7 @@ function save_resume() {
                 'reference_phone_number' => $career_map_reference_phone_number_3,
                 'reference_position' => $career_map_reference_position_3,
                 'notes' => $career_map_reference_notes_3
-                    ), array('user_id' => $user_id->ID,'employment' => '3rd Last'), array(
+                    ), array('user_id' => $user_id->ID, 'employment' => '3rd Last'), array(
                 '%s', //company
                 '%s', //position
                 '%s', //start_date
@@ -1048,12 +1112,10 @@ function save_resume() {
                 '%s', //reference phone number
                 '%s', //reference position
                 '%s', //reference notes
-                    ), array('%d','%s')
+                    ), array('%d', '%s')
             );
-            
-            
         } else {
-            
+
             //Save Most Recent
             $wpdb->insert($career_map_table, array(
                 'user_id' => $user_id->ID,
@@ -1075,8 +1137,8 @@ function save_resume() {
                 'reference_position' => $career_map_reference_position_1,
                 'notes' => $career_map_reference_notes_1
             ));
-            
-            
+
+
             //Save 2nd Last
             $wpdb->insert($career_map_table, array(
                 'user_id' => $user_id->ID,
@@ -1098,7 +1160,7 @@ function save_resume() {
                 'reference_position' => $career_map_reference_position_2,
                 'notes' => $career_map_reference_notes_2
             ));
-            
+
             //Save 3rd Last
             $wpdb->insert($career_map_table, array(
                 'user_id' => $user_id->ID,
@@ -1121,9 +1183,8 @@ function save_resume() {
                 'notes' => $career_map_reference_notes_3
             ));
         }
-        
     }
-    
+
     return true;
 }
 
@@ -1220,8 +1281,8 @@ function save_video_evaluation() {
             ));
         }
     }
-    
-    
+
+
     return true;
 }
 

@@ -927,11 +927,11 @@ foreach ($resume as $resume_data) {
                     <br>
 
                     <fieldset>
-                        <iframe id="widget" frameborder="0" allowfullscreen="1" title="YouTube upload widget" width="640" height="428.8" src="https://www.youtube.com/upload_embed?enablejsapi=1&amp;origin=http%3A%2F%2Fvidhire.net"></iframe>
+                        <div id="widget"></div>
                         <div id="player"></div>
                         <div id="video_link">
                             <label>Interview Video Link</label>
-                            <input id="interview_video" style="width: 640px;" name="interview_video" type="text" value="<?php echo $interview_video_link; ?>">
+                            <input id="interview_video" style="width: 640px;" name="interview_video_link" type="text" value="<?php echo $interview_video_link; ?>">
                         </div>	
                         <script type="text/javascript">
                             var tag = document.createElement('script');
