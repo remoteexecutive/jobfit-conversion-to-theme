@@ -1,36 +1,101 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/jobtc-3/wp-blog-header.php');
+
+//Get data from Job Table
+global $wpdb;
+$user_id = wp_get_current_user();
+$job_id = $_GET['job_id'];
+$job_table = $wpdb->prefix . 'job';
+
+$job_sql = " SELECT 
+                a.job_id,
+                a.user_id,	
+                a.company,
+                a.website,
+                a.logo,
+                a.job_title,
+                a.job_type,
+                a.job_category,
+                a.location,
+                a.job_description,
+                a.job_video_link
+        from $job_table a WHERE user_id in (%d) AND job_id in (%d)";
+
+
+$job_prepared_statement = $wpdb->prepare($job_sql, $user_id->ID,$job_id);
+$job = $wpdb->get_results($job_prepared_statement);
+
+foreach ($job as $job_data) {
+    
+    $job_id = $job_data->job_id;
+    $user_id = $job_data->user_id;
+    $company = $job_data->company;
+    $website = $job_data->website;
+    $logo = $job_data->logo;
+    $location = $job_data->location;
+    $job_title = $job_data->job_title;
+    $job_type = $job_data->job_type;
+    $job_category = $job_data->job_category;
+    $job_description = $job_data->job_description;
+    $job_video_link = $job_data->job_video_link;
+  
+}
+?>
 <form action="" method="post" enctype="multipart/form-data" id="submit_form" class="submit_form main_form edit-job-form" novalidate="novalidate">  
+    <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
     <fieldset> 
         <p class="optional"><label for="company-logo">Logo (.jpg, .gif or .png)</label>
             <input type="file" class="text" name="logo" id="company-logo">
         </p>
         <p class="optional">
             <label for="your_name">Your Name/Company Name</label> 
-            <input type="text" class="text" name="company" id="your_name" value="">
+            <input type="text" class="text" name="company" id="your_name" value="<?php echo $company; ?>">
         </p>
         <p class="optional">
             <label for="website">Website</label> 
-            <input type="text" class="text" name="website" value="fasting.ws" placeholder="http://" id="website">
+            <input type="text" class="text" name="website" value="<?php echo $website; ?>" placeholder="http://" id="website">
         </p>
-        <div class="images"></div>		
     </fieldset>
     <fieldset>
         <p>
             <label for="job_term_cat">Job Title<span title="required">*</span></label>
-            <input type="text" name="job_title" id="job_term_cat" class="job_term_cat text valid" value="Program Development Leader"> 
+            <input type="text" name="job_title" id="job_term_cat" class="job_term_cat text valid" value="<?php echo $job_title; ?>"> 
         </p>
 
         <p><label for="job_type">Job type <span title="required">*</span></label>
             <select name="job_type" id="job_type" class="required">
-                <option value="10">Freelance</option>
-                <option selected="selected" value="8">Full-Time</option>
-                <option value="12">Internship</option>
-                <option value="9">Part-Time</option>
-                <option value="11">Temporary</option>
-            </select></p>
+                <?php if ($job_type == "Freelance") { ?>
+                    <option selected="selected">Freelance</option>
+                <?php } else { ?>
+                    <option>Freelance</option>
+                <?php } 
+                
+                    if ($job_type == "Full-Time") { ?>
+                    <option selected="selected">Full-Time</option>
+                <?php } else { ?>
+                    <option>Full-Time</option>
+                <?php }
+                    if ($job_type == "Internship") { ?>
+                    <option selected="selected">Internship</option>
+                <?php } else { ?>
+                    <option>Internship</option>
+                <?php } 
+                    if ($job_type == "Part-Time") { ?>
+                    <option selected="selected">Part-Time</option>
+                <?php } else { ?>
+                    <option>Part-Time</option>
+                <?php } 
+                    if ($job_type == "Temporary") { ?>
+                    <option selected="selected">Temporary</option>
+                <?php } else { ?>
+                    <option>Temporary</option>
+                <?php } ?>              
+            </select>
+        </p>
 
         <p class="optional">
             <label for="job_category">Job Category (comma separated)</label> 
-            <input type="text" class="text" name="job_category" value="" id=""></p>
+            <input type="text" class="text" name="job_category" value="<?php echo $job_category; ?>" id=""></p>
     </fieldset>
 
     <fieldset>
@@ -43,10 +108,10 @@
                     <input id="geolocation-load" type="button" class="button geolocationadd submit" value="Find Address/Location">
                 </label>
 
-                <input type="text" class="text" name="location" id="geolocation-address" value="Toronto, Ontario, Canada" autocomplete="off">
+                <input type="text" class="text" name="location" id="geolocation-address" value="<?php echo $location; ?>" autocomplete="off">
 
-                <input type="hidden" class="text" name="jr_geo_latitude" id="geolocation-latitude" value="43.653226">
-                <input type="hidden" class="text" name="jr_geo_longitude" id="geolocation-longitude" value="-79.38318429999998">
+                <input type="hidden" class="text" name="jr_geo_latitude" id="geolocation-latitude" value="">
+                <input type="hidden" class="text" name="jr_geo_longitude" id="geolocation-longitude" value="">
 
                 <input type="hidden" class="text" name="jr_geo_country" id="geolocation-country" value="Canada">
                 <input type="hidden" class="text" name="jr_geo_short_address" id="geolocation-short-address" value="Toronto">
@@ -62,13 +127,13 @@
         <legend>Job Description <span title="required">*</span></legend>
         <p>Give details about the position, such as responsibilities &amp; salary.</p>
         <textarea name="job_description">
-
+        <?php echo $job_description; ?>
         </textarea>
     </fieldset>
     <fieldset>
         <legend>Video Link</legend>
         <p>Copy the video link from the browser</p><p>
-            <input type="text" name="job_video_link" class="text" value="https://www.youtube.com/watch?v=6RviVZI7D2s">
+            <input type="text" name="job_video_link" class="text" value="<?php echo $job_video_link; ?>">
         </p>
     </fieldset>
 </form>

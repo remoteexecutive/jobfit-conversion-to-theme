@@ -634,6 +634,8 @@ add_action('wp_ajax_apply_for_job', 'apply_for_job');
 add_action('wp_ajax_save_resume', 'save_resume');
 add_action('wp_ajax_save_career_map', 'save_career_map');
 add_action('wp_ajax_save_job', 'save_job');
+add_action('wp_ajax_link_job_to_user', 'link_job_to_user');
+add_action('wp_ajax_unlink_job_from_user', 'unlink_job_from_user');
 
 function apply_for_job() {
 
@@ -711,6 +713,70 @@ function resume_delete() {
     }
 }
 
+/*
+ * Function for Unlinking a job from user (Delete via AJAX)
+ */
+function unlink_job_from_user() {
+    global $wpdb;
+    $table_name = $wpdb->prefix .'job_map';
+    
+    if ($_POST) {
+        
+        $job_id = $_POST['job_id'];
+        $resume_id = $_POST['resume_id'];
+        
+         $resume_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE resume_id in (" . $resume_id . ")");
+        
+         if ($resume_count > 0) {
+           
+            $wpdb->delete($table_name, array(
+                'job_id' => $job_id,
+                 'resume_id' => $resume_id
+            ));
+             
+         } else {
+             
+              echo 'User is not linked to a Job.';
+         }
+        
+    }
+}
+
+/*
+ * Function for Linking a job to a user( Saved via AJAX) 
+ * */
+function link_job_to_user() {
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'job_map';
+    
+    if ($_POST) {
+        
+        $job_id = $_POST['job_id'];
+        $resume_id = $_POST['resume_id'];
+        
+         $resume_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE resume_id in (" . $resume_id . ")");
+        
+         if ($resume_count > 0) {
+           
+             echo 'User is already linked to a Job.';
+             
+         } else {
+             
+             $wpdb->insert($table_name, array(
+                'job_id' => $job_id,
+                 'resume_id' => $resume_id
+            ));
+             
+             echo 'Invite Sent';
+         }
+    }
+}
+
+
+/*
+ * Function for saving a job(Saved via AJAX) 
+ * */
 function save_job() {
 
     global $wpdb;
@@ -722,7 +788,6 @@ function save_job() {
         $job_id = $_POST['job_id'];
         $company = $_POST['company'];
         $website = $_POST['website'];
-        $logo = $_POST['logo'];
         $job_title = $_POST['job_title'];
         $job_type = $_POST['job_type'];
         $job_category = $_POST['job_category'];
@@ -730,14 +795,40 @@ function save_job() {
         $job_description = $_POST['job_description'];
         $job_video_link = $_POST['job_video_link'];
 
+        
+         //For File Upload
+
+        //For Job Logo
+        $logo_upload = $_FILES['logo']['name'];
+        $logo_upload_tmp = $_FILES['logo']['tmp_name'];
+ 
+        $logo_upload_to = ABSPATH . 'wp-content/uploads/' . $logo_upload;
+
+        $logo_move_result = move_uploaded_file($logo_upload_tmp, $logo_upload_to);
+        
+        if ($logo_upload != "" ) {
+            $logo = 'http://' . $_SERVER['HTTP_HOST'] . '/jobtc-3/wp-content/uploads/' . $logo_upload;
+        } else {
+            $logo = "";
+        }
+        
         $job_count = $wpdb->get_var("SELECT COUNT(*) as count FROM $table_name WHERE job_id in (" . $job_id . ")");
-
+        
         if ($job_count > 0) {
+            
+            if ($logo != "") {
 
+                $wpdb->update($table_name, array(
+                    'logo' => $logo
+                        ), array('user_id' => $user_id->ID, 'job_id' => $job_id), array(
+                    '%s', //logo
+                        ), array('%d','%d')
+                );
+            }
+            
             $wpdb->update($table_name, array(
                 'company' => $company,
                 'website' => $website,
-                'logo' => $logo,
                 'job_title' => $job_title,
                 'job_type' => $job_type,
                 'job_category' => $job_category,
@@ -846,10 +937,6 @@ function save_resume() {
             $additional_doc = "";
         }
         
-        
-
-        //$resume_doc = 'http://vidhire.net/wp-content/uploads/resume_files/2015/03/Sample-Resume-Computer-Programmer-Entry-Level1.doc';
-        //$movefile = wp_handle_upload($resume_photo_upload, $upload_overrides);
         //Most Recent
         $career_map_employment_1 = $_POST['career_map_employment_1'];
         $career_map_company_1 = $_POST['career_map_company_1'];
@@ -1939,4 +2026,221 @@ function jobfit_login_after_register($user_id) {
 
 add_action('user_register', 'jobfit_login_after_register');
 
+/*
+ * For Google Maps API 
+ * //TO DO
+ **/
 
+function geolocation_scripts() {
+	global $job_details, $post, $posted; 
+
+	$zoom = 1;
+	
+?>
+	<script type="text/javascript">
+
+		function initialize_map() {
+
+			var hasLocation = false;
+			var center = new google.maps.LatLng(0.0,0.0);
+			
+			var postLatitude =  '<?php if (isset($posted['jr_geo_latitude'])) echo $posted['jr_geo_latitude']; elseif (isset($job_details->ID)) echo get_post_meta($job_details->ID, '_jr_geo_latitude', true); elseif (isset($post->ID)) echo get_post_meta($post->ID, '_jr_geo_latitude', true); ?>';
+			var postLongitude =  '<?php if (isset($posted['jr_geo_longitude'])) echo $posted['jr_geo_longitude']; elseif (isset($job_details->ID)) echo get_post_meta($job_details->ID, '_jr_geo_longitude', true); elseif (isset($post->ID)) echo get_post_meta($post->ID, '_jr_geo_longitude', true); ?>';
+
+			if((postLatitude != '') && (postLongitude != '') ) {
+				center = new google.maps.LatLng(postLatitude, postLongitude);
+				hasLocation = true;
+				jQuery("#geolocation-latitude").val(center.lat());
+				jQuery("#geolocation-longitude").val(center.lng());
+				reverseGeocode(center);
+			}
+				
+		 	var myOptions = {
+		      zoom: <?php echo $zoom; ?>,
+		      center: center,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    };
+		    
+		    var geocoder = new google.maps.Geocoder();
+		       
+		    var map = new google.maps.Map(document.getElementById('geolocation-map'), myOptions);
+			var marker = '';
+			
+			if(!hasLocation) {
+		    	map.setZoom(<?php echo $zoom; ?>);
+		    } else {
+		    	map.setZoom(9);
+		    }
+			
+			google.maps.event.addListener(map, 'click', function(event) {
+				reverseGeocode(event.latLng);
+			});
+			
+			var currentAddress;
+			var customAddress = false;
+			
+			jQuery("#geolocation-load").click(function(){
+				if( jQuery("#geolocation-address").val() != 'undefined' ) {
+					customAddress = true;
+					currentAddress = jQuery("#geolocation-address").val();
+					geocode(currentAddress);
+					return false;
+				} else {
+					marker.setMap(null);
+					marker = '';
+					jQuery("#geolocation-latitude").val('');
+					jQuery("#geolocation-longitude").val('');
+					return false;
+				}
+			});
+			
+			jQuery("#geolocation-address").keyup(function(e) {
+				if(e.keyCode == 13)
+					jQuery("#geolocation-load").click();
+			});
+
+			function placeMarker(location) {
+				if (marker=='') {
+					marker = new google.maps.Marker({
+						position: center, 
+						map: map, 
+						title:'Job Location'
+					});
+				}
+				marker.setPosition(location);
+				map.setCenter(location);
+				if((location.lat() != '') && (location.lng() != '')) {
+					jQuery("#geolocation-latitude").val(location.lat());
+					jQuery("#geolocation-longitude").val(location.lng());
+				}
+			}
+			
+			function geocode(address) {
+				var geocoder = new google.maps.Geocoder();
+			    if (geocoder) {
+					geocoder.geocode({"address": address}, function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							placeMarker(results[0].geometry.location);
+							reverseGeocode(results[0].geometry.location);
+							if(!hasLocation) {
+						    	map.setZoom(9);
+						    	hasLocation = true;
+							}
+							jQuery("#geodata").html(results[0].geometry.location.lat() + ', ' + results[0].geometry.location.lng());
+						}
+					});
+				}
+			}
+
+			function reverseGeocode(location) {
+				var geocoder = new google.maps.Geocoder();
+			    if (geocoder) {
+					geocoder.geocode({"latLng": location}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+
+						var address, country, state, short_address, short_address_country;
+						
+						var city = [];
+
+						for ( var i in results ) {
+
+						    var address_components = results[i]['address_components'];
+
+						    for ( var j in address_components ) {
+
+						    	var types = address_components[j]['types'];
+						    	var long_name = address_components[j]['long_name'];
+						    	var short_name = address_components[j]['short_name']; 
+
+						    	if ( jQuery.inArray('locality', types)>=0 && jQuery.inArray('political', types)>=0 ) {
+									if (jQuery.inArray(long_name, city)<0) city.push(long_name);
+						    	}
+						    	else if ( jQuery.inArray('administrative_area_level_1', types)>=0 && jQuery.inArray('political', types)>=0 ) {
+						    		state = long_name;
+						    	}
+						    	else if ( jQuery.inArray('country', types)>=0 && jQuery.inArray('political', types)>=0 ) {
+						    		country = long_name;
+						    	}
+						    } 
+
+						    if((city) && (state) && (country)) break;
+						}
+
+						// fix for countries with no valid state
+						if (!state) 
+							city = city[0];
+						else
+							city = city.join(", ");
+
+						if((city) && (state) && (country))
+							address = city + ', ' + state + ', ' + country;
+						else if((city) && (state))
+							address = city + ', ' + state;
+						else if((state) && (country))
+							address = state + ', ' + country;
+						// fix for countries with no valid state
+						else if((city) && (country)) {
+							address = city + ', ' + country;
+						}	
+						//
+						else if(country)
+							address = country;
+							
+						if((city) && (state) && (country)) {
+							short_address = city;
+							short_address_country = state + ', ' + country;
+						} else if((city) && (state)) {
+							short_address = city;
+							short_address_country = state;
+						} else if((state) && (country)) {
+							short_address = state;
+							short_address_country = country;
+						// fix for countries with no valid state
+						} else if((city) && (country)) {
+							short_address = city;
+							short_address_country = country;
+						//
+						} else if(country) {
+							short_address = country;
+							short_address_country = '';
+						}
+
+						// Set address field
+						jQuery("#geolocation-address").val(address);
+						
+						// Set hidden address fields
+						jQuery("#geolocation-short-address").val(short_address);
+						jQuery("#geolocation-short-address-country").val(short_address_country);
+						jQuery("#geolocation-country").val(country);
+						
+						// Place Marker
+						placeMarker(location);
+						
+						return true;
+					} 
+					
+					});
+				}
+				return false;
+			}
+		}
+
+		function loadScript() {
+			var script = document.createElement("script");
+			script.type = "text/javascript";
+			script.src = "<?php echo _jr_get_js_geolocation_url('initialize_map'); ?>";
+			document.body.appendChild(script);
+		}
+
+		jQuery(function(){
+			// Prevent form submission on enter key
+			jQuery("#submit_form").submit(function(e) {
+				if (jQuery("input:focus").attr("id")=='geolocation-address') return false;
+			});
+			loadScript();
+		});
+		
+
+	</script>
+	<?php
+}
